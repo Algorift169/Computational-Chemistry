@@ -668,9 +668,7 @@
             </footer>
         </div>
     </div>
-
-    <script>
-       <script>
+<script>
     const periodicTable = [
         { number: 1, symbol: "H", name: "Hydrogen", category: 6 },
         { number: 2, symbol: "He", name: "Helium", category: 8 },
@@ -793,13 +791,19 @@
     ];
 
     let selectedElements = [];
+    let currentAnimationFrame = null;
 
-    // Page 1 Animation - SIMPLIFIED AND RELIABLE
+    // SIMPLE ANIMATION - NO COMPLEX LOOPS
     function startAnimation() {
-        console.log("Starting animation...");
+        console.log("Starting fresh animation...");
+        
+        // Stop any existing animation
+        if (currentAnimationFrame) {
+            cancelAnimationFrame(currentAnimationFrame);
+        }
         
         // Reset animation state
-        window.animationStarted = false;
+        window.animationStarted = true;
         
         // Hide instruction and show animation elements
         const clickInstruction = document.querySelector('.click-instruction');
@@ -818,18 +822,16 @@
 
         // Reset and animate loading bar
         if (loadingProgress) {
-            loadingProgress.style.animation = 'none';
-            setTimeout(() => {
-                loadingProgress.style.animation = 'loading 4s ease-in-out forwards';
-            }, 10);
+            loadingProgress.style.width = '0%';
+            loadingProgress.style.animation = 'loading 3s ease-in-out forwards';
         }
 
-        // Create nucleus
+        // Create simple static nucleus
         const nucleus = document.createElement('div');
         nucleus.className = 'atom nucleus';
         if (container) container.appendChild(nucleus);
 
-        // Create orbits (visual only - no moving electrons to avoid performance issues)
+        // Create static orbits (no moving electrons)
         const orbits = [100, 150, 200];
         orbits.forEach(radius => {
             const orbit = document.createElement('div');
@@ -841,7 +843,7 @@
             if (container) container.appendChild(orbit);
         });
 
-        // Show reaction texts
+        // Show reaction texts with delays
         const reactions = [
             "Nuclear Fusion Initiated...",
             "Neutron Capture...",
@@ -856,17 +858,54 @@
                 reactionText.textContent = text;
                 reactionText.style.top = `${50 + index * 30}px`;
                 if (container) container.appendChild(reactionText);
-            }, index * 800);
+                
+                // Remove text after it fades out
+                setTimeout(() => {
+                    if (reactionText.parentNode) {
+                        reactionText.parentNode.removeChild(reactionText);
+                    }
+                }, 3000);
+            }, index * 1000);
         });
 
         // Transition to page 2 after animation
         setTimeout(() => {
-            const page1 = document.getElementById('page1');
-            const page2 = document.getElementById('page2');
-            if (page1) page1.style.display = 'none';
-            if (page2) page2.style.display = 'block';
-            initializeSimulationPage();
+            goToPage(2);
         }, 4000);
+    }
+
+    // SIMPLE PAGE NAVIGATION
+    function goToPage(pageNumber) {
+        console.log(`Going to page ${pageNumber}`);
+        
+        // Hide all pages
+        document.querySelectorAll('[id^="page"]').forEach(page => {
+            page.style.display = 'none';
+        });
+        
+        // Show target page
+        const targetPage = document.getElementById(`page${pageNumber}`);
+        if (targetPage) {
+            targetPage.style.display = pageNumber === 1 ? 'flex' : 'block';
+        }
+        
+        // Initialize page specific content
+        if (pageNumber === 2) {
+            initializeSimulationPage();
+        } else if (pageNumber === 1) {
+            // Reset animation state when returning to page 1
+            window.animationStarted = false;
+            const clickInstruction = document.querySelector('.click-instruction');
+            const animationContainer = document.querySelector('.animation-container');
+            const loadingBar = document.querySelector('.loading-bar');
+            
+            if (clickInstruction) clickInstruction.style.display = 'block';
+            if (animationContainer) {
+                animationContainer.style.display = 'none';
+                animationContainer.innerHTML = '';
+            }
+            if (loadingBar) loadingBar.style.display = 'none';
+        }
     }
 
     // Page 2 Simulation
@@ -1235,14 +1274,48 @@
         return colors[category] || '#cccccc';
     }
 
+    // Add navigation header to page 2
+    function addNavigationHeader() {
+        const header = document.querySelector('#page2 header');
+        if (header) {
+            const backButton = document.createElement('button');
+            backButton.textContent = '← Back to Home';
+            backButton.style.cssText = `
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                background: rgba(255,255,255,0.1);
+                color: white;
+                border: 1px solid rgba(255,255,255,0.3);
+                padding: 10px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+            `;
+            backButton.addEventListener('click', () => goToPage(1));
+            header.style.position = 'relative';
+            header.appendChild(backButton);
+        }
+    }
+
     // Initialize when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
-        console.log("DOM loaded, setting up event listeners...");
+        console.log("DOM loaded, initializing...");
         setupEventListeners();
+        addNavigationHeader();
         
-        // Add a simple reset function to refresh the page
-        window.resetPage = function() {
-            location.reload();
+        // Start on page 1
+        goToPage(1);
+        
+        // Emergency reset function
+        window.resetEverything = function() {
+            selectedElements = [];
+            if (currentAnimationFrame) {
+                cancelAnimationFrame(currentAnimationFrame);
+                currentAnimationFrame = null;
+            }
+            goToPage(1);
         };
     });
-</script>
+</script>>
+
