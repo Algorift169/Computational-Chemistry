@@ -670,199 +670,579 @@
     </div>
 
     <script>
-        // ALL YOUR JAVASCRIPT CODE GOES HERE
-        const periodicTable = [
-            { number: 1, symbol: "H", name: "Hydrogen", category: 6 },
-            { number: 2, symbol: "He", name: "Helium", category: 8 },
-            { number: 3, symbol: "Li", name: "Lithium", category: 1 },
-            { number: 4, symbol: "Be", name: "Beryllium", category: 2 },
-            { number: 5, symbol: "B", name: "Boron", category: 5 },
-            { number: 6, symbol: "C", name: "Carbon", category: 6 },
-            { number: 7, symbol: "N", name: "Nitrogen", category: 6 },
-            { number: 8, symbol: "O", name: "Oxygen", category: 6 },
-            { number: 9, symbol: "F", name: "Fluorine", category: 7 },
-            { number: 10, symbol: "Ne", name: "Neon", category: 8 },
-            { number: 11, symbol: "Na", name: "Sodium", category: 1 },
-            { number: 12, symbol: "Mg", name: "Magnesium", category: 2 },
-            { number: 13, symbol: "Al", name: "Aluminum", category: 4 },
-            { number: 14, symbol: "Si", name: "Silicon", category: 5 },
-            { number: 15, symbol: "P", name: "Phosphorus", category: 6 },
-            { number: 16, symbol: "S", name: "Sulfur", category: 6 },
-            { number: 17, symbol: "Cl", name: "Chlorine", category: 7 },
-            { number: 18, symbol: "Ar", name: "Argon", category: 8 },
-            { number: 19, symbol: "K", name: "Potassium", category: 1 },
-            { number: 20, symbol: "Ca", name: "Calcium", category: 2 },
-            { number: 21, symbol: "Sc", name: "Scandium", category: 3 },
-            { number: 22, symbol: "Ti", name: "Titanium", category: 3 },
-            { number: 23, symbol: "V", name: "Vanadium", category: 3 },
-            { number: 24, symbol: "Cr", name: "Chromium", category: 3 },
-            { number: 25, symbol: "Mn", name: "Manganese", category: 3 },
-            { number: 26, symbol: "Fe", name: "Iron", category: 3 },
-            { number: 27, symbol: "Co", name: "Cobalt", category: 3 },
-            { number: 28, symbol: "Ni", name: "Nickel", category: 3 },
-            { number: 29, symbol: "Cu", name: "Copper", category: 3 },
-            { number: 30, symbol: "Zn", name: "Zinc", category: 3 },
-            { number: 31, symbol: "Ga", name: "Gallium", category: 4 },
-            { number: 32, symbol: "Ge", name: "Germanium", category: 5 },
-            { number: 33, symbol: "As", name: "Arsenic", category: 5 },
-            { number: 34, symbol: "Se", name: "Selenium", category: 6 },
-            { number: 35, symbol: "Br", name: "Bromine", category: 7 },
-            { number: 36, symbol: "Kr", name: "Krypton", category: 8 },
-            { number: 37, symbol: "Rb", name: "Rubidium", category: 1 },
-            { number: 38, symbol: "Sr", name: "Strontium", category: 2 },
-            { number: 39, symbol: "Y", name: "Yttrium", category: 3 },
-            { number: 40, symbol: "Zr", name: "Zirconium", category: 3 },
-            { number: 41, symbol: "Nb", name: "Niobium", category: 3 },
-            { number: 42, symbol: "Mo", name: "Molybdenum", category: 3 },
-            { number: 43, symbol: "Tc", name: "Technetium", category: 3 },
-            { number: 44, symbol: "Ru", name: "Ruthenium", category: 3 },
-            { number: 45, symbol: "Rh", name: "Rhodium", category: 3 },
-            { number: 46, symbol: "Pd", name: "Palladium", category: 3 },
-            { number: 47, symbol: "Ag", name: "Silver", category: 3 },
-            { number: 48, symbol: "Cd", name: "Cadmium", category: 3 },
-            { number: 49, symbol: "In", name: "Indium", category: 4 },
-            { number: 50, symbol: "Sn", name: "Tin", category: 4 },
-            { number: 51, symbol: "Sb", name: "Antimony", category: 5 },
-            { number: 52, symbol: "Te", name: "Tellurium", category: 5 },
-            { number: 53, symbol: "I", name: "Iodine", category: 7 },
-            { number: 54, symbol: "Xe", name: "Xenon", category: 8 },
-            { number: 55, symbol: "Cs", name: "Cesium", category: 1 },
-            { number: 56, symbol: "Ba", name: "Barium", category: 2 },
-            { number: 57, symbol: "La", name: "Lanthanum", category: 9 },
-            { number: 58, symbol: "Ce", name: "Cerium", category: 9 },
-            { number: 59, symbol: "Pr", name: "Praseodymium", category: 9 },
-            { number: 60, symbol: "Nd", name: "Neodymium", category: 9 },
-            { number: 61, symbol: "Pm", name: "Promethium", category: 9 },
-            { number: 62, symbol: "Sm", name: "Samarium", category: 9 },
-            { number: 63, symbol: "Eu", name: "Europium", category: 9 },
-            { number: 64, symbol: "Gd", name: "Gadolinium", category: 9 },
-            { number: 65, symbol: "Tb", name: "Terbium", category: 9 },
-            { number: 66, symbol: "Dy", name: "Dysprosium", category: 9 },
-            { number: 67, symbol: "Ho", name: "Holmium", category: 9 },
-            { number: 68, symbol: "Er", name: "Erbium", category: 9 },
-            { number: 69, symbol: "Tm", name: "Thulium", category: 9 },
-            { number: 70, symbol: "Yb", name: "Ytterbium", category: 9 },
-            { number: 71, symbol: "Lu", name: "Lutetium", category: 9 },
-            { number: 72, symbol: "Hf", name: "Hafnium", category: 3 },
-            { number: 73, symbol: "Ta", name: "Tantalum", category: 3 },
-            { number: 74, symbol: "W", name: "Tungsten", category: 3 },
-            { number: 75, symbol: "Re", name: "Rhenium", category: 3 },
-            { number: 76, symbol: "Os", name: "Osmium", category: 3 },
-            { number: 77, symbol: "Ir", name: "Iridium", category: 3 },
-            { number: 78, symbol: "Pt", name: "Platinum", category: 3 },
-            { number: 79, symbol: "Au", name: "Gold", category: 3 },
-            { number: 80, symbol: "Hg", name: "Mercury", category: 3 },
-            { number: 81, symbol: "Tl", name: "Thallium", category: 4 },
-            { number: 82, symbol: "Pb", name: "Lead", category: 4 },
-            { number: 83, symbol: "Bi", name: "Bismuth", category: 4 },
-            { number: 84, symbol: "Po", name: "Polonium", category: 4 },
-            { number: 85, symbol: "At", name: "Astatine", category: 7 },
-            { number: 86, symbol: "Rn", name: "Radon", category: 8 },
-            { number: 87, symbol: "Fr", name: "Francium", category: 1 },
-            { number: 88, symbol: "Ra", name: "Radium", category: 2 },
-            { number: 89, symbol: "Ac", name: "Actinium", category: 10 },
-            { number: 90, symbol: "Th", name: "Thorium", category: 10 },
-            { number: 91, symbol: "Pa", name: "Protactinium", category: 10 },
-            { number: 92, symbol: "U", name: "Uranium", category: 10 },
-            { number: 93, symbol: "Np", name: "Neptunium", category: 10 },
-            { number: 94, symbol: "Pu", name: "Plutonium", category: 10 },
-            { number: 95, symbol: "Am", name: "Americium", category: 10 },
-            { number: 96, symbol: "Cm", name: "Curium", category: 10 },
-            { number: 97, symbol: "Bk", name: "Berkelium", category: 10 },
-            { number: 98, symbol: "Cf", name: "Californium", category: 10 },
-            { number: 99, symbol: "Es", name: "Einsteinium", category: 10 },
-            { number: 100, symbol: "Fm", name: "Fermium", category: 10 },
-            { number: 101, symbol: "Md", name: "Mendelevium", category: 10 },
-            { number: 102, symbol: "No", name: "Nobelium", category: 10 },
-            { number: 103, symbol: "Lr", name: "Lawrencium", category: 10 },
-            { number: 104, symbol: "Rf", name: "Rutherfordium", category: 3 },
-            { number: 105, symbol: "Db", name: "Dubnium", category: 3 },
-            { number: 106, symbol: "Sg", name: "Seaborgium", category: 3 },
-            { number: 107, symbol: "Bh", name: "Bohrium", category: 3 },
-            { number: 108, symbol: "Hs", name: "Hassium", category: 3 },
-            { number: 109, symbol: "Mt", name: "Meitnerium", category: 3 },
-            { number: 110, symbol: "Ds", name: "Darmstadtium", category: 3 },
-            { number: 111, symbol: "Rg", name: "Roentgenium", category: 3 },
-            { number: 112, symbol: "Cn", name: "Copernicium", category: 3 },
-            { number: 113, symbol: "Nh", name: "Nihonium", category: 4 },
-            { number: 114, symbol: "Fl", name: "Flerovium", category: 4 },
-            { number: 115, symbol: "Mc", name: "Moscovium", category: 4 },
-            { number: 116, symbol: "Lv", name: "Livermorium", category: 4 },
-            { number: 117, symbol: "Ts", name: "Tennessine", category: 7 },
-            { number: 118, symbol: "Og", name: "Oganesson", category: 8 }
+       <script>
+    const periodicTable = [
+        { number: 1, symbol: "H", name: "Hydrogen", category: 6 },
+        { number: 2, symbol: "He", name: "Helium", category: 8 },
+        { number: 3, symbol: "Li", name: "Lithium", category: 1 },
+        { number: 4, symbol: "Be", name: "Beryllium", category: 2 },
+        { number: 5, symbol: "B", name: "Boron", category: 5 },
+        { number: 6, symbol: "C", name: "Carbon", category: 6 },
+        { number: 7, symbol: "N", name: "Nitrogen", category: 6 },
+        { number: 8, symbol: "O", name: "Oxygen", category: 6 },
+        { number: 9, symbol: "F", name: "Fluorine", category: 7 },
+        { number: 10, symbol: "Ne", name: "Neon", category: 8 },
+        { number: 11, symbol: "Na", name: "Sodium", category: 1 },
+        { number: 12, symbol: "Mg", name: "Magnesium", category: 2 },
+        { number: 13, symbol: "Al", name: "Aluminum", category: 4 },
+        { number: 14, symbol: "Si", name: "Silicon", category: 5 },
+        { number: 15, symbol: "P", name: "Phosphorus", category: 6 },
+        { number: 16, symbol: "S", name: "Sulfur", category: 6 },
+        { number: 17, symbol: "Cl", name: "Chlorine", category: 7 },
+        { number: 18, symbol: "Ar", name: "Argon", category: 8 },
+        { number: 19, symbol: "K", name: "Potassium", category: 1 },
+        { number: 20, symbol: "Ca", name: "Calcium", category: 2 },
+        { number: 21, symbol: "Sc", name: "Scandium", category: 3 },
+        { number: 22, symbol: "Ti", name: "Titanium", category: 3 },
+        { number: 23, symbol: "V", name: "Vanadium", category: 3 },
+        { number: 24, symbol: "Cr", name: "Chromium", category: 3 },
+        { number: 25, symbol: "Mn", name: "Manganese", category: 3 },
+        { number: 26, symbol: "Fe", name: "Iron", category: 3 },
+        { number: 27, symbol: "Co", name: "Cobalt", category: 3 },
+        { number: 28, symbol: "Ni", name: "Nickel", category: 3 },
+        { number: 29, symbol: "Cu", name: "Copper", category: 3 },
+        { number: 30, symbol: "Zn", name: "Zinc", category: 3 },
+        { number: 31, symbol: "Ga", name: "Gallium", category: 4 },
+        { number: 32, symbol: "Ge", name: "Germanium", category: 5 },
+        { number: 33, symbol: "As", name: "Arsenic", category: 5 },
+        { number: 34, symbol: "Se", name: "Selenium", category: 6 },
+        { number: 35, symbol: "Br", name: "Bromine", category: 7 },
+        { number: 36, symbol: "Kr", name: "Krypton", category: 8 },
+        { number: 37, symbol: "Rb", name: "Rubidium", category: 1 },
+        { number: 38, symbol: "Sr", name: "Strontium", category: 2 },
+        { number: 39, symbol: "Y", name: "Yttrium", category: 3 },
+        { number: 40, symbol: "Zr", name: "Zirconium", category: 3 },
+        { number: 41, symbol: "Nb", name: "Niobium", category: 3 },
+        { number: 42, symbol: "Mo", name: "Molybdenum", category: 3 },
+        { number: 43, symbol: "Tc", name: "Technetium", category: 3 },
+        { number: 44, symbol: "Ru", name: "Ruthenium", category: 3 },
+        { number: 45, symbol: "Rh", name: "Rhodium", category: 3 },
+        { number: 46, symbol: "Pd", name: "Palladium", category: 3 },
+        { number: 47, symbol: "Ag", name: "Silver", category: 3 },
+        { number: 48, symbol: "Cd", name: "Cadmium", category: 3 },
+        { number: 49, symbol: "In", name: "Indium", category: 4 },
+        { number: 50, symbol: "Sn", name: "Tin", category: 4 },
+        { number: 51, symbol: "Sb", name: "Antimony", category: 5 },
+        { number: 52, symbol: "Te", name: "Tellurium", category: 5 },
+        { number: 53, symbol: "I", name: "Iodine", category: 7 },
+        { number: 54, symbol: "Xe", name: "Xenon", category: 8 },
+        { number: 55, symbol: "Cs", name: "Cesium", category: 1 },
+        { number: 56, symbol: "Ba", name: "Barium", category: 2 },
+        { number: 57, symbol: "La", name: "Lanthanum", category: 9 },
+        { number: 58, symbol: "Ce", name: "Cerium", category: 9 },
+        { number: 59, symbol: "Pr", name: "Praseodymium", category: 9 },
+        { number: 60, symbol: "Nd", name: "Neodymium", category: 9 },
+        { number: 61, symbol: "Pm", name: "Promethium", category: 9 },
+        { number: 62, symbol: "Sm", name: "Samarium", category: 9 },
+        { number: 63, symbol: "Eu", name: "Europium", category: 9 },
+        { number: 64, symbol: "Gd", name: "Gadolinium", category: 9 },
+        { number: 65, symbol: "Tb", name: "Terbium", category: 9 },
+        { number: 66, symbol: "Dy", name: "Dysprosium", category: 9 },
+        { number: 67, symbol: "Ho", name: "Holmium", category: 9 },
+        { number: 68, symbol: "Er", name: "Erbium", category: 9 },
+        { number: 69, symbol: "Tm", name: "Thulium", category: 9 },
+        { number: 70, symbol: "Yb", name: "Ytterbium", category: 9 },
+        { number: 71, symbol: "Lu", name: "Lutetium", category: 9 },
+        { number: 72, symbol: "Hf", name: "Hafnium", category: 3 },
+        { number: 73, symbol: "Ta", name: "Tantalum", category: 3 },
+        { number: 74, symbol: "W", name: "Tungsten", category: 3 },
+        { number: 75, symbol: "Re", name: "Rhenium", category: 3 },
+        { number: 76, symbol: "Os", name: "Osmium", category: 3 },
+        { number: 77, symbol: "Ir", name: "Iridium", category: 3 },
+        { number: 78, symbol: "Pt", name: "Platinum", category: 3 },
+        { number: 79, symbol: "Au", name: "Gold", category: 3 },
+        { number: 80, symbol: "Hg", name: "Mercury", category: 3 },
+        { number: 81, symbol: "Tl", name: "Thallium", category: 4 },
+        { number: 82, symbol: "Pb", name: "Lead", category: 4 },
+        { number: 83, symbol: "Bi", name: "Bismuth", category: 4 },
+        { number: 84, symbol: "Po", name: "Polonium", category: 4 },
+        { number: 85, symbol: "At", name: "Astatine", category: 7 },
+        { number: 86, symbol: "Rn", name: "Radon", category: 8 },
+        { number: 87, symbol: "Fr", name: "Francium", category: 1 },
+        { number: 88, symbol: "Ra", name: "Radium", category: 2 },
+        { number: 89, symbol: "Ac", name: "Actinium", category: 10 },
+        { number: 90, symbol: "Th", name: "Thorium", category: 10 },
+        { number: 91, symbol: "Pa", name: "Protactinium", category: 10 },
+        { number: 92, symbol: "U", name: "Uranium", category: 10 },
+        { number: 93, symbol: "Np", name: "Neptunium", category: 10 },
+        { number: 94, symbol: "Pu", name: "Plutonium", category: 10 },
+        { number: 95, symbol: "Am", name: "Americium", category: 10 },
+        { number: 96, symbol: "Cm", name: "Curium", category: 10 },
+        { number: 97, symbol: "Bk", name: "Berkelium", category: 10 },
+        { number: 98, symbol: "Cf", name: "Californium", category: 10 },
+        { number: 99, symbol: "Es", name: "Einsteinium", category: 10 },
+        { number: 100, symbol: "Fm", name: "Fermium", category: 10 },
+        { number: 101, symbol: "Md", name: "Mendelevium", category: 10 },
+        { number: 102, symbol: "No", name: "Nobelium", category: 10 },
+        { number: 103, symbol: "Lr", name: "Lawrencium", category: 10 },
+        { number: 104, symbol: "Rf", name: "Rutherfordium", category: 3 },
+        { number: 105, symbol: "Db", name: "Dubnium", category: 3 },
+        { number: 106, symbol: "Sg", name: "Seaborgium", category: 3 },
+        { number: 107, symbol: "Bh", name: "Bohrium", category: 3 },
+        { number: 108, symbol: "Hs", name: "Hassium", category: 3 },
+        { number: 109, symbol: "Mt", name: "Meitnerium", category: 3 },
+        { number: 110, symbol: "Ds", name: "Darmstadtium", category: 3 },
+        { number: 111, symbol: "Rg", name: "Roentgenium", category: 3 },
+        { number: 112, symbol: "Cn", name: "Copernicium", category: 3 },
+        { number: 113, symbol: "Nh", name: "Nihonium", category: 4 },
+        { number: 114, symbol: "Fl", name: "Flerovium", category: 4 },
+        { number: 115, symbol: "Mc", name: "Moscovium", category: 4 },
+        { number: 116, symbol: "Lv", name: "Livermorium", category: 4 },
+        { number: 117, symbol: "Ts", name: "Tennessine", category: 7 },
+        { number: 118, symbol: "Og", name: "Oganesson", category: 8 }
+    ];
+
+    let selectedElements = [];
+
+    // Page 1 Animation - SIMPLIFIED AND RELIABLE
+    function startAnimation() {
+        console.log("Starting animation...");
+        
+        // Reset animation state
+        window.animationStarted = false;
+        
+        // Hide instruction and show animation elements
+        const clickInstruction = document.querySelector('.click-instruction');
+        const animationContainer = document.querySelector('.animation-container');
+        const loadingBar = document.querySelector('.loading-bar');
+        
+        if (clickInstruction) clickInstruction.style.display = 'none';
+        if (animationContainer) animationContainer.style.display = 'block';
+        if (loadingBar) loadingBar.style.display = 'block';
+
+        const container = document.getElementById('animationContainer');
+        const loadingProgress = document.querySelector('.loading-progress');
+
+        // Clear any existing content
+        if (container) container.innerHTML = '';
+
+        // Reset and animate loading bar
+        if (loadingProgress) {
+            loadingProgress.style.animation = 'none';
+            setTimeout(() => {
+                loadingProgress.style.animation = 'loading 4s ease-in-out forwards';
+            }, 10);
+        }
+
+        // Create nucleus
+        const nucleus = document.createElement('div');
+        nucleus.className = 'atom nucleus';
+        if (container) container.appendChild(nucleus);
+
+        // Create orbits (visual only - no moving electrons to avoid performance issues)
+        const orbits = [100, 150, 200];
+        orbits.forEach(radius => {
+            const orbit = document.createElement('div');
+            orbit.className = 'orbit';
+            orbit.style.width = `${radius * 2}px`;
+            orbit.style.height = `${radius * 2}px`;
+            orbit.style.top = `${150 - radius}px`;
+            orbit.style.left = `${200 - radius}px`;
+            if (container) container.appendChild(orbit);
+        });
+
+        // Show reaction texts
+        const reactions = [
+            "Nuclear Fusion Initiated...",
+            "Neutron Capture...",
+            "Element Synthesis...",
+            "Stability Analysis..."
         ];
 
-        let selectedElements = [];
-        let animationRunning = false;
-
-        // Page 1 Animation
-        function startAnimation() {
-            console.log("Starting animation...");
-            
-            // Prevent multiple animations
-            if (window.animationStarted) return;
-            window.animationStarted = true;
-            
-            // Hide instruction and show animation elements
-            const clickInstruction = document.querySelector('.click-instruction');
-            const animationContainer = document.querySelector('.animation-container');
-            const loadingBar = document.querySelector('.loading-bar');
-            
-            if (clickInstruction) clickInstruction.style.display = 'none';
-            if (animationContainer) animationContainer.style.display = 'block';
-            if (loadingBar) loadingBar.style.display = 'block';
-
-            const container = document.getElementById('animationContainer');
-            const loadingProgress = document.querySelector('.loading-progress');
-
-            // Clear any existing content
-            if (container) container.innerHTML = '';
-
-            // Animate loading bar
-            if (loadingProgress) {
-                loadingProgress.style.animation = 'loading 4s ease-in-out forwards';
-            }
-
-            // Create nucleus
-            const nucleus = document.createElement('div');
-            nucleus.className = 'atom nucleus';
-            if (container) container.appendChild(nucleus);
-
-            // Create simple orbiting electrons
-            const orbits = [100, 150, 200];
-            orbits.forEach(radius => {
-                const orbit = document.createElement('div');
-                orbit.className = 'orbit';
-                orbit.style.width = `${radius * 2}px`;
-                orbit.style.height = `${radius * 2}px`;
-                orbit.style.top = `${150 - radius}px`;
-                orbit.style.left = `${200 - radius}px`;
-                if (container) container.appendChild(orbit);
-            });
-
-            const reactions = [
-                "Nuclear Fusion Initiated...",
-                "Neutron Capture...",
-                "Element Synthesis...",
-                "Stability Analysis..."
-            ];
-
-            reactions.forEach((text, index) => {
-                setTimeout(() => {
-                    const reactionText = document.createElement('div');
-                    reactionText.className = 'reaction-text';
-                    reactionText.textContent = text;
-                    reactionText.style.top = `${50 + index * 30}px`;
-                    if (container) container.appendChild(reactionText);
-                }, index * 800);
-            });
-
-            // Transition to page 2 after animation
+        reactions.forEach((text, index) => {
             setTimeout(() => {
-                const page1 = document.getElementById('page1');
-                const page2 = document.getElementById('page2');
-                if (page1) page1.style.display = 'none';
-                if (page2) page2.style.display = 'block';
-                initializeSimulationPage();
-            }, 4000);
+                const reactionText = document.createElement('div');
+                reactionText.className = 'reaction-text';
+                reactionText.textContent = text;
+                reactionText.style.top = `${50 + index * 30}px`;
+                if (container) container.appendChild(reactionText);
+            }, index * 800);
+        });
+
+        // Transition to page 2 after animation
+        setTimeout(() => {
+            const page1 = document.getElementById('page1');
+            const page2 = document.getElementById('page2');
+            if (page1) page1.style.display = 'none';
+            if (page2) page2.style.display = 'block';
+            initializeSimulationPage();
+        }, 4000);
+    }
+
+    // Page 2 Simulation
+    function initializeSimulationPage() {
+        console.log("Initializing simulation page...");
+        initializePeriodicTable();
+        setupEventListeners();
+        updateStepsChart();
+        
+        // Initialize canvas with default background
+        const canvas = document.getElementById('molecule-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
+    }
+
+    function initializePeriodicTable() {
+        const tableContainer = document.getElementById('periodic-table');
+        if (!tableContainer) {
+            console.error("Periodic table container not found!");
+            return;
+        }
+        
+        tableContainer.innerHTML = '';
+        
+        // Create periodic table grid
+        for (let i = 1; i <= 118; i++) {
+            const element = periodicTable.find(el => el.number === i);
+            const cell = document.createElement('div');
+            if (element) {
+                cell.className = `element element-category-${element.category}`;
+                cell.innerHTML = `
+                    <div class="element-number">${element.number}</div>
+                    <div class="element-symbol">${element.symbol}</div>
+                `;
+                cell.dataset.element = JSON.stringify(element);
+                cell.addEventListener('click', handleElementSelection);
+            } else {
+                cell.className = 'empty-cell';
+            }
+            tableContainer.appendChild(cell);
+        }
+    }
+
+    function handleElementSelection(event) {
+        const elementData = JSON.parse(event.currentTarget.dataset.element);
+        const index = selectedElements.findIndex(el => el.number === elementData.number);
+        
+        if (index === -1) {
+            selectedElements.push({...elementData, count: 1});
+            event.currentTarget.classList.add('selected');
+        } else {
+            selectedElements.splice(index, 1);
+            event.currentTarget.classList.remove('selected');
+        }
+        updateSelectedElementsDisplay();
+        updateStepsChart();
+    }
+
+    function updateSelectedElementsDisplay() {
+        const container = document.getElementById('selected-elements');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        let totalAtoms = 0;
+        
+        selectedElements.forEach(element => {
+            totalAtoms += element.count;
+            const elementDiv = document.createElement('div');
+            elementDiv.className = 'selected-element';
+            elementDiv.innerHTML = `
+                <span>${element.symbol}</span>
+                <input type="number" class="atom-count-input" value="${element.count}" min="1" max="100" data-number="${element.number}">
+                <button class="remove-element" data-number="${element.number}">×</button>
+            `;
+            container.appendChild(elementDiv);
+        });
+        
+        const totalAtomsElement = document.getElementById('total-atoms');
+        if (totalAtomsElement) {
+            totalAtomsElement.textContent = `Total Atoms: ${totalAtoms}`;
+        }
+        
+        // Add event listeners to remove buttons
+        document.querySelectorAll('.remove-element').forEach(button => {
+            button.addEventListener('click', function() {
+                const number = parseInt(this.dataset.number);
+                selectedElements = selectedElements.filter(el => el.number !== number);
+                document.querySelectorAll('.element').forEach(el => {
+                    const elData = JSON.parse(el.dataset.element || '{}');
+                    if (elData.number === number) el.classList.remove('selected');
+                });
+                updateSelectedElementsDisplay();
+                updateStepsChart();
+            });
+        });
+        
+        // Add event listeners to atom count inputs
+        document.querySelectorAll('.atom-count-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const number = parseInt(this.dataset.number);
+                const count = parseInt(this.value) || 1;
+                const element = selectedElements.find(el => el.number === number);
+                if (element) {
+                    element.count = count;
+                    updateSelectedElementsDisplay();
+                    updateStepsChart();
+                }
+            });
+        });
+    }
+
+    function updateStepsChart() {
+        // Reset all chart items
+        document.querySelectorAll('.chart-item').forEach(item => {
+            item.classList.remove('current-system');
+        });
+        
+        const totalAtoms = selectedElements.reduce((sum, element) => sum + element.count, 0);
+        
+        if (totalAtoms === 0) return;
+        
+        let systemType = '';
+        if (totalAtoms === 2) systemType = 'diatomic';
+        else if (totalAtoms <= 10) systemType = 'small';
+        else if (totalAtoms <= 50) systemType = 'medium';
+        else systemType = 'large';
+        
+        const chartElement = document.getElementById(`chart-${systemType}`);
+        if (chartElement) {
+            chartElement.classList.add('current-system');
+        }
+        
+        const recommendedSteps = {
+            'diatomic': 100,
+            'small': 300, 
+            'medium': 500,
+            'large': 1000
+        }[systemType];
+        
+        const stepsInput = document.getElementById('simulation-steps');
+        if (stepsInput && recommendedSteps) {
+            stepsInput.value = recommendedSteps;
+        }
+    }
+
+    function setupEventListeners() {
+        const runSimulationBtn = document.getElementById('run-simulation');
+        const resetSimulationBtn = document.getElementById('reset-simulation');
+        const page1 = document.getElementById('page1');
+        
+        if (runSimulationBtn) {
+            runSimulationBtn.addEventListener('click', runSimulation);
+        }
+        
+        if (resetSimulationBtn) {
+            resetSimulationBtn.addEventListener('click', resetSimulation);
+        }
+        
+        if (page1) {
+            page1.addEventListener('click', startAnimation);
+        }
+    }
+
+    function runSimulation() {
+        if (selectedElements.length === 0) {
+            alert('Please select at least one element from the periodic table.');
+            return;
+        }
+        
+        const simulationSteps = parseInt(document.getElementById('simulation-steps').value) || 500;
+        const loadingElement = document.getElementById('loading');
+        
+        if (loadingElement) {
+            loadingElement.style.display = 'flex';
+        }
+        
+        // Simulate calculation time
+        setTimeout(() => {
+            const finalEnergy = -(Math.random() * 10 + 1).toFixed(4);
+            const stability = Math.random() > 0.3 ? 'Stable' : 'Unstable';
+            const newElementPossibility = Math.random() > 0.8 ? 'Possible' : 'Unlikely';
+            
+            // Update results
+            const finalEnergyElement = document.getElementById('final-energy');
+            const optimizedGeometryElement = document.getElementById('optimized-geometry');
+            const stabilityPredictionElement = document.getElementById('stability-prediction');
+            const newElementElement = document.getElementById('new-element');
+            
+            if (finalEnergyElement) finalEnergyElement.textContent = `${finalEnergy} eV`;
+            if (optimizedGeometryElement) optimizedGeometryElement.textContent = 'Optimized';
+            if (stabilityPredictionElement) stabilityPredictionElement.textContent = stability;
+            if (newElementElement) newElementElement.textContent = newElementPossibility;
+            
+            // Generate visualizations
+            generateEnergyGraph(simulationSteps);
+            renderMoleculeVisualization();
+            
+            // Hide loading
+            if (loadingElement) {
+                loadingElement.style.display = 'none';
+            }
+        }, 2000);
+    }
+
+    function resetSimulation() {
+        selectedElements = [];
+        
+        // Clear periodic table selection
+        document.querySelectorAll('.element').forEach(el => {
+            el.classList.remove('selected');
+        });
+        
+        updateSelectedElementsDisplay();
+        updateStepsChart();
+        
+        // Clear results
+        const finalEnergyElement = document.getElementById('final-energy');
+        const optimizedGeometryElement = document.getElementById('optimized-geometry');
+        const stabilityPredictionElement = document.getElementById('stability-prediction');
+        const newElementElement = document.getElementById('new-element');
+        
+        if (finalEnergyElement) finalEnergyElement.textContent = '-';
+        if (optimizedGeometryElement) optimizedGeometryElement.textContent = '-';
+        if (stabilityPredictionElement) stabilityPredictionElement.textContent = '-';
+        if (newElementElement) newElementElement.textContent = '-';
+        
+        // Clear visualization
+        const canvas = document.getElementById('molecule-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        // Clear graph
+        const svg = document.getElementById('energy-graph-svg');
+        if (svg) {
+            svg.innerHTML = '';
+        }
+    }
+
+    function generateEnergyGraph(steps) {
+        const svg = document.getElementById('energy-graph-svg');
+        if (!svg) return;
+        
+        svg.innerHTML = '';
+
+        const width = svg.clientWidth || 600;
+        const height = svg.clientHeight || 150;
+        const padding = 40;
+
+        // Generate sample data
+        const data = [];
+        for (let i = 0; i <= steps; i += Math.ceil(steps / 50)) {
+            data.push({
+                step: i,
+                energy: -Math.random() * 10 * Math.exp(-i / steps) - 1
+            });
+        }
+
+        // Create scales
+        const xScale = (step) => padding + (step / steps) * (width - 2 * padding);
+        const yScale = (energy) => padding + (1 - (energy + 11) / 11) * (height - 2 * padding);
+
+        // Create path for energy line
+        let pathData = `M ${xScale(data[0].step)} ${yScale(data[0].energy)}`;
+        for (let i = 1; i < data.length; i++) {
+            pathData += ` L ${xScale(data[i].step)} ${yScale(data[i].energy)}`;
+        }
+
+        // Create the path element
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('d', pathData);
+        path.setAttribute('class', 'graph-line');
+        svg.appendChild(path);
+
+        // Add axes
+        const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        xAxis.setAttribute('x1', padding);
+        xAxis.setAttribute('y1', height - padding);
+        xAxis.setAttribute('x2', width - padding);
+        xAxis.setAttribute('y2', height - padding);
+        xAxis.setAttribute('class', 'graph-axis');
+        svg.appendChild(xAxis);
+
+        const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        yAxis.setAttribute('x1', padding);
+        yAxis.setAttribute('y1', padding);
+        yAxis.setAttribute('x2', padding);
+        yAxis.setAttribute('y2', height - padding);
+        yAxis.setAttribute('class', 'graph-axis');
+        svg.appendChild(yAxis);
+    }
+
+    function renderMoleculeVisualization() {
+        const canvas = document.getElementById('molecule-canvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        
+        // Clear canvas
+        ctx.fillStyle = '#1a1a2e';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        if (selectedElements.length === 0) return;
+
+        // Generate atoms based on selected elements
+        const atoms = [];
+        selectedElements.forEach(element => {
+            for (let i = 0; i < element.count; i++) {
+                atoms.push({
+                    x: 50 + Math.random() * (canvas.width - 100),
+                    y: 50 + Math.random() * (canvas.height - 100),
+                    radius: 15,
+                    color: getElementColor(element.category),
+                    symbol: element.symbol
+                });
+            }
+        });
+
+        // Draw bonds
+        atoms.forEach((atom, i) => {
+            atoms.forEach((otherAtom, j) => {
+                if (i < j) {
+                    const dx = atom.x - otherAtom.x;
+                    const dy = atom.y - otherAtom.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(atom.x, atom.y);
+                        ctx.lineTo(otherAtom.x, otherAtom.y);
+                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                    }
+                }
+            });
+        });
+
+        // Draw atoms
+        atoms.forEach(atom => {
+            ctx.beginPath();
+            ctx.arc(atom.x, atom.y, atom.radius, 0, Math.PI * 2);
+            ctx.fillStyle = atom.color;
+            ctx.fill();
+            
+            // Draw symbol
+            ctx.fillStyle = '#000';
+            ctx.font = 'bold 12px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(atom.symbol, atom.x, atom.y);
+        });
+    }
+
+    function getElementColor(category) {
+        const colors = {
+            1: '#ff6b6b', 2: '#ffa726', 3: '#ffd54f', 4: '#81c784',
+            5: '#4dd0e1', 6: '#64b5f6', 7: '#ba68c8', 8: '#f06292',
+            9: '#90a4ae', 10: '#78909c'
+        };
+        return colors[category] || '#cccccc';
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("DOM loaded, setting up event listeners...");
+        setupEventListeners();
+        
+        // Add a simple reset function to refresh the page
+        window.resetPage = function() {
+            location.reload();
+        };
+    });
+</script>
