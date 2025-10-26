@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Computational Chemistry</title>
+    <title>Laboratory 1.O</title>
     <style>
-        /* ALL YOUR CSS CODE GOES HERE */
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +12,6 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Page 1 Styles */
         #page1 {
             background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
             color: white;
@@ -149,7 +147,6 @@
             to { width: 100%; }
         }
 
-        /* Page 2 Styles */
         #page2 {
             display: none;
             background: linear-gradient(135deg, #1a1a2e, #16213e);
@@ -167,6 +164,7 @@
             text-align: center;
             padding: 20px 0;
             margin-bottom: 30px;
+            position: relative;
         }
 
         h1 {
@@ -215,7 +213,7 @@
             grid-template-columns: repeat(18, 1fr);
             gap: 3px;
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(131, 74, 74, 0.8);
             padding: 10px;
             border-radius: 10px;
         }
@@ -278,8 +276,8 @@
             color: #2c3e50;
         }
 
-        .atom-count-input {
-            width: 50px;
+        .mole-input {
+            width: 70px;
             padding: 4px;
             border-radius: 4px;
             border: 1px solid #ccc;
@@ -295,7 +293,7 @@
             font-size: 1.2rem;
         }
 
-        .total-atoms {
+        .total-moles {
             margin: 10px 0;
             font-weight: 600;
             color: #2c3e50;
@@ -381,26 +379,6 @@
             border: 1px solid #ddd;
             font-size: 1rem;
         }
-
-        /* Navigation */
-.back-button {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.3);
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.back-button:hover {
-    background: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
-}
 
         button {
             background: linear-gradient(135deg, #3498db, #2980b9);
@@ -502,18 +480,6 @@
             stroke-width: 1;
         }
 
-        .graph-label {
-            font-size: 12px;
-            fill: #7f8c8d;
-        }
-
-        .graph-title {
-            font-size: 14px;
-            fill: #2c3e50;
-            font-weight: bold;
-            text-anchor: middle;
-        }
-
         .loading {
             display: none;
             position: absolute;
@@ -533,7 +499,7 @@
         .spinner {
             width: 50px;
             height: 50px;
-            border: 5px solid rgba(255, 255, 255, 0.3);
+            border: 5px solid rgba(18, 236, 229, 0.55);
             border-radius: 50%;
             border-top-color: white;
             animation: spin 1s linear infinite;
@@ -568,268 +534,1367 @@
             font-size: 0.9rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        .compound-input-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+
+        .compound-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .compound-input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .compound-submit {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .compound-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .compound-results {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .spectroscopy-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .spectroscopy-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .spectroscopy-data {
+            color: #2c3e50;
+            line-height: 1.5;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .compound-analysis-title {
+            color: #000000 !important;
+            font-weight: 700;
+        }
+
+        .reaction-display {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+
+        .reaction-equation {
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .predicted-product {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .element-selection-text {
+            color: #9b59b6 !important;
+            font-weight: 700;
+        }
+
+        .compound-selection {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .compound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .compound-item {
+            background: white;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .compound-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-color: #9b59b6;
+        }
+
+        .compound-item.selected {
+            background: #9b59b6;
+            color: white;
+            border-color: #8e44ad;
+        }
+
+        /* New styles for colorful text */
+        .quick-compound-title {
+            color: #8e44ad !important;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .formula-text {
+            color: #3498db !important;
+            font-weight: bold;
+        }
+
+        .compound-name-text {
+            color: #e74c3c !important;
+            font-weight: 600;
+        }
+
+        .selected-elements-title {
+            color: #2ecc71 !important;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .manual-input-text {
+            color: #f39c12 !important;
+            font-weight: 600;
+        }
+
+        .axis-label {
+            font-size: 12px;
+            fill: #2c3e50;
+            font-weight: bold;
+        }
+
+        .compound-formula {
+            color: #2980b9 !important;
+            font-weight: bold;
+        }
+
+        .formula-display {
+            color: #3498db !important;
+            font-weight: bold;
+        }
+
+        .compound-name-display {
+            color: #e74c3c !important;
+            font-weight: 600;
+        }
+
+        .compound-name {
+            color: #c0392b !important;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
-    <!-- Page 1: Landing Page -->
-    <div id="page1">
-        <div class="title-section">
-            <h1>🧪 Computational Chemistry</h1>
-            <p class="subtitle">Predicting Molecular Stability with Algorithms</p>
-        </div>
-
-        <div class="purpose">
-            <p>Advanced molecular simulation using Lennard-Jones potential to predict stability,
-                optimize geometries, and explore new element possibilities through computational algorithms.</p>
-        </div>
-
-        <div class="animation-container" id="animationContainer" style="display:none;"></div>
-
-        <div class="loading-bar" style="display:none;">
-            <div class="loading-progress"></div>
-        </div>
-
-        <div class="click-instruction">Click anywhere to start simulation</div>
+<div id="page1">
+    <div class="title-section">
+        <h1>🧪 Laboratory 1.O</h1>
+        <p class="subtitle">Advanced Computational Chemistry Platform</p>
     </div>
 
-    <!-- Page 2: Simulation Page -->
-    <div id="page2" style="display:none;">
-        <div class="container">
-            <header>
-                <h1>Molecular Simulation</h1>
-                <p class="subtitle">Select elements and run quantum calculations</p>
-            </header>
+    <div class="purpose">
+        <p>Unified molecular simulation combining element selection, compound analysis, and spectroscopic predictions in one integrated platform.</p>
+    </div>
 
-            <div class="main-content">
-                <!-- Left Panel: Element Selection -->
-                <div class="panel">
-                    <h2 class="panel-title">Element Selection</h2>
-                    <div class="periodic-table" id="periodic-table"></div>
-                    
-                    <div class="selected-section">
-                        <h3>Selected Elements:</h3>
-                        <div class="selected-elements" id="selected-elements"></div>
-                        <div class="total-atoms" id="total-atoms">Total Atoms: 0</div>
+    <div class="animation-container" id="animationContainer" style="display:none;"></div>
+
+    <div class="loading-bar" style="display:none;">
+        <div class="loading-progress"></div>
+    </div>
+
+    <div class="click-instruction">Click anywhere to enter laboratory</div>
+</div>
+
+<div id="page2" style="display:none;">
+    <div class="container">
+        <header>
+            <button class="back-button" onclick="goToPage(1)">← Back to Home</button>
+            <h1>Laboratory 1.O</h1>
+            <p class="subtitle">Integrated Element Selection & Compound Analysis</p>
+        </header>
+
+        <div class="main-content">
+            <div class="panel">
+                <h2 class="panel-title element-selection-text">Element & Compound Selection</h2>
+
+                <div class="compound-selection">
+                    <h3 class="quick-compound-title">Quick Compound Selection</h3>
+                    <div class="compound-grid" id="compound-grid"></div>
+                </div>
+
+                <div class="periodic-table" id="periodic-table"></div>
+
+                <div class="selected-section">
+                    <h3 class="selected-elements-title">Selected Elements & Compounds:</h3>
+                    <div class="selected-elements" id="selected-elements"></div>
+                    <div class="total-moles" id="total-moles">Total Moles: 0.00</div>
+                </div>
+
+                <div class="steps-chart">
+                    <div class="chart-title">Recommended Simulation Steps:</div>
+                    <div class="chart-item" id="chart-diatomic">
+                        <span class="system-type">Diatomic (2 atoms)</span>
+                        <span class="steps-range">100 steps</span>
                     </div>
-
-                    <div class="steps-chart">
-                        <div class="chart-title">Recommended Simulation Steps:</div>
-                        <div class="chart-item" id="chart-diatomic">
-                            <span class="system-type">Diatomic (2 atoms)</span>
-                            <span class="steps-range">100 steps</span>
-                        </div>
-                        <div class="chart-item" id="chart-small">
-                            <span class="system-type">Small (3-10 atoms)</span>
-                            <span class="steps-range">300 steps</span>
-                        </div>
-                        <div class="chart-item" id="chart-medium">
-                            <span class="system-type">Medium (11-50 atoms)</span>
-                            <span class="steps-range">500 steps</span>
-                        </div>
-                        <div class="chart-item" id="chart-large">
-                            <span class="system-type">Large (51+ atoms)</span>
-                            <span class="steps-range">1000 steps</span>
-                        </div>
+                    <div class="chart-item" id="chart-small">
+                        <span class="system-type">Small (3-10 atoms)</span>
+                        <span class="steps-range">300 steps</span>
                     </div>
-
-                    <div class="controls">
-                        <div class="input-group">
-                            <label for="simulation-steps">Simulation Steps:</label>
-                            <input type="number" id="simulation-steps" value="500" min="100" max="5000">
-                        </div>
-                        <div class="button-group">
-                            <button id="run-simulation">Run Simulation</button>
-                            <button id="reset-simulation" class="reset-btn">Reset</button>
-                        </div>
+                    <div class="chart-item" id="chart-medium">
+                        <span class="system-type">Medium (11-50 atoms)</span>
+                        <span class="steps-range">500 steps</span>
+                    </div>
+                    <div class="chart-item" id="chart-large">
+                        <span class="system-type">Large (51+ atoms)</span>
+                        <span class="steps-range">1000 steps</span>
                     </div>
                 </div>
 
-                <!-- Right Panel: Simulation Results -->
-                <div class="panel">
-                    <h2 class="panel-title">Simulation Results</h2>
-                    
-                    <div class="simulation-area">
-                        <div class="loading" id="loading">
-                            <div class="spinner"></div>
-                            <div>Running quantum calculations...</div>
-                        </div>
-                        <canvas id="molecule-canvas" width="600" height="400"></canvas>
+                <div class="controls">
+                    <div class="input-group">
+                        <label for="simulation-steps">Simulation Steps:</label>
+                        <input type="number" id="simulation-steps" value="500" min="100" max="5000">
                     </div>
-
-                    <div class="results">
-                        <div class="result-card">
-                            <div class="result-label">Final Energy</div>
-                            <div class="result-value" id="final-energy">-</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-label">Optimized Geometry</div>
-                            <div class="result-value" id="optimized-geometry">-</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-label">Stability Prediction</div>
-                            <div class="result-value" id="stability-prediction">-</div>
-                        </div>
-                        <div class="result-card">
-                            <div class="result-label">New Element Possibility</div>
-                            <div class="result-value" id="new-element">-</div>
-                        </div>
-                    </div>
-
-                    <div class="energy-graph">
-                        <div class="graph-container">
-                            <svg id="energy-graph-svg" width="100%" height="100%"></svg>
-                        </div>
+                    <div class="button-group">
+                        <button id="run-simulation">Run Simulation</button>
+                        <button id="reset-simulation" class="reset-btn">Reset</button>
                     </div>
                 </div>
             </div>
 
-            <footer>
-                <p>Computational Chemistry Simulation | Quantum Mechanics & Molecular Dynamics</p>
-            </footer>
+            <div class="panel">
+                <h2 class="panel-title">Simulation & Analysis</h2>
+
+                <div class="compound-input-section">
+                    <h3 class="compound-analysis-title">Compound Analysis</h3>
+
+                    <div class="reaction-display" id="reaction-display">
+                        <div class="reaction-equation" id="reaction-equation">No elements selected</div>
+                        <div class="predicted-product" id="predicted-product"></div>
+                    </div>
+
+                    <p class="manual-input-text">Or enter a chemical formula manually (optional):</p>
+                    <div class="compound-form">
+                        <input type="text" class="compound-input" id="compound-input" placeholder="Enter formula (optional, e.g., H2O)">
+                        <button class="compound-submit" id="analyze-compound">Analyze</button>
+                    </div>
+                    <div class="compound-results" id="compound-results"></div>
+                </div>
+
+                <div class="simulation-area">
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <div>Running quantum calculations...</div>
+                    </div>
+                    <canvas id="molecule-canvas" width="600" height="400"></canvas>
+                </div>
+
+                <div class="results">
+                    <div class="result-card">
+                        <div class="result-label">Final Energy</div>
+                        <div class="result-value" id="final-energy">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Optimized Geometry</div>
+                        <div class="result-value" id="optimized-geometry">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Stability Prediction</div>
+                        <div class="result-value" id="stability-prediction">-</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">New Element Possibility</div>
+                        <div class="result-value" id="new-element">-</div>
+                    </div>
+                </div>
+
+                <div class="energy-graph">
+                    <div class="graph-container">
+                        <svg id="energy-graph-svg" width="100%" height="100%"></svg>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <footer>
+            <p>Laboratory 1.O | Integrated Computational Chemistry Platform</p>
+            <p> </p>
+        </footer>
     </div>
+</div>
+
+
+
 <script>
     const periodicTable = [
-        { number: 1, symbol: "H", name: "Hydrogen", category: 6 },
-        { number: 2, symbol: "He", name: "Helium", category: 8 },
-        { number: 3, symbol: "Li", name: "Lithium", category: 1 },
-        { number: 4, symbol: "Be", name: "Beryllium", category: 2 },
-        { number: 5, symbol: "B", name: "Boron", category: 5 },
-        { number: 6, symbol: "C", name: "Carbon", category: 6 },
-        { number: 7, symbol: "N", name: "Nitrogen", category: 6 },
-        { number: 8, symbol: "O", name: "Oxygen", category: 6 },
-        { number: 9, symbol: "F", name: "Fluorine", category: 7 },
-        { number: 10, symbol: "Ne", name: "Neon", category: 8 },
-        { number: 11, symbol: "Na", name: "Sodium", category: 1 },
-        { number: 12, symbol: "Mg", name: "Magnesium", category: 2 },
-        { number: 13, symbol: "Al", name: "Aluminum", category: 4 },
-        { number: 14, symbol: "Si", name: "Silicon", category: 5 },
-        { number: 15, symbol: "P", name: "Phosphorus", category: 6 },
-        { number: 16, symbol: "S", name: "Sulfur", category: 6 },
-        { number: 17, symbol: "Cl", name: "Chlorine", category: 7 },
-        { number: 18, symbol: "Ar", name: "Argon", category: 8 },
-        { number: 19, symbol: "K", name: "Potassium", category: 1 },
-        { number: 20, symbol: "Ca", name: "Calcium", category: 2 },
-        { number: 21, symbol: "Sc", name: "Scandium", category: 3 },
-        { number: 22, symbol: "Ti", name: "Titanium", category: 3 },
-        { number: 23, symbol: "V", name: "Vanadium", category: 3 },
-        { number: 24, symbol: "Cr", name: "Chromium", category: 3 },
-        { number: 25, symbol: "Mn", name: "Manganese", category: 3 },
-        { number: 26, symbol: "Fe", name: "Iron", category: 3 },
-        { number: 27, symbol: "Co", name: "Cobalt", category: 3 },
-        { number: 28, symbol: "Ni", name: "Nickel", category: 3 },
-        { number: 29, symbol: "Cu", name: "Copper", category: 3 },
-        { number: 30, symbol: "Zn", name: "Zinc", category: 3 },
-        { number: 31, symbol: "Ga", name: "Gallium", category: 4 },
-        { number: 32, symbol: "Ge", name: "Germanium", category: 5 },
-        { number: 33, symbol: "As", name: "Arsenic", category: 5 },
-        { number: 34, symbol: "Se", name: "Selenium", category: 6 },
-        { number: 35, symbol: "Br", name: "Bromine", category: 7 },
-        { number: 36, symbol: "Kr", name: "Krypton", category: 8 },
-        { number: 37, symbol: "Rb", name: "Rubidium", category: 1 },
-        { number: 38, symbol: "Sr", name: "Strontium", category: 2 },
-        { number: 39, symbol: "Y", name: "Yttrium", category: 3 },
-        { number: 40, symbol: "Zr", name: "Zirconium", category: 3 },
-        { number: 41, symbol: "Nb", name: "Niobium", category: 3 },
-        { number: 42, symbol: "Mo", name: "Molybdenum", category: 3 },
-        { number: 43, symbol: "Tc", name: "Technetium", category: 3 },
-        { number: 44, symbol: "Ru", name: "Ruthenium", category: 3 },
-        { number: 45, symbol: "Rh", name: "Rhodium", category: 3 },
-        { number: 46, symbol: "Pd", name: "Palladium", category: 3 },
-        { number: 47, symbol: "Ag", name: "Silver", category: 3 },
-        { number: 48, symbol: "Cd", name: "Cadmium", category: 3 },
-        { number: 49, symbol: "In", name: "Indium", category: 4 },
-        { number: 50, symbol: "Sn", name: "Tin", category: 4 },
-        { number: 51, symbol: "Sb", name: "Antimony", category: 5 },
-        { number: 52, symbol: "Te", name: "Tellurium", category: 5 },
-        { number: 53, symbol: "I", name: "Iodine", category: 7 },
-        { number: 54, symbol: "Xe", name: "Xenon", category: 8 },
-        { number: 55, symbol: "Cs", name: "Cesium", category: 1 },
-        { number: 56, symbol: "Ba", name: "Barium", category: 2 },
-        { number: 57, symbol: "La", name: "Lanthanum", category: 9 },
-        { number: 58, symbol: "Ce", name: "Cerium", category: 9 },
-        { number: 59, symbol: "Pr", name: "Praseodymium", category: 9 },
-        { number: 60, symbol: "Nd", name: "Neodymium", category: 9 },
-        { number: 61, symbol: "Pm", name: "Promethium", category: 9 },
-        { number: 62, symbol: "Sm", name: "Samarium", category: 9 },
-        { number: 63, symbol: "Eu", name: "Europium", category: 9 },
-        { number: 64, symbol: "Gd", name: "Gadolinium", category: 9 },
-        { number: 65, symbol: "Tb", name: "Terbium", category: 9 },
-        { number: 66, symbol: "Dy", name: "Dysprosium", category: 9 },
-        { number: 67, symbol: "Ho", name: "Holmium", category: 9 },
-        { number: 68, symbol: "Er", name: "Erbium", category: 9 },
-        { number: 69, symbol: "Tm", name: "Thulium", category: 9 },
-        { number: 70, symbol: "Yb", name: "Ytterbium", category: 9 },
-        { number: 71, symbol: "Lu", name: "Lutetium", category: 9 },
-        { number: 72, symbol: "Hf", name: "Hafnium", category: 3 },
-        { number: 73, symbol: "Ta", name: "Tantalum", category: 3 },
-        { number: 74, symbol: "W", name: "Tungsten", category: 3 },
-        { number: 75, symbol: "Re", name: "Rhenium", category: 3 },
-        { number: 76, symbol: "Os", name: "Osmium", category: 3 },
-        { number: 77, symbol: "Ir", name: "Iridium", category: 3 },
-        { number: 78, symbol: "Pt", name: "Platinum", category: 3 },
-        { number: 79, symbol: "Au", name: "Gold", category: 3 },
-        { number: 80, symbol: "Hg", name: "Mercury", category: 3 },
-        { number: 81, symbol: "Tl", name: "Thallium", category: 4 },
-        { number: 82, symbol: "Pb", name: "Lead", category: 4 },
-        { number: 83, symbol: "Bi", name: "Bismuth", category: 4 },
-        { number: 84, symbol: "Po", name: "Polonium", category: 4 },
-        { number: 85, symbol: "At", name: "Astatine", category: 7 },
-        { number: 86, symbol: "Rn", name: "Radon", category: 8 },
-        { number: 87, symbol: "Fr", name: "Francium", category: 1 },
-        { number: 88, symbol: "Ra", name: "Radium", category: 2 },
-        { number: 89, symbol: "Ac", name: "Actinium", category: 10 },
-        { number: 90, symbol: "Th", name: "Thorium", category: 10 },
-        { number: 91, symbol: "Pa", name: "Protactinium", category: 10 },
-        { number: 92, symbol: "U", name: "Uranium", category: 10 },
-        { number: 93, symbol: "Np", name: "Neptunium", category: 10 },
-        { number: 94, symbol: "Pu", name: "Plutonium", category: 10 },
-        { number: 95, symbol: "Am", name: "Americium", category: 10 },
-        { number: 96, symbol: "Cm", name: "Curium", category: 10 },
-        { number: 97, symbol: "Bk", name: "Berkelium", category: 10 },
-        { number: 98, symbol: "Cf", name: "Californium", category: 10 },
-        { number: 99, symbol: "Es", name: "Einsteinium", category: 10 },
-        { number: 100, symbol: "Fm", name: "Fermium", category: 10 },
-        { number: 101, symbol: "Md", name: "Mendelevium", category: 10 },
-        { number: 102, symbol: "No", name: "Nobelium", category: 10 },
-        { number: 103, symbol: "Lr", name: "Lawrencium", category: 10 },
-        { number: 104, symbol: "Rf", name: "Rutherfordium", category: 3 },
-        { number: 105, symbol: "Db", name: "Dubnium", category: 3 },
-        { number: 106, symbol: "Sg", name: "Seaborgium", category: 3 },
-        { number: 107, symbol: "Bh", name: "Bohrium", category: 3 },
-        { number: 108, symbol: "Hs", name: "Hassium", category: 3 },
-        { number: 109, symbol: "Mt", name: "Meitnerium", category: 3 },
-        { number: 110, symbol: "Ds", name: "Darmstadtium", category: 3 },
-        { number: 111, symbol: "Rg", name: "Roentgenium", category: 3 },
-        { number: 112, symbol: "Cn", name: "Copernicium", category: 3 },
-        { number: 113, symbol: "Nh", name: "Nihonium", category: 4 },
-        { number: 114, symbol: "Fl", name: "Flerovium", category: 4 },
-        { number: 115, symbol: "Mc", name: "Moscovium", category: 4 },
-        { number: 116, symbol: "Lv", name: "Livermorium", category: 4 },
-        { number: 117, symbol: "Ts", name: "Tennessine", category: 7 },
-        { number: 118, symbol: "Og", name: "Oganesson", category: 8 }
+        { number: 1, symbol: "H", name: "Hydrogen", category: 6, mass: 1.008 },
+        { number: 2, symbol: "He", name: "Helium", category: 8, mass: 4.0026 },
+        { number: 3, symbol: "Li", name: "Lithium", category: 1, mass: 6.94 },
+        { number: 4, symbol: "Be", name: "Beryllium", category: 2, mass: 9.0122 },
+        { number: 5, symbol: "B", name: "Boron", category: 5, mass: 10.81 },
+        { number: 6, symbol: "C", name: "Carbon", category: 6, mass: 12.011 },
+        { number: 7, symbol: "N", name: "Nitrogen", category: 6, mass: 14.007 },
+        { number: 8, symbol: "O", name: "Oxygen", category: 6, mass: 15.999 },
+        { number: 9, symbol: "F", name: "Fluorine", category: 7, mass: 18.998 },
+        { number: 10, symbol: "Ne", name: "Neon", category: 8, mass: 20.180 },
+        { number: 11, symbol: "Na", name: "Sodium", category: 1, mass: 22.990 },
+        { number: 12, symbol: "Mg", name: "Magnesium", category: 2, mass: 24.305 },
+        { number: 13, symbol: "Al", name: "Aluminum", category: 4, mass: 26.982 },
+        { number: 14, symbol: "Si", name: "Silicon", category: 5, mass: 28.085 },
+        { number: 15, symbol: "P", name: "Phosphorus", category: 6, mass: 30.974 },
+        { number: 16, symbol: "S", name: "Sulfur", category: 6, mass: 32.06 },
+        { number: 17, symbol: "Cl", name: "Chlorine", category: 7, mass: 35.45 },
+        { number: 18, symbol: "Ar", name: "Argon", category: 8, mass: 39.948 },
+        { number: 19, symbol: "K", name: "Potassium", category: 1, mass: 39.098 },
+        { number: 20, symbol: "Ca", name: "Calcium", category: 2, mass: 40.078 },
+        { number: 21, symbol: "Sc", name: "Scandium", category: 3, mass: 44.956 },
+        { number: 22, symbol: "Ti", name: "Titanium", category: 3, mass: 47.867 },
+        { number: 23, symbol: "V", name: "Vanadium", category: 3, mass: 50.942 },
+        { number: 24, symbol: "Cr", name: "Chromium", category: 3, mass: 51.996 },
+        { number: 25, symbol: "Mn", name: "Manganese", category: 3, mass: 54.938 },
+        { number: 26, symbol: "Fe", name: "Iron", category: 3, mass: 55.845 },
+        { number: 27, symbol: "Co", name: "Cobalt", category: 3, mass: 58.933 },
+        { number: 28, symbol: "Ni", name: "Nickel", category: 3, mass: 58.693 },
+        { number: 29, symbol: "Cu", name: "Copper", category: 3, mass: 63.546 },
+        { number: 30, symbol: "Zn", name: "Zinc", category: 3, mass: 65.38 },
+        { number: 31, symbol: "Ga", name: "Gallium", category: 4, mass: 69.723 },
+        { number: 32, symbol: "Ge", name: "Germanium", category: 5, mass: 72.630 },
+        { number: 33, symbol: "As", name: "Arsenic", category: 5, mass: 74.922 },
+        { number: 34, symbol: "Se", name: "Selenium", category: 6, mass: 78.971 },
+        { number: 35, symbol: "Br", name: "Bromine", category: 7, mass: 79.904 },
+        { number: 36, symbol: "Kr", name: "Krypton", category: 8, mass: 83.798 },
+        { number: 37, symbol: "Rb", name: "Rubidium", category: 1, mass: 85.468 },
+        { number: 38, symbol: "Sr", name: "Strontium", category: 2, mass: 87.62 },
+        { number: 39, symbol: "Y", name: "Yttrium", category: 3, mass: 88.906 },
+        { number: 40, symbol: "Zr", name: "Zirconium", category: 3, mass: 91.224 },
+        { number: 41, symbol: "Nb", name: "Niobium", category: 3, mass: 92.906 },
+        { number: 42, symbol: "Mo", name: "Molybdenum", category: 3, mass: 95.95 },
+        { number: 43, symbol: "Tc", name: "Technetium", category: 3, mass: 98.0 },
+        { number: 44, symbol: "Ru", name: "Ruthenium", category: 3, mass: 101.07 },
+        { number: 45, symbol: "Rh", name: "Rhodium", category: 3, mass: 102.91 },
+        { number: 46, symbol: "Pd", name: "Palladium", category: 3, mass: 106.42 },
+        { number: 47, symbol: "Ag", name: "Silver", category: 3, mass: 107.87 },
+        { number: 48, symbol: "Cd", name: "Cadmium", category: 3, mass: 112.41 },
+        { number: 49, symbol: "In", name: "Indium", category: 4, mass: 114.82 },
+        { number: 50, symbol: "Sn", name: "Tin", category: 4, mass: 118.71 },
+        { number: 51, symbol: "Sb", name: "Antimony", category: 5, mass: 121.76 },
+        { number: 52, symbol: "Te", name: "Tellurium", category: 5, mass: 127.60 },
+        { number: 53, symbol: "I", name: "Iodine", category: 7, mass: 126.90 },
+        { number: 54, symbol: "Xe", name: "Xenon", category: 8, mass: 131.29 },
+        { number: 55, symbol: "Cs", name: "Cesium", category: 1, mass: 132.91 },
+        { number: 56, symbol: "Ba", name: "Barium", category: 2, mass: 137.33 },
+        { number: 57, symbol: "La", name: "Lanthanum", category: 3, mass: 138.91 },
+        { number: 58, symbol: "Ce", name: "Cerium", category: 3, mass: 140.12 },
+        { number: 59, symbol: "Pr", name: "Praseodymium", category: 3, mass: 140.91 },
+        { number: 60, symbol: "Nd", name: "Neodymium", category: 3, mass: 144.24 },
+        { number: 61, symbol: "Pm", name: "Promethium", category: 3, mass: 145.0 },
+        { number: 62, symbol: "Sm", name: "Samarium", category: 3, mass: 150.36 },
+        { number: 63, symbol: "Eu", name: "Europium", category: 3, mass: 151.96 },
+        { number: 64, symbol: "Gd", name: "Gadolinium", category: 3, mass: 157.25 },
+        { number: 65, symbol: "Tb", name: "Terbium", category: 3, mass: 158.93 },
+        { number: 66, symbol: "Dy", name: "Dysprosium", category: 3, mass: 162.50 },
+        { number: 67, symbol: "Ho", name: "Holmium", category: 3, mass: 164.93 },
+        { number: 68, symbol: "Er", name: "Erbium", category: 3, mass: 167.26 },
+        { number: 69, symbol: "Tm", name: "Thulium", category: 3, mass: 168.93 },
+        { number: 70, symbol: "Yb", name: "Ytterbium", category: 3, mass: 173.05 },
+        { number: 71, symbol: "Lu", name: "Lutetium", category: 3, mass: 174.97 },
+        { number: 72, symbol: "Hf", name: "Hafnium", category: 3, mass: 178.49 },
+        { number: 73, symbol: "Ta", name: "Tantalum", category: 3, mass: 180.95 },
+        { number: 74, symbol: "W", name: "Tungsten", category: 3, mass: 183.84 },
+        { number: 75, symbol: "Re", name: "Rhenium", category: 3, mass: 186.21 },
+        { number: 76, symbol: "Os", name: "Osmium", category: 3, mass: 190.23 },
+        { number: 77, symbol: "Ir", name: "Iridium", category: 3, mass: 192.22 },
+        { number: 78, symbol: "Pt", name: "Platinum", category: 3, mass: 195.08 },
+        { number: 79, symbol: "Au", name: "Gold", category: 3, mass: 196.97 },
+        { number: 80, symbol: "Hg", name: "Mercury", category: 3, mass: 200.59 },
+        { number: 81, symbol: "Tl", name: "Thallium", category: 4, mass: 204.38 },
+        { number: 82, symbol: "Pb", name: "Lead", category: 4, mass: 207.2 },
+        { number: 83, symbol: "Bi", name: "Bismuth", category: 5, mass: 208.98 },
+        { number: 84, symbol: "Po", name: "Polonium", category: 6, mass: 209.0 },
+        { number: 85, symbol: "At", name: "Astatine", category: 7, mass: 210.0 },
+        { number: 86, symbol: "Rn", name: "Radon", category: 8, mass: 222.0 },
+        { number: 87, symbol: "Fr", name: "Francium", category: 1, mass: 223.0 },
+        { number: 88, symbol: "Ra", name: "Radium", category: 2, mass: 226.0 },
+        { number: 89, symbol: "Ac", name: "Actinium", category: 3, mass: 227.0 },
+        { number: 90, symbol: "Th", name: "Thorium", category: 3, mass: 232.04 },
+        { number: 91, symbol: "Pa", name: "Protactinium", category: 3, mass: 231.04 },
+        { number: 92, symbol: "U", name: "Uranium", category: 3, mass: 238.03 },
+        { number: 93, symbol: "Np", name: "Neptunium", category: 3, mass: 237.0 },
+        { number: 94, symbol: "Pu", name: "Plutonium", category: 3, mass: 244.0 },
+        { number: 95, symbol: "Am", name: "Americium", category: 3, mass: 243.0 },
+        { number: 96, symbol: "Cm", name: "Curium", category: 3, mass: 247.0 },
+        { number: 97, symbol: "Bk", name: "Berkelium", category: 3, mass: 247.0 },
+        { number: 98, symbol: "Cf", name: "Californium", category: 3, mass: 251.0 },
+        { number: 99, symbol: "Es", name: "Einsteinium", category: 3, mass: 252.0 },
+        { number: 100, symbol: "Fm", name: "Fermium", category: 3, mass: 257.0 },
+        { number: 101, symbol: "Md", name: "Mendelevium", category: 3, mass: 258.0 },
+        { number: 102, symbol: "No", name: "Nobelium", category: 3, mass: 259.0 },
+        { number: 103, symbol: "Lr", name: "Lawrencium", category: 3, mass: 262.0 },
+        { number: 104, symbol: "Rf", name: "Rutherfordium", category: 3, mass: 267.0 },
+        { number: 105, symbol: "Db", name: "Dubnium", category: 3, mass: 268.0 },
+        { number: 106, symbol: "Sg", name: "Seaborgium", category: 3, mass: 271.0 },
+        { number: 107, symbol: "Bh", name: "Bohrium", category: 3, mass: 272.0 },
+        { number: 108, symbol: "Hs", name: "Hassium", category: 3, mass: 270.0 },
+        { number: 109, symbol: "Mt", name: "Meitnerium", category: 3, mass: 276.0 },
+        { number: 110, symbol: "Ds", name: "Darmstadtium", category: 3, mass: 281.0 },
+        { number: 111, symbol: "Rg", name: "Roentgenium", category: 3, mass: 280.0 },
+        { number: 112, symbol: "Cn", name: "Copernicium", category: 3, mass: 285.0 },
+        { number: 113, symbol: "Nh", name: "Nihonium", category: 4, mass: 286.0 },
+        { number: 114, symbol: "Fl", name: "Flerovium", category: 4, mass: 289.0 },
+        { number: 115, symbol: "Mc", name: "Moscovium", category: 5, mass: 290.0 },
+        { number: 116, symbol: "Lv", name: "Livermorium", category: 6, mass: 293.0 },
+        { number: 117, symbol: "Ts", name: "Tennessine", category: 7, mass: 294.0 },
+        { number: 118, symbol: "Og", name: "Oganesson", category: 8, mass: 294.0 }
     ];
 
+    function generateCompoundDatabase() {
+        const commonCompounds = {
+            // Water and related
+            "H2O": { formula: "H₂O", name: "Water", elements: { "H": 2, "O": 1 } },
+            "H2O2": { formula: "H₂O₂", name: "Hydrogen Peroxide", elements: { "H": 2, "O": 2 } },
+            "D2O": { formula: "D₂O", name: "Heavy Water", elements: { "H": 2, "O": 1 } },
+
+            // Carbon oxides
+            "CO": { formula: "CO", name: "Carbon Monoxide", elements: { "C": 1, "O": 1 } },
+            "CO2": { formula: "CO₂", name: "Carbon Dioxide", elements: { "C": 1, "O": 2 } },
+            "C3O2": { formula: "C₃O₂", name: "Carbon Suboxide", elements: { "C": 3, "O": 2 } },
+
+            // Nitrogen compounds
+            "NH3": { formula: "NH₃", name: "Ammonia", elements: { "N": 1, "H": 3 } },
+            "N2H4": { formula: "N₂H₄", name: "Hydrazine", elements: { "N": 2, "H": 4 } },
+            "NH2OH": { formula: "NH₂OH", name: "Hydroxylamine", elements: { "N": 1, "H": 3, "O": 1 } },
+            "N2O": { formula: "N₂O", name: "Nitrous Oxide", elements: { "N": 2, "O": 1 } },
+            "NO": { formula: "NO", name: "Nitric Oxide", elements: { "N": 1, "O": 1 } },
+            "NO2": { formula: "NO₂", name: "Nitrogen Dioxide", elements: { "N": 1, "O": 2 } },
+            "N2O3": { formula: "N₂O₃", name: "Dinitrogen Trioxide", elements: { "N": 2, "O": 3 } },
+            "N2O4": { formula: "N₂O₄", name: "Dinitrogen Tetroxide", elements: { "N": 2, "O": 4 } },
+            "N2O5": { formula: "N₂O₅", name: "Dinitrogen Pentoxide", elements: { "N": 2, "O": 5 } },
+
+            // Hydrocarbons - Alkanes
+            "CH4": { formula: "CH₄", name: "Methane", elements: { "C": 1, "H": 4 } },
+            "C2H6": { formula: "C₂H₆", name: "Ethane", elements: { "C": 2, "H": 6 } },
+            "C3H8": { formula: "C₃H₈", name: "Propane", elements: { "C": 3, "H": 8 } },
+            "C4H10": { formula: "C₄H₁₀", name: "Butane", elements: { "C": 4, "H": 10 } },
+            "C5H12": { formula: "C₅H₁₂", name: "Pentane", elements: { "C": 5, "H": 12 } },
+            "C6H14": { formula: "C₆H₁₄", name: "Hexane", elements: { "C": 6, "H": 14 } },
+            "C7H16": { formula: "C₇H₁₆", name: "Heptane", elements: { "C": 7, "H": 16 } },
+            "C8H18": { formula: "C₈H₁₈", name: "Octane", elements: { "C": 8, "H": 18 } },
+            "C9H20": { formula: "C₉H₂₀", name: "Nonane", elements: { "C": 9, "H": 20 } },
+            "C10H22": { formula: "C₁₀H₂₂", name: "Decane", elements: { "C": 10, "H": 22 } },
+
+            // Alkenes
+            "C2H4": { formula: "C₂H₄", name: "Ethene", elements: { "C": 2, "H": 4 } },
+            "C3H6": { formula: "C₃H₆", name: "Propene", elements: { "C": 3, "H": 6 } },
+            "C4H8": { formula: "C₄H₈", name: "Butene", elements: { "C": 4, "H": 8 } },
+            "C5H10": { formula: "C₅H₁₀", name: "Pentene", elements: { "C": 5, "H": 10 } },
+            "C6H12": { formula: "C₆H₁₂", name: "Hexene", elements: { "C": 6, "H": 12 } },
+
+            // Alkynes
+            "C2H2": { formula: "C₂H₂", name: "Ethyne", elements: { "C": 2, "H": 2 } },
+            "C3H4": { formula: "C₃H₄", name: "Propyne", elements: { "C": 3, "H": 4 } },
+            "C4H6": { formula: "C₄H₆", name: "Butyne", elements: { "C": 4, "H": 6 } },
+
+            // Aromatic hydrocarbons
+            "C6H6": { formula: "C₆H₆", name: "Benzene", elements: { "C": 6, "H": 6 } },
+            "C7H8": { formula: "C₇H₈", name: "Toluene", elements: { "C": 7, "H": 8 } },
+            "C8H10": { formula: "C₈H₁₀", name: "Xylene", elements: { "C": 8, "H": 10 } },
+            "C10H8": { formula: "C₁₀H₈", name: "Naphthalene", elements: { "C": 10, "H": 8 } },
+            "C14H10": { formula: "C₁₄H₁₀", name: "Anthracene", elements: { "C": 14, "H": 10 } },
+            "C14H10": { formula: "C₁₄H₁₀", name: "Phenanthrene", elements: { "C": 14, "H": 10 } },
+
+            // Alcohols
+            "CH3OH": { formula: "CH₃OH", name: "Methanol", elements: { "C": 1, "H": 4, "O": 1 } },
+            "C2H5OH": { formula: "C₂H₅OH", name: "Ethanol", elements: { "C": 2, "H": 6, "O": 1 } },
+            "C3H7OH": { formula: "C₃H₇OH", name: "Propanol", elements: { "C": 3, "H": 8, "O": 1 } },
+            "C4H9OH": { formula: "C₄H₉OH", name: "Butanol", elements: { "C": 4, "H": 10, "O": 1 } },
+
+            // Carboxylic acids
+            "HCOOH": { formula: "HCOOH", name: "Formic Acid", elements: { "C": 1, "H": 2, "O": 2 } },
+            "CH3COOH": { formula: "CH₃COOH", name: "Acetic Acid", elements: { "C": 2, "H": 4, "O": 2 } },
+            "C2H4O2": { formula: "C₂H₄O₂", name: "Acetic Acid", elements: { "C": 2, "H": 4, "O": 2 } },
+            "C3H6O2": { formula: "C₃H₆O₂", name: "Propionic Acid", elements: { "C": 3, "H": 6, "O": 2 } },
+            "C4H8O2": { formula: "C₄H₈O₂", name: "Butyric Acid", elements: { "C": 4, "H": 8, "O": 2 } },
+
+            // Aldehydes and Ketones
+            "HCHO": { formula: "HCHO", name: "Formaldehyde", elements: { "C": 1, "H": 2, "O": 1 } },
+            "CH3CHO": { formula: "CH₃CHO", name: "Acetaldehyde", elements: { "C": 2, "H": 4, "O": 1 } },
+            "CH3COCH3": { formula: "CH₃COCH₃", name: "Acetone", elements: { "C": 3, "H": 6, "O": 1 } },
+
+            // Esters
+            "CH3COOCH3": { formula: "CH₃COOCH₃", name: "Methyl Acetate", elements: { "C": 3, "H": 6, "O": 2 } },
+            "CH3COOC2H5": { formula: "CH₃COOC₂H₅", name: "Ethyl Acetate", elements: { "C": 4, "H": 8, "O": 2 } },
+
+            // Ethers
+            "C2H5OC2H5": { formula: "C₂H₅OC₂H₅", name: "Diethyl Ether", elements: { "C": 4, "H": 10, "O": 1 } },
+
+            // Amines
+            "CH3NH2": { formula: "CH₃NH₂", name: "Methylamine", elements: { "C": 1, "H": 5, "N": 1 } },
+            "C2H5NH2": { formula: "C₂H₅NH₂", name: "Ethylamine", elements: { "C": 2, "H": 7, "N": 1 } },
+            "C6H5NH2": { formula: "C₆H₅NH₂", name: "Aniline", elements: { "C": 6, "H": 7, "N": 1 } },
+
+            // Halogen compounds
+            "CH3Cl": { formula: "CH₃Cl", name: "Chloromethane", elements: { "C": 1, "H": 3, "Cl": 1 } },
+            "CH2Cl2": { formula: "CH₂Cl₂", name: "Dichloromethane", elements: { "C": 1, "H": 2, "Cl": 2 } },
+            "CHCl3": { formula: "CHCl₃", name: "Chloroform", elements: { "C": 1, "H": 1, "Cl": 3 } },
+            "CCl4": { formula: "CCl₄", name: "Carbon Tetrachloride", elements: { "C": 1, "Cl": 4 } },
+            "C2H5Cl": { formula: "C₂H₅Cl", name: "Chloroethane", elements: { "C": 2, "H": 5, "Cl": 1 } },
+
+            // Sulfur compounds
+            "H2S": { formula: "H₂S", name: "Hydrogen Sulfide", elements: { "H": 2, "S": 1 } },
+            "SO2": { formula: "SO₂", name: "Sulfur Dioxide", elements: { "S": 1, "O": 2 } },
+            "SO3": { formula: "SO₃", name: "Sulfur Trioxide", elements: { "S": 1, "O": 3 } },
+            "H2SO4": { formula: "H₂SO₄", name: "Sulfuric Acid", elements: { "H": 2, "S": 1, "O": 4 } },
+            "CS2": { formula: "CS₂", name: "Carbon Disulfide", elements: { "C": 1, "S": 2 } },
+
+            // Phosphorus compounds
+            "PH3": { formula: "PH₃", name: "Phosphine", elements: { "P": 1, "H": 3 } },
+            "P4O10": { formula: "P₄O₁₀", name: "Phosphorus Pentoxide", elements: { "P": 4, "O": 10 } },
+            "H3PO4": { formula: "H₃PO₄", name: "Phosphoric Acid", elements: { "H": 3, "P": 1, "O": 4 } },
+
+            // Silicon compounds
+            "SiH4": { formula: "SiH₄", name: "Silane", elements: { "Si": 1, "H": 4 } },
+            "SiO2": { formula: "SiO₂", name: "Silicon Dioxide", elements: { "Si": 1, "O": 2 } },
+            "SiC": { formula: "SiC", name: "Silicon Carbide", elements: { "Si": 1, "C": 1 } },
+
+            // Inorganic acids
+            "HCl": { formula: "HCl", name: "Hydrochloric Acid", elements: { "H": 1, "Cl": 1 } },
+            "HBr": { formula: "HBr", name: "Hydrobromic Acid", elements: { "H": 1, "Br": 1 } },
+            "HI": { formula: "HI", name: "Hydroiodic Acid", elements: { "H": 1, "I": 1 } },
+            "HCN": { formula: "HCN", name: "Hydrogen Cyanide", elements: { "H": 1, "C": 1, "N": 1 } },
+            "HNO3": { formula: "HNO₃", name: "Nitric Acid", elements: { "H": 1, "N": 1, "O": 3 } },
+            "H2CO3": { formula: "H₂CO₃", name: "Carbonic Acid", elements: { "H": 2, "C": 1, "O": 3 } },
+
+            // Bases
+            "NaOH": { formula: "NaOH", name: "Sodium Hydroxide", elements: { "Na": 1, "O": 1, "H": 1 } },
+            "KOH": { formula: "KOH", name: "Potassium Hydroxide", elements: { "K": 1, "O": 1, "H": 1 } },
+            "Ca(OH)2": { formula: "Ca(OH)₂", name: "Calcium Hydroxide", elements: { "Ca": 1, "O": 2, "H": 2 } },
+            "NH4OH": { formula: "NH₄OH", name: "Ammonium Hydroxide", elements: { "N": 1, "H": 5, "O": 1 } },
+
+            // Salts
+            "NaCl": { formula: "NaCl", name: "Sodium Chloride", elements: { "Na": 1, "Cl": 1 } },
+            "KCl": { formula: "KCl", name: "Potassium Chloride", elements: { "K": 1, "Cl": 1 } },
+            "CaCl2": { formula: "CaCl₂", name: "Calcium Chloride", elements: { "Ca": 1, "Cl": 2 } },
+            "Na2CO3": { formula: "Na₂CO₃", name: "Sodium Carbonate", elements: { "Na": 2, "C": 1, "O": 3 } },
+            "NaHCO3": { formula: "NaHCO₃", name: "Sodium Bicarbonate", elements: { "Na": 1, "H": 1, "C": 1, "O": 3 } },
+            "CaCO3": { formula: "CaCO₃", name: "Calcium Carbonate", elements: { "Ca": 1, "C": 1, "O": 3 } },
+            "CuSO4": { formula: "CuSO₄", name: "Copper Sulfate", elements: { "Cu": 1, "S": 1, "O": 4 } },
+            "FeSO4": { formula: "FeSO₄", name: "Iron(II) Sulfate", elements: { "Fe": 1, "S": 1, "O": 4 } },
+            "AgNO3": { formula: "AgNO₃", name: "Silver Nitrate", elements: { "Ag": 1, "N": 1, "O": 3 } },
+
+            // Oxides
+            "H2O": { formula: "H₂O", name: "Water", elements: { "H": 2, "O": 1 } },
+            "Li2O": { formula: "Li₂O", name: "Lithium Oxide", elements: { "Li": 2, "O": 1 } },
+            "Na2O": { formula: "Na₂O", name: "Sodium Oxide", elements: { "Na": 2, "O": 1 } },
+            "K2O": { formula: "K₂O", name: "Potassium Oxide", elements: { "K": 2, "O": 1 } },
+            "MgO": { formula: "MgO", name: "Magnesium Oxide", elements: { "Mg": 1, "O": 1 } },
+            "CaO": { formula: "CaO", name: "Calcium Oxide", elements: { "Ca": 1, "O": 1 } },
+            "Al2O3": { formula: "Al₂O₃", name: "Aluminum Oxide", elements: { "Al": 2, "O": 3 } },
+            "Fe2O3": { formula: "Fe₂O₃", name: "Iron(III) Oxide", elements: { "Fe": 2, "O": 3 } },
+            "Fe3O4": { formula: "Fe₃O₄", name: "Iron(II,III) Oxide", elements: { "Fe": 3, "O": 4 } },
+            "CuO": { formula: "CuO", name: "Copper(II) Oxide", elements: { "Cu": 1, "O": 1 } },
+            "Cu2O": { formula: "Cu₂O", name: "Copper(I) Oxide", elements: { "Cu": 2, "O": 1 } },
+            "ZnO": { formula: "ZnO", name: "Zinc Oxide", elements: { "Zn": 1, "O": 1 } },
+            "PbO": { formula: "PbO", name: "Lead(II) Oxide", elements: { "Pb": 1, "O": 1 } },
+            "PbO2": { formula: "PbO₂", name: "Lead(IV) Oxide", elements: { "Pb": 1, "O": 2 } },
+            "MnO2": { formula: "MnO₂", name: "Manganese Dioxide", elements: { "Mn": 1, "O": 2 } },
+            "Cr2O3": { formula: "Cr₂O₃", name: "Chromium(III) Oxide", elements: { "Cr": 2, "O": 3 } },
+            "TiO2": { formula: "TiO₂", name: "Titanium Dioxide", elements: { "Ti": 1, "O": 2 } },
+
+            // Sugars and carbohydrates
+            "C6H12O6": { formula: "C₆H₁₂O₆", name: "Glucose", elements: { "C": 6, "H": 12, "O": 6 } },
+            "C6H12O6": { formula: "C₆H₁₂O₆", name: "Fructose", elements: { "C": 6, "H": 12, "O": 6 } },
+            "C12H22O11": { formula: "C₁₂H₂₂O₁₁", name: "Sucrose", elements: { "C": 12, "H": 22, "O": 11 } },
+            "C12H22O11": { formula: "C₁₂H₂₂O₁₁", name: "Lactose", elements: { "C": 12, "H": 22, "O": 11 } },
+            "C6H10O5": { formula: "C₆H₁₀O₅", name: "Cellulose", elements: { "C": 6, "H": 10, "O": 5 } },
+
+            // Amino acids
+            "C3H7NO2": { formula: "C₃H₇NO₂", name: "Alanine", elements: { "C": 3, "H": 7, "N": 1, "O": 2 } },
+            "C6H14N4O2": { formula: "C₆H₁₄N₄O₂", name: "Arginine", elements: { "C": 6, "H": 14, "N": 4, "O": 2 } },
+            "C4H8N2O3": { formula: "C₄H₈N₂O₃", name: "Asparagine", elements: { "C": 4, "H": 8, "N": 2, "O": 3 } },
+            "C4H7NO4": { formula: "C₄H₇NO₄", name: "Aspartic Acid", elements: { "C": 4, "H": 7, "N": 1, "O": 4 } },
+            "C6H9N3O2": { formula: "C₆H₉N₃O₂", name: "Histidine", elements: { "C": 6, "H": 9, "N": 3, "O": 2 } },
+            "C6H13NO2": { formula: "C₆H₁₃NO₂", name: "Leucine", elements: { "C": 6, "H": 13, "N": 1, "O": 2 } },
+            "C5H11NO2S": { formula: "C₅H₁₁NO₂S", name: "Methionine", elements: { "C": 5, "H": 11, "N": 1, "O": 2, "S": 1 } },
+            "C9H11NO2": { formula: "C₉H₁₁NO₂", name: "Phenylalanine", elements: { "C": 9, "H": 11, "N": 1, "O": 2 } },
+            "C5H9NO2": { formula: "C₅H₉NO₂", name: "Proline", elements: { "C": 5, "H": 9, "N": 1, "O": 2 } },
+            "C3H7NO3": { formula: "C₃H₇NO₃", name: "Serine", elements: { "C": 3, "H": 7, "N": 1, "O": 3 } },
+            "C4H9NO3": { formula: "C₄H₉NO₃", name: "Threonine", elements: { "C": 4, "H": 9, "N": 1, "O": 3 } },
+            "C11H12N2O2": { formula: "C₁₁H₁₂N₂O₂", name: "Tryptophan", elements: { "C": 11, "H": 12, "N": 2, "O": 2 } },
+            "C9H11NO3": { formula: "C₉H₁₁NO₃", name: "Tyrosine", elements: { "C": 9, "H": 11, "N": 1, "O": 3 } },
+            "C5H11NO2": { formula: "C₅H₁₁NO₂", name: "Valine", elements: { "C": 5, "H": 11, "N": 1, "O": 2 } },
+
+            // Vitamins
+            "C6H8O6": { formula: "C₆H₈O₆", name: "Vitamin C", elements: { "C": 6, "H": 8, "O": 6 } },
+            "C12H17N4OS": { formula: "C₁₂H₁₇N₄OS", name: "Vitamin B1", elements: { "C": 12, "H": 17, "N": 4, "O": 1, "S": 1 } },
+            "C17H20N4O6": { formula: "C₁₇H₂₀N₄O₆", name: "Vitamin B2", elements: { "C": 17, "H": 20, "N": 4, "O": 6 } },
+            "C8H11NO2": { formula: "C₈H₁₁NO₂", name: "Vitamin B6", elements: { "C": 8, "H": 11, "N": 1, "O": 2 } },
+            "C63H88CoN14O14P": { formula: "C₆₃H₈₈CoN₁₄O₁₄P", name: "Vitamin B12", elements: { "C": 63, "H": 88, "Co": 1, "N": 14, "O": 14, "P": 1 } },
+            "C27H44O": { formula: "C₂₇H₄₄O", name: "Vitamin D", elements: { "C": 27, "H": 44, "O": 1 } },
+            "C29H50O2": { formula: "C₂₉H₅₀O₂", name: "Vitamin E", elements: { "C": 29, "H": 50, "O": 2 } },
+            "C31H46O2": { formula: "C₃₁H₄₆O₂", name: "Vitamin K", elements: { "C": 31, "H": 46, "O": 2 } },
+
+            // Pharmaceuticals
+            "C9H8O4": { formula: "C₉H₈O₄", name: "Aspirin", elements: { "C": 9, "H": 8, "O": 4 } },
+            "C13H18O2": { formula: "C₁₃H₁₈O₂", name: "Ibuprofen", elements: { "C": 13, "H": 18, "O": 2 } },
+            "C17H19NO3": { formula: "C₁₇H₁₉NO₃", name: "Morphine", elements: { "C": 17, "H": 19, "N": 1, "O": 3 } },
+            "C21H30O2": { formula: "C₂₁H₃₀O₂", name: "Cannabidiol", elements: { "C": 21, "H": 30, "O": 2 } },
+            "C10H13N5O4": { formula: "C₁₀H₁₃N₅O₄", name: "Adenosine", elements: { "C": 10, "H": 13, "N": 5, "O": 4 } },
+            "C8H10N4O2": { formula: "C₈H₁₀N₄O₂", name: "Caffeine", elements: { "C": 8, "H": 10, "N": 4, "O": 2 } },
+            "C20H25N3O": { formula: "C₂₀H₂₅N₃O", name: "LSD", elements: { "C": 20, "H": 25, "N": 3, "O": 1 } },
+
+            // Explosives
+            "C3H6N6O6": { formula: "C₃H₆N₆O₆", name: "RDX", elements: { "C": 3, "H": 6, "N": 6, "O": 6 } },
+            "C7H5N3O6": { formula: "C₇H₅N₃O₆", name: "TNT", elements: { "C": 7, "H": 5, "N": 3, "O": 6 } },
+            "C3H5N3O9": { formula: "C₃H₅N₃O₉", name: "Nitroglycerin", elements: { "C": 3, "H": 5, "N": 3, "O": 9 } },
+
+            // Polymers and plastics
+            "C2H4": { formula: "C₂H₄", name: "Polyethylene", elements: { "C": 2, "H": 4 } },
+            "C3H6": { formula: "C₃H₆", name: "Polypropylene", elements: { "C": 3, "H": 6 } },
+            "C8H8": { formula: "C₈H₈", name: "Polystyrene", elements: { "C": 8, "H": 8 } },
+            "C5H8O2": { formula: "C₅H₈O₂", name: "PMMA", elements: { "C": 5, "H": 8, "O": 2 } },
+            "C4H6O2": { formula: "C₄H₆O₂", name: "Polyvinyl Acetate", elements: { "C": 4, "H": 6, "O": 2 } },
+
+            // Environmental pollutants
+            "C6H4Cl2": { formula: "C₆H₄Cl₂", name: "Dichlorobenzene", elements: { "C": 6, "H": 4, "Cl": 2 } },
+            "C12H10": { formula: "C₁₂H₁₀", name: "Biphenyl", elements: { "C": 12, "H": 10 } },
+            "C12H4Cl4O2": { formula: "C₁₂H₄Cl₄O₂", name: "Dioxin", elements: { "C": 12, "H": 4, "Cl": 4, "O": 2 } },
+            "C10H6Cl8": { formula: "C₁₀H₆Cl₈", name: "Chlordane", elements: { "C": 10, "H": 6, "Cl": 8 } },
+
+            // Organometallics
+            "C5H5Fe": { formula: "C₅H₅Fe", name: "Ferrocene", elements: { "C": 5, "H": 5, "Fe": 1 } },
+            "C10H10Fe": { formula: "C₁₀H₁₀Fe", name: "Ferrocene", elements: { "C": 10, "H": 10, "Fe": 1 } },
+            "C6H6Cr": { formula: "C₆H₆Cr", name: "Chromocene", elements: { "C": 6, "H": 6, "Cr": 1 } },
+            "C8H8Fe": { formula: "C₈H₈Fe", name: "Fe(CO)4", elements: { "C": 8, "H": 8, "Fe": 1 } },
+
+            // Biochemical compounds
+            "C21H36N7O16P3S": { formula: "C₂₁H₃₆N₇O₁₆P₃S", name: "Coenzyme A", elements: { "C": 21, "H": 36, "N": 7, "O": 16, "P": 3, "S": 1 } },
+            "C10H16N5O13P3": { formula: "C₁₀H₁₆N₅O₁₃P₃", name: "ATP", elements: { "C": 10, "H": 16, "N": 5, "O": 13, "P": 3 } },
+            "C10H15N5O10P2": { formula: "C₁₀H₁₅N₅O₁₀P₂", name: "ADP", elements: { "C": 10, "H": 15, "N": 5, "O": 10, "P": 2 } },
+            "C10H14N5O7P": { formula: "C₁₀H₁₄N₅O₇P", name: "AMP", elements: { "C": 10, "H": 14, "N": 5, "O": 7, "P": 1 } },
+            "C5H4N4O3": { formula: "C₅H₄N₄O₃", name: "Uric Acid", elements: { "C": 5, "H": 4, "N": 4, "O": 3 } },
+            "C4H5N3O": { formula: "C₄H₅N₃O", name: "Cytosine", elements: { "C": 4, "H": 5, "N": 3, "O": 1 } },
+            "C5H5N5": { formula: "C₅H₅N₅", name: "Adenine", elements: { "C": 5, "H": 5, "N": 5 } },
+            "C5H6N2O2": { formula: "C₅H₆N₂O₂", name: "Thymine", elements: { "C": 5, "H": 6, "N": 2, "O": 2 } },
+            "C4H4N2O2": { formula: "C₄H₄N₂O₂", name: "Uracil", elements: { "C": 4, "H": 4, "N": 2, "O": 2 } },
+            "C5H5N5O": { formula: "C₅H₅N₅O", name: "Guanine", elements: { "C": 5, "H": 5, "N": 5, "O": 1 } },
+
+            // Natural products
+            "C17H35COOH": { formula: "C₁₇H₃₅COOH", name: "Stearic Acid", elements: { "C": 18, "H": 36, "O": 2 } },
+            "C15H31COOH": { formula: "C₁₅H₃₁COOH", name: "Palmitic Acid", elements: { "C": 16, "H": 32, "O": 2 } },
+            "C17H33COOH": { formula: "C₁₇H₃₃COOH", name: "Oleic Acid", elements: { "C": 18, "H": 34, "O": 2 } },
+            "C17H31COOH": { formula: "C₁₇H₃₁COOH", name: "Linoleic Acid", elements: { "C": 18, "H": 32, "O": 2 } },
+            "C17H29COOH": { formula: "C₁₇H₂₉COOH", name: "Linolenic Acid", elements: { "C": 18, "H": 30, "O": 2 } },
+            "C20H30O": { formula: "C₂₀H₃₀O", name: "Retinol", elements: { "C": 20, "H": 30, "O": 1 } },
+            "C27H46O": { formula: "C₂₇H₄₆O", name: "Cholesterol", elements: { "C": 27, "H": 46, "O": 1 } },
+            "C55H72MgN4O5": { formula: "C₅₅H₇₂MgN₄O₅", name: "Chlorophyll a", elements: { "C": 55, "H": 72, "Mg": 1, "N": 4, "O": 5 } },
+            "C55H70MgN4O6": { formula: "C₅₅H₇₀MgN₄O₆", name: "Chlorophyll b", elements: { "C": 55, "H": 70, "Mg": 1, "N": 4, "O": 6 } },
+            "C40H56": { formula: "C₄₀H₅₆", name: "Carotene", elements: { "C": 40, "H": 56 } },
+            "C40H56O2": { formula: "C₄₀H₅₆O₂", name: "Xanthophyll", elements: { "C": 40, "H": 56, "O": 2 } },
+
+            // Additional common compounds
+            "C2H2": { formula: "C₂H₂", name: "Acetylene", elements: { "C": 2, "H": 2 } },
+            "C6H5OH": { formula: "C₆H₅OH", name: "Phenol", elements: { "C": 6, "H": 6, "O": 1 } },
+            "C6H5NO2": { formula: "C₆H₅NO₂", name: "Nitrobenzene", elements: { "C": 6, "H": 5, "N": 1, "O": 2 } },
+            "C7H6O2": { formula: "C₇H₆O₂", name: "Benzaldehyde", elements: { "C": 7, "H": 6, "O": 2 } },
+            "C7H6O3": { formula: "C₇H₆O₃", name: "Salicylic Acid", elements: { "C": 7, "H": 6, "O": 3 } },
+            "C8H8O3": { formula: "C₈H₈O₃", name: "Vanillin", elements: { "C": 8, "H": 8, "O": 3 } },
+            "C8H10N4O2": { formula: "C₈H₁₀N₄O₂", name: "Theobromine", elements: { "C": 8, "H": 10, "N": 4, "O": 2 } },
+            "C10H8O": { formula: "C₁₀H₈O", name: "Naphthol", elements: { "C": 10, "H": 8, "O": 1 } },
+            "C10H12O": { formula: "C₁₀H₁₂O", name: "Eugenol", elements: { "C": 10, "H": 12, "O": 1 } },
+            "C10H16O": { formula: "C₁₀H₁₆O", name: "Camphor", elements: { "C": 10, "H": 16, "O": 1 } },
+            "C12H22O11": { formula: "C₁₂H₂₂O₁₁", name: "Maltose", elements: { "C": 12, "H": 22, "O": 11 } },
+            "C18H36O2": { formula: "C₁₈H₃₆O₂", name: "Stearic Acid", elements: { "C": 18, "H": 36, "O": 2 } },
+            "C18H34O2": { formula: "C₁₈H₃₄O₂", name: "Oleic Acid", elements: { "C": 18, "H": 34, "O": 2 } },
+            "C18H32O2": { formula: "C₁₈H₃₂O₂", name: "Linoleic Acid", elements: { "C": 18, "H": 32, "O": 2 } },
+            "C57H110O6": { formula: "C₅₇H₁₁₀O₆", name: "Triolein", elements: { "C": 57, "H": 110, "O": 6 } },
+            "C51H98O6": { formula: "C₅₁H₉₈O₆", name: "Tripalmitin", elements: { "C": 51, "H": 98, "O": 6 } },
+            "C54H104O6": { formula: "C₅₄H₁₀₄O₆", name: "Tristearin", elements: { "C": 54, "H": 104, "O": 6 } }
+        };
+
+        const database = { ...commonCompounds };
+        let count = Object.keys(commonCompounds).length;
+
+        // Generate additional hydrocarbons
+        for (let c = 11; c <= 30; c++) {
+            const h = 2 * c + 2;
+            const key = `C${c}H${h}`;
+            database[key] = {
+                formula: `C${c}H${h}`,
+                name: `Alkane C${c}H${h}`,
+                elements: { "C": c, "H": h }
+            };
+            count++;
+        }
+
+        // Generate additional alkenes
+        for (let c = 7; c <= 20; c++) {
+            const h = 2 * c;
+            const key = `C${c}H${h}`;
+            database[key] = {
+                formula: `C${c}H${h}`,
+                name: `Alkene C${c}H${h}`,
+                elements: { "C": c, "H": h }
+            };
+            count++;
+        }
+
+        // Generate additional alkynes
+        for (let c = 5; c <= 15; c++) {
+            const h = 2 * c - 2;
+            const key = `C${c}H${h}`;
+            database[key] = {
+                formula: `C${c}H${h}`,
+                name: `Alkyne C${c}H${h}`,
+                elements: { "C": c, "H": h }
+            };
+            count++;
+        }
+
+        // Generate additional alcohols
+        for (let c = 5; c <= 20; c++) {
+            const h = 2 * c + 2;
+            const key = `C${c}H${h}O`;
+            database[key] = {
+                formula: `C${c}H${h}O`,
+                name: `Alcohol C${c}H${h}O`,
+                elements: { "C": c, "H": h, "O": 1 }
+            };
+            count++;
+        }
+
+        // Generate additional carboxylic acids
+        for (let c = 5; c <= 20; c++) {
+            const h = 2 * c;
+            const key = `C${c}H${h}O2`;
+            database[key] = {
+                formula: `C${c}H${h}O₂`,
+                name: `Carboxylic Acid C${c}H${h}O₂`,
+                elements: { "C": c, "H": h, "O": 2 }
+            };
+            count++;
+        }
+
+        // Generate additional aldehydes
+        for (let c = 3; c <= 15; c++) {
+            const h = 2 * c;
+            const key = `C${c}H${h}O`;
+            database[key] = {
+                formula: `C${c}H${h}O`,
+                name: `Aldehyde C${c}H${h}O`,
+                elements: { "C": c, "H": h, "O": 1 }
+            };
+            count++;
+        }
+
+        // Generate additional ketones
+        for (let c = 4; c <= 15; c++) {
+            const h = 2 * c;
+            const key = `C${c}H${h}O`;
+            database[key] = {
+                formula: `C${c}H${h}O`,
+                name: `Ketone C${c}H${h}O`,
+                elements: { "C": c, "H": h, "O": 1 }
+            };
+            count++;
+        }
+
+        // Generate additional esters
+        for (let c = 3; c <= 15; c++) {
+            const h = 2 * c;
+            const key = `C${c}H${h}O2`;
+            database[key] = {
+                formula: `C${c}H${h}O₂`,
+                name: `Ester C${c}H${h}O₂`,
+                elements: { "C": c, "H": h, "O": 2 }
+            };
+            count++;
+        }
+
+        // Generate additional amines
+        for (let c = 2; c <= 15; c++) {
+            const h = 2 * c + 3;
+            const key = `C${c}H${h}N`;
+            database[key] = {
+                formula: `C${c}H${h}N`,
+                name: `Amine C${c}H${h}N`,
+                elements: { "C": c, "H": h, "N": 1 }
+            };
+            count++;
+        }
+
+        // Generate additional amides
+        for (let c = 2; c <= 15; c++) {
+            const h = 2 * c + 1;
+            const key = `C${c}H${h}NO`;
+            database[key] = {
+                formula: `C${c}H${h}NO`,
+                name: `Amide C${c}H${h}NO`,
+                elements: { "C": c, "H": h, "N": 1, "O": 1 }
+            };
+            count++;
+        }
+
+        // Generate additional nitriles
+        for (let c = 2; c <= 15; c++) {
+            const h = 2 * c - 1;
+            const key = `C${c}H${h}N`;
+            database[key] = {
+                formula: `C${c}H${h}N`,
+                name: `Nitrile C${c}H${h}N`,
+                elements: { "C": c, "H": h, "N": 1 }
+            };
+            count++;
+        }
+
+        // Generate additional halogen compounds
+        const halogens = ["F", "Cl", "Br", "I"];
+        halogens.forEach(halogen => {
+            for (let c = 1; c <= 10; c++) {
+                for (let hCount = 1; hCount <= 2 * c + 1; hCount++) {
+                    const key = `C${c}H${hCount}${halogen}`;
+                    database[key] = {
+                        formula: `C${c}H${hCount}${halogen}`,
+                        name: `${halogen} Compound C${c}H${hCount}${halogen}`,
+                        elements: { "C": c, "H": hCount, [halogen]: 1 }
+                    };
+                    count++;
+                }
+            }
+        });
+
+        // Generate additional mixed compounds
+        const elementCombinations = [
+            ["C", "H", "O"],
+            ["C", "H", "N"],
+            ["C", "H", "O", "N"],
+            ["C", "H", "O", "S"],
+            ["C", "H", "N", "S"],
+            ["C", "H", "O", "P"],
+            ["C", "H", "O", "Cl"],
+            ["C", "H", "O", "Br"],
+            ["C", "H", "N", "O"],
+            ["C", "H", "S", "O"]
+        ];
+
+        let attempt = 0;
+        while (count < 1500 && attempt < 10000) {
+            attempt++;
+            const combo = elementCombinations[Math.floor(Math.random() * elementCombinations.length)];
+            const elements = {};
+            let key = "";
+
+            combo.forEach(el => {
+                const count = Math.floor(Math.random() * 8) + 1;
+                elements[el] = count;
+                key += el + (count > 1 ? count : '');
+            });
+
+            if (!database[key] && Object.keys(elements).length > 1) {
+                database[key] = {
+                    formula: key,
+                    name: `Compound ${key}`,
+                    elements: elements
+                };
+                count++;
+            }
+        }
+
+        console.log(`Generated ${count} unique compounds`);
+        return database;
+    }
+    function generateSpectroscopyData(compoundDatabase) {
+        const spectroscopyData = {};
+
+        const atomicMasses = {
+            "H": 1.008, "He": 4.0026, "Li": 6.94, "Be": 9.0122, "B": 10.81,
+            "C": 12.011, "N": 14.007, "O": 15.999, "F": 18.998, "Ne": 20.180,
+            "Na": 22.990, "Mg": 24.305, "Al": 26.982, "Si": 28.085, "P": 30.974,
+            "S": 32.06, "Cl": 35.45, "Ar": 39.948, "K": 39.098, "Ca": 40.078,
+            "Sc": 44.956, "Ti": 47.867, "V": 50.942, "Cr": 51.996, "Mn": 54.938,
+            "Fe": 55.845, "Co": 58.933, "Ni": 58.693, "Cu": 63.546, "Zn": 65.38,
+            "Ga": 69.723, "Ge": 72.630, "As": 74.922, "Se": 78.971, "Br": 79.904,
+            "Kr": 83.798, "Rb": 85.468, "Sr": 87.62, "Y": 88.906, "Zr": 91.224,
+            "Nb": 92.906, "Mo": 95.95, "Tc": 98.0, "Ru": 101.07, "Rh": 102.91,
+            "Pd": 106.42, "Ag": 107.87, "Cd": 112.41, "In": 114.82, "Sn": 118.71,
+            "Sb": 121.76, "Te": 127.60, "I": 126.90, "Xe": 131.29, "Cs": 132.91,
+            "Ba": 137.33, "La": 138.91, "Ce": 140.12, "Pr": 140.91, "Nd": 144.24,
+            "Pm": 145.0, "Sm": 150.36, "Eu": 151.96, "Gd": 157.25, "Tb": 158.93,
+            "Dy": 162.50, "Ho": 164.93, "Er": 167.26, "Tm": 168.93, "Yb": 173.05,
+            "Lu": 174.97, "Hf": 178.49, "Ta": 180.95, "W": 183.84, "Re": 186.21,
+            "Os": 190.23, "Ir": 192.22, "Pt": 195.08, "Au": 196.97, "Hg": 200.59,
+            "Tl": 204.38, "Pb": 207.2, "Bi": 208.98, "Po": 209.0, "At": 210.0,
+            "Rn": 222.0, "Fr": 223.0, "Ra": 226.0, "Ac": 227.0, "Th": 232.04,
+            "Pa": 231.04, "U": 238.03, "Np": 237.0, "Pu": 244.0, "Am": 243.0,
+            "Cm": 247.0, "Bk": 247.0, "Cf": 251.0, "Es": 252.0, "Fm": 257.0,
+            "Md": 258.0, "No": 259.0, "Lr": 262.0, "Rf": 267.0, "Db": 268.0,
+            "Sg": 271.0, "Bh": 272.0, "Hs": 270.0, "Mt": 276.0, "Ds": 281.0,
+            "Rg": 280.0, "Cn": 285.0, "Nh": 286.0, "Fl": 289.0, "Mc": 290.0,
+            "Lv": 293.0, "Ts": 294.0, "Og": 294.0
+        };
+
+        const isotopeData = {
+            "H": { protons: 1, neutrons: 0, common: "¹H (99.98%), ²H (0.02%)" },
+            "He": { protons: 2, neutrons: 2, common: "⁴He (99.99986%), ³He (0.00014%)" },
+            "Li": { protons: 3, neutrons: 4, common: "⁷Li (92.41%), ⁶Li (7.59%)" },
+            "Be": { protons: 4, neutrons: 5, common: "⁹Be (100%)" },
+            "B": { protons: 5, neutrons: 6, common: "¹¹B (80.1%), ¹⁰B (19.9%)" },
+            "C": { protons: 6, neutrons: 6, common: "¹²C (98.9%), ¹³C (1.1%)" },
+            "N": { protons: 7, neutrons: 7, common: "¹⁴N (99.6%), ¹⁵N (0.4%)" },
+            "O": { protons: 8, neutrons: 8, common: "¹⁶O (99.76%), ¹⁸O (0.2%)" },
+            "F": { protons: 9, neutrons: 10, common: "¹⁹F (100%)" },
+            "Ne": { protons: 10, neutrons: 10, common: "²⁰Ne (90.48%), ²²Ne (9.25%)" },
+            "Na": { protons: 11, neutrons: 12, common: "²³Na (100%)" },
+            "Mg": { protons: 12, neutrons: 12, common: "²⁴Mg (79%), ²⁶Mg (11%)" },
+            "Al": { protons: 13, neutrons: 14, common: "²⁷Al (100%)" },
+            "Si": { protons: 14, neutrons: 14, common: "²⁸Si (92.2%), ²⁹Si (4.7%)" },
+            "P": { protons: 15, neutrons: 16, common: "³¹P (100%)" },
+            "S": { protons: 16, neutrons: 16, common: "³²S (95%), ³⁴S (4.2%)" },
+            "Cl": { protons: 17, neutrons: 18, common: "³⁵Cl (76%), ³⁷Cl (24%)" },
+            "Ar": { protons: 18, neutrons: 22, common: "⁴⁰Ar (99.6%), ³⁶Ar (0.34%)" },
+            "K": { protons: 19, neutrons: 20, common: "³⁹K (93.3%), ⁴¹K (6.7%)" },
+            "Ca": { protons: 20, neutrons: 20, common: "⁴⁰Ca (97%), ⁴⁴Ca (2.1%)" },
+            "Sc": { protons: 21, neutrons: 24, common: "⁴⁵Sc (100%)" },
+            "Ti": { protons: 22, neutrons: 26, common: "⁴⁸Ti (74%), ⁴⁶Ti (8%)" },
+            "V": { protons: 23, neutrons: 28, common: "⁵¹V (99.75%), ⁵⁰V (0.25%)" },
+            "Cr": { protons: 24, neutrons: 28, common: "⁵²Cr (83.8%), ⁵³Cr (9.5%)" },
+            "Mn": { protons: 25, neutrons: 30, common: "⁵⁵Mn (100%)" },
+            "Fe": { protons: 26, neutrons: 30, common: "⁵⁶Fe (91.7%), ⁵⁴Fe (5.8%)" },
+            "Co": { protons: 27, neutrons: 32, common: "⁵⁹Co (100%)" },
+            "Ni": { protons: 28, neutrons: 31, common: "⁵⁸Ni (68.1%), ⁶⁰Ni (26.2%)" },
+            "Cu": { protons: 29, neutrons: 35, common: "⁶³Cu (69.2%), ⁶⁵Cu (30.8%)" },
+            "Zn": { protons: 30, neutrons: 35, common: "⁶⁴Zn (48.6%), ⁶⁶Zn (27.9%)" },
+            "Ga": { protons: 31, neutrons: 39, common: "⁶⁹Ga (60.1%), ⁷¹Ga (39.9%)" },
+            "Ge": { protons: 32, neutrons: 41, common: "⁷⁴Ge (36.7%), ⁷²Ge (27.4%)" },
+            "As": { protons: 33, neutrons: 42, common: "⁷⁵As (100%)" },
+            "Se": { protons: 34, neutrons: 45, common: "⁸⁰Se (49.6%), ⁷⁸Se (23.5%)" },
+            "Br": { protons: 35, neutrons: 45, common: "⁷⁹Br (51%), ⁸¹Br (49%)" },
+            "Kr": { protons: 36, neutrons: 48, common: "⁸⁴Kr (57%), ⁸⁶Kr (17.3%)" },
+            "Rb": { protons: 37, neutrons: 48, common: "⁸⁵Rb (72.2%), ⁸⁷Rb (27.8%)" },
+            "Sr": { protons: 38, neutrons: 50, common: "⁸⁸Sr (82.6%), ⁸⁶Sr (9.9%)" },
+            "Y": { protons: 39, neutrons: 50, common: "⁸⁹Y (100%)" },
+            "Zr": { protons: 40, neutrons: 51, common: "⁹⁰Zr (51.5%), ⁹⁴Zr (17.4%)" },
+            "Nb": { protons: 41, neutrons: 52, common: "⁹³Nb (100%)" },
+            "Mo": { protons: 42, neutrons: 54, common: "⁹⁸Mo (24.1%), ⁹⁶Mo (16.7%)" },
+            "Tc": { protons: 43, neutrons: 55, common: "⁹⁸Tc (synthetic)" },
+            "Ru": { protons: 44, neutrons: 57, common: "¹⁰²Ru (31.6%), ¹⁰⁴Ru (18.7%)" },
+            "Rh": { protons: 45, neutrons: 58, common: "¹⁰³Rh (100%)" },
+            "Pd": { protons: 46, neutrons: 60, common: "¹⁰⁶Pd (27.3%), ¹⁰⁸Pd (26.5%)" },
+            "Ag": { protons: 47, neutrons: 61, common: "¹⁰⁷Ag (51.8%), ¹⁰⁹Ag (48.2%)" },
+            "Cd": { protons: 48, neutrons: 64, common: "¹¹⁴Cd (28.7%), ¹¹²Cd (24.1%)" },
+            "In": { protons: 49, neutrons: 66, common: "¹¹⁵In (95.7%), ¹¹³In (4.3%)" },
+            "Sn": { protons: 50, neutrons: 69, common: "¹²⁰Sn (32.6%), ¹¹⁸Sn (24.2%)" },
+            "Sb": { protons: 51, neutrons: 71, common: "¹²¹Sb (57.2%), ¹²³Sb (42.8%)" },
+            "Te": { protons: 52, neutrons: 76, common: "¹³⁰Te (34.1%), ¹²⁸Te (31.7%)" },
+            "I": { protons: 53, neutrons: 74, common: "¹²⁷I (100%)" },
+            "Xe": { protons: 54, neutrons: 77, common: "¹³²Xe (26.9%), ¹²⁹Xe (26.4%)" },
+            "Cs": { protons: 55, neutrons: 78, common: "¹³³Cs (100%)" },
+            "Ba": { protons: 56, neutrons: 81, common: "¹³⁸Ba (71.7%), ¹³⁷Ba (11.2%)" },
+            "La": { protons: 57, neutrons: 82, common: "¹³⁹La (99.9%)" },
+            "Ce": { protons: 58, neutrons: 82, common: "¹⁴⁰Ce (88.5%), ¹⁴²Ce (11.1%)" },
+            "Pr": { protons: 59, neutrons: 82, common: "¹⁴¹Pr (100%)" },
+            "Nd": { protons: 60, neutrons: 84, common: "¹⁴²Nd (27.1%), ¹⁴⁴Nd (23.8%)" },
+            "Pm": { protons: 61, neutrons: 84, common: "¹⁴⁵Pm (synthetic)" },
+            "Sm": { protons: 62, neutrons: 88, common: "¹⁵²Sm (26.7%), ¹⁵⁴Sm (22.7%)" },
+            "Eu": { protons: 63, neutrons: 89, common: "¹⁵³Eu (52.2%), ¹⁵¹Eu (47.8%)" },
+            "Gd": { protons: 64, neutrons: 93, common: "¹⁵⁸Gd (24.8%), ¹⁶⁰Gd (21.9%)" },
+            "Tb": { protons: 65, neutrons: 94, common: "¹⁵⁹Tb (100%)" },
+            "Dy": { protons: 66, neutrons: 96, common: "¹⁶⁴Dy (28.2%), ¹⁶²Dy (25.5%)" },
+            "Ho": { protons: 67, neutrons: 98, common: "¹⁶⁵Ho (100%)" },
+            "Er": { protons: 68, neutrons: 99, common: "¹⁶⁶Er (33.6%), ¹⁶⁸Er (27.1%)" },
+            "Tm": { protons: 69, neutrons: 100, common: "¹⁶⁹Tm (100%)" },
+            "Yb": { protons: 70, neutrons: 103, common: "¹⁷⁴Yb (31.8%), ¹⁷²Yb (21.9%)" },
+            "Lu": { protons: 71, neutrons: 104, common: "¹⁷⁵Lu (97.4%), ¹⁷⁶Lu (2.6%)" },
+            "Hf": { protons: 72, neutrons: 106, common: "¹⁸⁰Hf (35.1%), ¹⁷⁸Hf (27.3%)" },
+            "Ta": { protons: 73, neutrons: 108, common: "¹⁸¹Ta (99.99%)" },
+            "W": { protons: 74, neutrons: 110, common: "¹⁸⁴W (30.6%), ¹⁸⁶W (28.4%)" },
+            "Re": { protons: 75, neutrons: 111, common: "¹⁸⁷Re (62.6%), ¹⁸⁵Re (37.4%)" },
+            "Os": { protons: 76, neutrons: 114, common: "¹⁹²Os (41%), ¹⁹⁰Os (26.4%)" },
+            "Ir": { protons: 77, neutrons: 115, common: "¹⁹³Ir (62.7%), ¹⁹¹Ir (37.3%)" },
+            "Pt": { protons: 78, neutrons: 117, common: "¹⁹⁵Pt (33.8%), ¹⁹⁴Pt (32.9%)" },
+            "Au": { protons: 79, neutrons: 118, common: "¹⁹⁷Au (100%)" },
+            "Hg": { protons: 80, neutrons: 121, common: "²⁰²Hg (29.9%), ²⁰⁰Hg (23.1%)" },
+            "Tl": { protons: 81, neutrons: 123, common: "²⁰⁵Tl (70.5%), ²⁰³Tl (29.5%)" },
+            "Pb": { protons: 82, neutrons: 125, common: "²⁰⁸Pb (52.4%), ²⁰⁶Pb (24.1%)" },
+            "Bi": { protons: 83, neutrons: 126, common: "²⁰⁹Bi (100%)" },
+            "Po": { protons: 84, neutrons: 125, common: "²⁰⁹Po (synthetic)" },
+            "At": { protons: 85, neutrons: 125, common: "²¹⁰At (synthetic)" },
+            "Rn": { protons: 86, neutrons: 136, common: "²²²Rn (natural)" },
+            "Fr": { protons: 87, neutrons: 136, common: "²²³Fr (synthetic)" },
+            "Ra": { protons: 88, neutrons: 138, common: "²²⁶Ra (natural)" },
+            "Ac": { protons: 89, neutrons: 138, common: "²²⁷Ac (natural)" },
+            "Th": { protons: 90, neutrons: 142, common: "²³²Th (100%)" },
+            "Pa": { protons: 91, neutrons: 140, common: "²³¹Pa (natural)" },
+            "U": { protons: 92, neutrons: 146, common: "²³⁸U (99.3%), ²³⁵U (0.7%)" },
+            "Np": { protons: 93, neutrons: 144, common: "²³⁷Np (synthetic)" },
+            "Pu": { protons: 94, neutrons: 150, common: "²⁴⁴Pu (synthetic)" },
+            "Am": { protons: 95, neutrons: 148, common: "²⁴³Am (synthetic)" },
+            "Cm": { protons: 96, neutrons: 151, common: "²⁴⁷Cm (synthetic)" },
+            "Bk": { protons: 97, neutrons: 150, common: "²⁴⁷Bk (synthetic)" },
+            "Cf": { protons: 98, neutrons: 153, common: "²⁵¹Cf (synthetic)" },
+            "Es": { protons: 99, neutrons: 153, common: "²⁵²Es (synthetic)" },
+            "Fm": { protons: 100, neutrons: 157, common: "²⁵⁷Fm (synthetic)" },
+            "Md": { protons: 101, neutrons: 157, common: "²⁵⁸Md (synthetic)" },
+            "No": { protons: 102, neutrons: 157, common: "²⁵⁹No (synthetic)" },
+            "Lr": { protons: 103, neutrons: 159, common: "²⁶²Lr (synthetic)" },
+            "Rf": { protons: 104, neutrons: 163, common: "²⁶⁷Rf (synthetic)" },
+            "Db": { protons: 105, neutrons: 163, common: "²⁶⁸Db (synthetic)" },
+            "Sg": { protons: 106, neutrons: 165, common: "²⁷¹Sg (synthetic)" },
+            "Bh": { protons: 107, neutrons: 165, common: "²⁷²Bh (synthetic)" },
+            "Hs": { protons: 108, neutrons: 162, common: "²⁷⁰Hs (synthetic)" },
+            "Mt": { protons: 109, neutrons: 167, common: "²⁷⁶Mt (synthetic)" },
+            "Ds": { protons: 110, neutrons: 171, common: "²⁸¹Ds (synthetic)" },
+            "Rg": { protons: 111, neutrons: 169, common: "²⁸⁰Rg (synthetic)" },
+            "Cn": { protons: 112, neutrons: 173, common: "²⁸⁵Cn (synthetic)" },
+            "Nh": { protons: 113, neutrons: 173, common: "²⁸⁶Nh (synthetic)" },
+            "Fl": { protons: 114, neutrons: 175, common: "²⁸⁹Fl (synthetic)" },
+            "Mc": { protons: 115, neutrons: 175, common: "²⁹⁰Mc (synthetic)" },
+            "Lv": { protons: 116, neutrons: 177, common: "²⁹³Lv (synthetic)" },
+            "Ts": { protons: 117, neutrons: 177, common: "²⁹⁴Ts (synthetic)" },
+            "Og": { protons: 118, neutrons: 176, common: "²⁹⁴Og (synthetic)" }
+        };
+
+
+        for (const [formula, compound] of Object.entries(compoundDatabase)) {
+            const elements = compound.elements;
+
+            let mass = 0;
+            let breakdown = [];
+            let totalProtons = 0;
+            let totalNeutrons = 0;
+            let isotopes = [];
+
+            for (const [element, count] of Object.entries(elements)) {
+                mass += atomicMasses[element] * count;
+                breakdown.push(`${count} ${element}`);
+
+                if (isotopeData[element]) {
+                    totalProtons += isotopeData[element].protons * count;
+                    totalNeutrons += isotopeData[element].neutrons * count;
+                    isotopes.push(isotopeData[element].common);
+                } else {
+                    const atomicNumber = Object.keys(atomicMasses).indexOf(element) + 1;
+                    totalProtons += atomicNumber * count;
+                    totalNeutrons += Math.round((atomicMasses[element] - atomicNumber) * count);
+                    isotopes.push(`${element} (natural abundance)`);
+                }
+            }
+
+
+            let irBands = [];
+            if (elements["O"] && elements["H"]) {
+                if (elements["O"] === 1 && elements["H"] === 2) {
+                    irBands.push("O-H stretch: 3200-3600 cm⁻¹", "H-O-H bend: 1640 cm⁻¹");
+                } else if (elements["O"] >= 1 && elements["H"] >= 1) {
+                    irBands.push("O-H stretch: 3200-3600 cm⁻¹");
+                }
+            }
+            if (elements["C"] && elements["O"]) {
+                if (elements["O"] === 2 && elements["C"] === 1) {
+                    irBands.push("C=O stretch: 1700-1750 cm⁻¹");
+                } else {
+                    irBands.push("C-O stretch: 1000-1300 cm⁻¹");
+                }
+            }
+            if (elements["C"] && elements["H"]) {
+                irBands.push("C-H stretch: 2850-3000 cm⁻¹");
+            }
+            if (elements["N"] && elements["H"]) {
+                irBands.push("N-H stretch: 3300-3500 cm⁻¹");
+            }
+            if (elements["C"] && elements["C"] && elements["C"] >= 2) {
+                irBands.push("C=C stretch: 1600-1680 cm⁻¹");
+            }
+            if (elements["C"] && elements["N"]) {
+                irBands.push("C≡N stretch: 2200-2260 cm⁻¹");
+            }
+            if (irBands.length === 0) {
+                irBands.push("Characteristic stretches based on molecular structure");
+            }
+
+            const molecularIon = Math.round(mass);
+            let fragments = [];
+
+            if (elements["C"] && elements["H"]) {
+                if (elements["C"] === 1) {
+                    fragments.push("CH₃⁺ (m/z 15)");
+                } else {
+                    fragments.push(`C${elements["C"]}H${elements["H"] - 1}⁺ (m/z ${molecularIon - 1})`);
+                }
+            }
+            if (elements["O"]) {
+                fragments.push(`M-O fragment (m/z ${molecularIon - 16})`);
+            }
+            if (elements["Cl"]) {
+                fragments.push("M-Cl fragment pattern");
+            }
+            if (elements["Br"]) {
+                fragments.push("M-Br fragment pattern");
+            }
+            if (fragments.length === 0) {
+                fragments.push("Characteristic fragmentation pattern");
+            }
+
+            let uvvis = "";
+            if (elements["C"] >= 6 && elements["H"] <= elements["C"] * 2) {
+                uvvis = "π→π* transition: 200-400 nm\nAromatic/conjugated system absorption";
+            } else if (elements["O"] || elements["N"]) {
+                uvvis = "n→σ* transition: 150-250 nm\nWeak UV absorption";
+            } else if (elements["C"] && elements["H"]) {
+                uvvis = "σ→σ* transition: 120-180 nm\nNo significant visible absorption";
+            } else {
+                uvvis = "Electronic transitions based on molecular orbitals";
+            }
+
+            spectroscopyData[formula] = {
+                breakdown: breakdown.join(", "),
+                mass: `${mass.toFixed(3)} g/mol`,
+                ir: irBands.join("\n"),
+                ms: `Molecular ion: m/z ${molecularIon}\nFragments: ${fragments.join(", ")}`,
+                amn: `Total protons: ${totalProtons}\nTotal neutrons: ${totalNeutrons}\nIsotopes: ${isotopes.join(", ")}`,
+                uvvis: uvvis
+            };
+        }
+
+
+        const specificData = {
+            "H2O": {
+                breakdown: "2 Hydrogen, 1 Oxygen",
+                mass: "18.015 g/mol",
+                ir: "O-H stretch: 3200-3600 cm⁻¹\nH-O-H bend: 1640 cm⁻¹",
+                ms: "Molecular ion: m/z 18\nFragments: OH⁺ (m/z 17), O⁺ (m/z 16), H₂⁺ (m/z 2)",
+                amn: "Total protons: 10\nTotal neutrons: 8\nIsotopes: ¹⁶O (99.76%), ¹⁸O (0.2%)",
+                uvvis: "n→σ* transition: ~167 nm\nWeak absorption in UV region"
+            },
+            // ... rest of your specific data objects
+        };
+
+        return { ...spectroscopyData, ...specificData };
+    }
+
+    function analyzeCompound() {
+        const compoundInput = document.getElementById('compound-input');
+        const compoundResults = document.getElementById('compound-results');
+
+        if (!compoundInput || !compoundResults) return;
+
+        const formula = compoundInput.value.trim().toUpperCase();
+
+        if (!formula) {
+            updateReactionDisplay();
+            return;
+        }
+
+        // Clear previous results
+        compoundResults.innerHTML = '';
+
+        if (spectroscopyData[formula]) {
+            // Display analysis for the manually entered compound
+            displayAnalysisResults(spectroscopyData[formula]);
+
+            // Also update the reaction display to show the compound
+            const reactionEquation = document.getElementById('reaction-equation');
+            const predictedProduct = document.getElementById('predicted-product');
+
+            if (reactionEquation && predictedProduct) {
+                reactionEquation.textContent = `${formula} →`;
+                predictedProduct.textContent = `${compoundDatabase[formula]?.name || 'Unknown Compound'}`;
+            }
+        } else {
+            compoundResults.innerHTML = `
+            <div class="spectroscopy-card">
+                <div class="spectroscopy-title">Analysis</div>
+                <div class="spectroscopy-data">Compound ${formula} not found in database.</div>
+            </div>
+        `;
+
+            // Also update the reaction display
+            const reactionEquation = document.getElementById('reaction-equation');
+            const predictedProduct = document.getElementById('predicted-product');
+
+            if (reactionEquation && predictedProduct) {
+                reactionEquation.textContent = `${formula} →`;
+                predictedProduct.textContent = "Unknown Compound";
+            }
+        }
+    }
+
+    // Also update the updateReactionDisplay function to handle manual compound analysis better
+    function updateReactionDisplay() {
+        const reactionEquation = document.getElementById('reaction-equation');
+        const predictedProduct = document.getElementById('predicted-product');
+
+        if (!reactionEquation || !predictedProduct) return;
+
+        if (selectedElements.length === 0) {
+            reactionEquation.textContent = "No elements selected";
+            predictedProduct.textContent = "";
+            clearCompoundAnalysis();
+            return;
+        }
+
+        const equation = selectedElements.map(el => {
+            if (el.type === 'element') {
+                return `${el.moles.toFixed(2)} ${el.symbol}`;
+            } else {
+                return `${el.moles.toFixed(2)} ${el.formula}`;
+            }
+        }).join(" + ");
+
+        reactionEquation.textContent = equation + " →";
+
+        const allElements = {};
+        selectedElements.forEach(item => {
+            if (item.type === 'element') {
+                allElements[item.symbol] = (allElements[item.symbol] || 0) + item.moles;
+            } else {
+                Object.entries(item.elements).forEach(([element, count]) => {
+                    allElements[element] = (allElements[element] || 0) + (count * item.moles);
+                });
+            }
+        });
+
+        const elementSymbols = Object.keys(allElements).sort().join("");
+        let foundCompound = null;
+
+        for (const [key, compound] of Object.entries(compoundDatabase)) {
+            const compoundElements = Object.keys(compound.elements).sort().join("");
+            if (elementSymbols === compoundElements) {
+                foundCompound = compound;
+                break;
+            }
+        }
+
+        if (foundCompound) {
+            predictedProduct.innerHTML = `<span class="formula-display">${foundCompound.formula}</span> (<span class="compound-name-display">${foundCompound.name}</span>)`;
+            displayCompoundAnalysis(foundCompound.formula);
+        } else {
+            const customFormula = Object.entries(allElements)
+                .map(([el, count]) => el + (count > 1 ? Math.round(count) : ''))
+                .join('');
+            predictedProduct.textContent = `New Compound: ${customFormula}`;
+            generateCustomAnalysis(allElements, customFormula);
+        }
+    }
+
+    // Add this function to handle manual compound display better
+    function displayCompoundAnalysis(formula) {
+        const compoundResults = document.getElementById('compound-results');
+        if (!compoundResults || !spectroscopyData[formula]) return;
+
+        const data = spectroscopyData[formula];
+        displayAnalysisResults(data);
+    }
+
+    function displayAnalysisResults(data) {
+        const compoundResults = document.getElementById('compound-results');
+        if (!compoundResults) return;
+
+        compoundResults.innerHTML = `
+        <div class="spectroscopy-card">
+            <div class="spectroscopy-title">Molecular Breakdown</div>
+            <div class="spectroscopy-data">${data.breakdown}</div>
+        </div>
+        <div class="spectroscopy-card">
+            <div class="spectroscopy-title">Molecular Mass</div>
+            <div class="spectroscopy-data">${data.mass}</div>
+        </div>
+        <div class="spectroscopy-card">
+            <div class="spectroscopy-title">IR Spectroscopy</div>
+            <div class="spectroscopy-data">${data.ir.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div class="spectroscopy-card">
+            <div class="spectroscopy-title">Mass Spectrometry</div>
+            <div class="spectroscopy-data">${data.ms.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div class="spectroscopy-card">
+            <div class="spectroscopy-title">Atomic Mass & Isotopes</div>
+            <div class="spectroscopy-data">${data.amn.replace(/\n/g, '<br>')}</div>
+        </div>
+        <div class="spectroscopy-card">
+            <div class="spectroscopy-title">UV-Vis Spectroscopy</div>
+            <div class="spectroscopy-data">${data.uvvis.replace(/\n/g, '<br>')}</div>
+        </div>
+    `;
+    }
+
+
+    const compoundDatabase = generateCompoundDatabase();
+    const spectroscopyData = generateSpectroscopyData(compoundDatabase);
+
     let selectedElements = [];
+    let selectedCompounds = [];
     let currentAnimationFrame = null;
 
-    // SIMPLE ANIMATION - NO COMPLEX LOOPS
     function startAnimation() {
         console.log("Starting fresh animation...");
-        
-        // Stop any existing animation
+
         if (currentAnimationFrame) {
             cancelAnimationFrame(currentAnimationFrame);
         }
-        
-        // Reset animation state
+
         window.animationStarted = true;
-        
-        // Hide instruction and show animation elements
+
         const clickInstruction = document.querySelector('.click-instruction');
         const animationContainer = document.querySelector('.animation-container');
         const loadingBar = document.querySelector('.loading-bar');
-        
+
         if (clickInstruction) clickInstruction.style.display = 'none';
         if (animationContainer) animationContainer.style.display = 'block';
         if (loadingBar) loadingBar.style.display = 'block';
@@ -837,21 +1902,17 @@
         const container = document.getElementById('animationContainer');
         const loadingProgress = document.querySelector('.loading-progress');
 
-        // Clear any existing content
         if (container) container.innerHTML = '';
 
-        // Reset and animate loading bar
         if (loadingProgress) {
             loadingProgress.style.width = '0%';
             loadingProgress.style.animation = 'loading 3s ease-in-out forwards';
         }
 
-        // Create simple static nucleus
         const nucleus = document.createElement('div');
         nucleus.className = 'atom nucleus';
         if (container) container.appendChild(nucleus);
 
-        // Create static orbits (no moving electrons)
         const orbits = [100, 150, 200];
         orbits.forEach(radius => {
             const orbit = document.createElement('div');
@@ -863,12 +1924,11 @@
             if (container) container.appendChild(orbit);
         });
 
-        // Show reaction texts with delays
         const reactions = [
-            "Nuclear Fusion Initiated...",
-            "Neutron Capture...",
-            "Element Synthesis...",
-            "Stability Analysis..."
+            "Laboratory Initialized...",
+            "Quantum Systems Online...",
+            "Spectral Analysis Ready...",
+            "Laboratory 1.O Active"
         ];
 
         reactions.forEach((text, index) => {
@@ -878,8 +1938,7 @@
                 reactionText.textContent = text;
                 reactionText.style.top = `${50 + index * 30}px`;
                 if (container) container.appendChild(reactionText);
-                
-                // Remove text after it fades out
+
                 setTimeout(() => {
                     if (reactionText.parentNode) {
                         reactionText.parentNode.removeChild(reactionText);
@@ -888,37 +1947,31 @@
             }, index * 1000);
         });
 
-        // Transition to page 2 after animation
         setTimeout(() => {
             goToPage(2);
         }, 4000);
     }
 
-    // SIMPLE PAGE NAVIGATION
     function goToPage(pageNumber) {
         console.log(`Going to page ${pageNumber}`);
-        
-        // Hide all pages
+
         document.querySelectorAll('[id^="page"]').forEach(page => {
             page.style.display = 'none';
         });
-        
-        // Show target page
+
         const targetPage = document.getElementById(`page${pageNumber}`);
         if (targetPage) {
             targetPage.style.display = pageNumber === 1 ? 'flex' : 'block';
         }
-        
-        // Initialize page specific content
+
         if (pageNumber === 2) {
             initializeSimulationPage();
         } else if (pageNumber === 1) {
-            // Reset animation state when returning to page 1
             window.animationStarted = false;
             const clickInstruction = document.querySelector('.click-instruction');
             const animationContainer = document.querySelector('.animation-container');
             const loadingBar = document.querySelector('.loading-bar');
-            
+
             if (clickInstruction) clickInstruction.style.display = 'block';
             if (animationContainer) {
                 animationContainer.style.display = 'none';
@@ -928,14 +1981,13 @@
         }
     }
 
-    // Page 2 Simulation
     function initializeSimulationPage() {
         console.log("Initializing simulation page...");
         initializePeriodicTable();
+        initializeCompoundGrid();
         setupEventListeners();
         updateStepsChart();
-        
-        // Initialize canvas with default background
+
         const canvas = document.getElementById('molecule-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -950,19 +2002,18 @@
             console.error("Periodic table container not found!");
             return;
         }
-        
+
         tableContainer.innerHTML = '';
-        
-        // Create periodic table grid
+
         for (let i = 1; i <= 118; i++) {
             const element = periodicTable.find(el => el.number === i);
             const cell = document.createElement('div');
             if (element) {
                 cell.className = `element element-category-${element.category}`;
                 cell.innerHTML = `
-                    <div class="element-number">${element.number}</div>
-                    <div class="element-symbol">${element.symbol}</div>
-                `;
+                        <div class="element-number">${element.number}</div>
+                        <div class="element-symbol">${element.symbol}</div>
+                    `;
                 cell.dataset.element = JSON.stringify(element);
                 cell.addEventListener('click', handleElementSelection);
             } else {
@@ -972,12 +2023,35 @@
         }
     }
 
+    function initializeCompoundGrid() {
+        const compoundGrid = document.getElementById('compound-grid');
+        if (!compoundGrid) return;
+
+        compoundGrid.innerHTML = '';
+
+        const popularCompounds = Object.entries(compoundDatabase)
+            .slice(0, 50)
+            .sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+        popularCompounds.forEach(([key, compound]) => {
+            const compoundItem = document.createElement('div');
+            compoundItem.className = 'compound-item';
+            compoundItem.innerHTML = `
+                <div class="compound-formula" style="font-weight: bold;">${compound.formula}</div>
+                <div class="compound-name" style="font-size: 0.8rem;">${compound.name}</div>
+            `;
+            compoundItem.dataset.compound = JSON.stringify(compound);
+            compoundItem.addEventListener('click', handleCompoundSelection);
+            compoundGrid.appendChild(compoundItem);
+        });
+    }
+
     function handleElementSelection(event) {
         const elementData = JSON.parse(event.currentTarget.dataset.element);
         const index = selectedElements.findIndex(el => el.number === elementData.number);
-        
+
         if (index === -1) {
-            selectedElements.push({...elementData, count: 1});
+            selectedElements.push({...elementData, moles: 1.0, type: 'element'});
             event.currentTarget.classList.add('selected');
         } else {
             selectedElements.splice(index, 1);
@@ -985,89 +2059,291 @@
         }
         updateSelectedElementsDisplay();
         updateStepsChart();
+        updateReactionDisplay();
+    }
+
+    function handleCompoundSelection(event) {
+        const compoundData = JSON.parse(event.currentTarget.dataset.compound);
+        const index = selectedElements.findIndex(el => el.formula === compoundData.formula);
+
+        if (index === -1) {
+            selectedElements.push({...compoundData, moles: 1.0, type: 'compound'});
+            event.currentTarget.classList.add('selected');
+        } else {
+            selectedElements.splice(index, 1);
+            event.currentTarget.classList.remove('selected');
+        }
+        updateSelectedElementsDisplay();
+        updateStepsChart();
+        updateReactionDisplay();
     }
 
     function updateSelectedElementsDisplay() {
         const container = document.getElementById('selected-elements');
         if (!container) return;
-        
+
         container.innerHTML = '';
-        let totalAtoms = 0;
-        
+        let totalMoles = 0;
+
         selectedElements.forEach(element => {
-            totalAtoms += element.count;
+            totalMoles += element.moles;
             const elementDiv = document.createElement('div');
             elementDiv.className = 'selected-element';
-            elementDiv.innerHTML = `
-                <span>${element.symbol}</span>
-                <input type="number" class="atom-count-input" value="${element.count}" min="1" max="100" data-number="${element.number}">
-                <button class="remove-element" data-number="${element.number}">×</button>
-            `;
+
+            if (element.type === 'element') {
+                elementDiv.innerHTML = `
+                    <span>${element.symbol}</span>
+                    <input type="number" class="mole-input" value="${element.moles.toFixed(2)}" min="0.01" max="100" step="0.01" data-number="${element.number}">
+                    <button class="remove-element" data-number="${element.number}" data-type="element">×</button>
+                `;
+            } else {
+                elementDiv.innerHTML = `
+                    <span>${element.formula} (${element.name})</span>
+                    <input type="number" class="mole-input" value="${element.moles.toFixed(2)}" min="0.01" max="100" step="0.01" data-formula="${element.formula}">
+                    <button class="remove-element" data-formula="${element.formula}" data-type="compound">×</button>
+                `;
+            }
             container.appendChild(elementDiv);
         });
-        
-        const totalAtomsElement = document.getElementById('total-atoms');
-        if (totalAtomsElement) {
-            totalAtomsElement.textContent = `Total Atoms: ${totalAtoms}`;
+
+        const totalMolesElement = document.getElementById('total-moles');
+        if (totalMolesElement) {
+            totalMolesElement.textContent = `Total Moles: ${totalMoles.toFixed(2)}`;
         }
-        
-        // Add event listeners to remove buttons
+
         document.querySelectorAll('.remove-element').forEach(button => {
             button.addEventListener('click', function() {
-                const number = parseInt(this.dataset.number);
-                selectedElements = selectedElements.filter(el => el.number !== number);
-                document.querySelectorAll('.element').forEach(el => {
-                    const elData = JSON.parse(el.dataset.element || '{}');
-                    if (elData.number === number) el.classList.remove('selected');
-                });
+                const type = this.dataset.type;
+                if (type === 'element') {
+                    const number = parseInt(this.dataset.number);
+                    selectedElements = selectedElements.filter(el => !(el.type === 'element' && el.number === number));
+                    document.querySelectorAll('.element').forEach(el => {
+                        const elData = JSON.parse(el.dataset.element || '{}');
+                        if (elData.number === number) el.classList.remove('selected');
+                    });
+                } else {
+                    const formula = this.dataset.formula;
+                    selectedElements = selectedElements.filter(el => !(el.type === 'compound' && el.formula === formula));
+                    document.querySelectorAll('.compound-item').forEach(item => {
+                        const compData = JSON.parse(item.dataset.compound || '{}');
+                        if (compData.formula === formula) item.classList.remove('selected');
+                    });
+                }
                 updateSelectedElementsDisplay();
                 updateStepsChart();
+                updateReactionDisplay();
             });
         });
-        
-        // Add event listeners to atom count inputs
-        document.querySelectorAll('.atom-count-input').forEach(input => {
+
+        document.querySelectorAll('.mole-input').forEach(input => {
             input.addEventListener('change', function() {
-                const number = parseInt(this.dataset.number);
-                const count = parseInt(this.value) || 1;
-                const element = selectedElements.find(el => el.number === number);
-                if (element) {
-                    element.count = count;
-                    updateSelectedElementsDisplay();
-                    updateStepsChart();
+                const moles = parseFloat(this.value) || 0.01;
+                if (this.dataset.number) {
+                    const number = parseInt(this.dataset.number);
+                    const element = selectedElements.find(el => el.type === 'element' && el.number === number);
+                    if (element) element.moles = moles;
+                } else {
+                    const formula = this.dataset.formula;
+                    const compound = selectedElements.find(el => el.type === 'compound' && el.formula === formula);
+                    if (compound) compound.moles = moles;
                 }
+                updateSelectedElementsDisplay();
+                updateStepsChart();
+                updateReactionDisplay();
             });
         });
     }
 
+    function updateReactionDisplay() {
+        const reactionEquation = document.getElementById('reaction-equation');
+        const predictedProduct = document.getElementById('predicted-product');
+
+        if (!reactionEquation || !predictedProduct) return;
+
+        if (selectedElements.length === 0) {
+            reactionEquation.textContent = "No elements selected";
+            predictedProduct.textContent = "";
+            clearCompoundAnalysis();
+            return;
+        }
+
+        const equation = selectedElements.map(el => {
+            if (el.type === 'element') {
+                return `${el.moles.toFixed(2)} ${el.symbol}`;
+            } else {
+                return `${el.moles.toFixed(2)} ${el.formula}`;
+            }
+        }).join(" + ");
+
+        reactionEquation.textContent = equation + " →";
+
+        const allElements = {};
+        selectedElements.forEach(item => {
+            if (item.type === 'element') {
+                allElements[item.symbol] = (allElements[item.symbol] || 0) + item.moles;
+            } else {
+                Object.entries(item.elements).forEach(([element, count]) => {
+                    allElements[element] = (allElements[element] || 0) + (count * item.moles);
+                });
+            }
+        });
+
+        const elementSymbols = Object.keys(allElements).sort().join("");
+        let foundCompound = null;
+
+        for (const [key, compound] of Object.entries(compoundDatabase)) {
+            const compoundElements = Object.keys(compound.elements).sort().join("");
+            if (elementSymbols === compoundElements) {
+                foundCompound = compound;
+                break;
+            }
+        }
+
+        if (foundCompound) {
+            predictedProduct.textContent = `${foundCompound.formula} (${foundCompound.name})`;
+            displayCompoundAnalysis(foundCompound.formula);
+        } else {
+            const customFormula = Object.entries(allElements)
+                .map(([el, count]) => el + (count > 1 ? Math.round(count) : ''))
+                .join('');
+            predictedProduct.textContent = `New Compound: ${customFormula}`;
+            generateCustomAnalysis(allElements, customFormula);
+        }
+    }
+
+    function generateCustomAnalysis(elements, formula) {
+        const atomicMasses = {
+            "H": 1.008, "C": 12.011, "N": 14.007, "O": 15.999, "F": 18.998,
+            "P": 30.974, "S": 32.06, "Cl": 35.45, "Na": 22.990, "K": 39.098,
+            "Mg": 24.305, "Ca": 40.078, "Fe": 55.845, "Cu": 63.546, "Zn": 65.38
+        };
+
+        let mass = 0;
+        let breakdown = [];
+        let totalProtons = 0;
+        let isotopes = [];
+
+        Object.entries(elements).forEach(([element, count]) => {
+            mass += atomicMasses[element] * count;
+            breakdown.push(`${Math.round(count)} ${element}`);
+
+            const atomicNumber = Object.keys(atomicMasses).indexOf(element) + 1;
+            totalProtons += atomicNumber * count;
+            isotopes.push(`${element} (natural isotopes)`);
+        });
+
+        const molecularIon = Math.round(mass);
+        const fragments = ["Characteristic fragmentation pattern"];
+
+        const irBands = [];
+        if (elements["O"] && elements["H"]) irBands.push("O-H stretch: 3200-3600 cm⁻¹");
+        if (elements["C"] && elements["O"]) irBands.push("C-O/C=O stretches: 1000-1750 cm⁻¹");
+        if (elements["C"] && elements["H"]) irBands.push("C-H stretch: 2850-3000 cm⁻¹");
+        if (irBands.length === 0) irBands.push("Characteristic molecular vibrations");
+
+        const uvvis = elements["C"] >= 3 ?
+            "π→π* transitions: 200-400 nm\nPotential conjugated system" :
+            "Electronic transitions based on molecular orbitals";
+
+        const customData = {
+            breakdown: breakdown.join(", "),
+            mass: `${mass.toFixed(3)} g/mol`,
+            ir: irBands.join("\n"),
+            ms: `Molecular ion: m/z ${molecularIon}\nFragments: ${fragments.join(", ")}`,
+            amn: `Total protons: ${Math.round(totalProtons)}\nTotal neutrons: ${Math.round(mass - totalProtons)}\nIsotopes: ${isotopes.join(", ")}`,
+            uvvis: uvvis
+        };
+
+        displayCustomAnalysis(customData);
+    }
+
+    function displayCompoundAnalysis(formula) {
+        const compoundResults = document.getElementById('compound-results');
+        if (!compoundResults || !spectroscopyData[formula]) return;
+
+        const data = spectroscopyData[formula];
+        displayAnalysisResults(data);
+    }
+
+    function displayCustomAnalysis(data) {
+        const compoundResults = document.getElementById('compound-results');
+        if (!compoundResults) return;
+
+        displayAnalysisResults(data);
+    }
+
+    function displayAnalysisResults(data) {
+        const compoundResults = document.getElementById('compound-results');
+        compoundResults.innerHTML = `
+            <div class="spectroscopy-card">
+                <div class="spectroscopy-title">Molecular Breakdown</div>
+                <div class="spectroscopy-data">${data.breakdown}</div>
+            </div>
+            <div class="spectroscopy-card">
+                <div class="spectroscopy-title">Molecular Mass</div>
+                <div class="spectroscopy-data">${data.mass}</div>
+            </div>
+            <div class="spectroscopy-card">
+                <div class="spectroscopy-title">IR Spectroscopy</div>
+                <div class="spectroscopy-data">${data.ir.replace(/\n/g, '<br>')}</div>
+            </div>
+            <div class="spectroscopy-card">
+                <div class="spectroscopy-title">Mass Spectrometry</div>
+                <div class="spectroscopy-data">${data.ms.replace(/\n/g, '<br>')}</div>
+            </div>
+            <div class="spectroscopy-card">
+                <div class="spectroscopy-title">Atomic Mass & Isotopes</div>
+                <div class="spectroscopy-data">${data.amn.replace(/\n/g, '<br>')}</div>
+            </div>
+            <div class="spectroscopy-card">
+                <div class="spectroscopy-title">UV-Vis Spectroscopy</div>
+                <div class="spectroscopy-data">${data.uvvis.replace(/\n/g, '<br>')}</div>
+            </div>
+        `;
+    }
+
+    function clearCompoundAnalysis() {
+        const compoundResults = document.getElementById('compound-results');
+        if (compoundResults) {
+            compoundResults.innerHTML = '';
+        }
+    }
+
     function updateStepsChart() {
-        // Reset all chart items
         document.querySelectorAll('.chart-item').forEach(item => {
             item.classList.remove('current-system');
         });
-        
-        const totalAtoms = selectedElements.reduce((sum, element) => sum + element.count, 0);
-        
+
+        let totalAtoms = 0;
+        selectedElements.forEach(item => {
+            if (item.type === 'element') {
+                totalAtoms += item.moles;
+            } else {
+                const atomCount = Object.values(item.elements).reduce((sum, count) => sum + count, 0);
+                totalAtoms += atomCount * item.moles;
+            }
+        });
+
         if (totalAtoms === 0) return;
-        
+
         let systemType = '';
-        if (totalAtoms === 2) systemType = 'diatomic';
+        if (totalAtoms <= 2) systemType = 'diatomic';
         else if (totalAtoms <= 10) systemType = 'small';
         else if (totalAtoms <= 50) systemType = 'medium';
         else systemType = 'large';
-        
+
         const chartElement = document.getElementById(`chart-${systemType}`);
         if (chartElement) {
             chartElement.classList.add('current-system');
         }
-        
+
         const recommendedSteps = {
             'diatomic': 100,
-            'small': 300, 
+            'small': 300,
             'medium': 500,
             'large': 1000
         }[systemType];
-        
+
         const stepsInput = document.getElementById('simulation-steps');
         if (stepsInput && recommendedSteps) {
             stepsInput.value = recommendedSteps;
@@ -1078,55 +2354,90 @@
         const runSimulationBtn = document.getElementById('run-simulation');
         const resetSimulationBtn = document.getElementById('reset-simulation');
         const page1 = document.getElementById('page1');
-        
+        const analyzeCompoundBtn = document.getElementById('analyze-compound');
+
         if (runSimulationBtn) {
             runSimulationBtn.addEventListener('click', runSimulation);
         }
-        
+
         if (resetSimulationBtn) {
             resetSimulationBtn.addEventListener('click', resetSimulation);
         }
-        
+
         if (page1) {
             page1.addEventListener('click', startAnimation);
+        }
+
+        if (analyzeCompoundBtn) {
+            analyzeCompoundBtn.addEventListener('click', analyzeCompound);
+        }
+
+        const compoundInput = document.getElementById('compound-input');
+        if (compoundInput) {
+            compoundInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    analyzeCompound();
+                }
+            });
+        }
+    }
+
+    function analyzeCompound() {
+        const compoundInput = document.getElementById('compound-input');
+        const compoundResults = document.getElementById('compound-results');
+
+        if (!compoundInput || !compoundResults) return;
+
+        const formula = compoundInput.value.trim().toUpperCase();
+
+        if (!formula) {
+            updateReactionDisplay();
+            return;
+        }
+
+        if (spectroscopyData[formula]) {
+            displayCompoundAnalysis(formula);
+        } else {
+            compoundResults.innerHTML = `
+                <div class="spectroscopy-card">
+                    <div class="spectroscopy-title">Analysis</div>
+                    <div class="spectroscopy-data">Compound ${formula} not found in database. Analysis will be shown for selected elements.</div>
+                </div>
+            `;
         }
     }
 
     function runSimulation() {
         if (selectedElements.length === 0) {
-            alert('Please select at least one element from the periodic table.');
+            alert('Please select at least one element or compound.');
             return;
         }
-        
+
         const simulationSteps = parseInt(document.getElementById('simulation-steps').value) || 500;
         const loadingElement = document.getElementById('loading');
-        
+
         if (loadingElement) {
             loadingElement.style.display = 'flex';
         }
-        
-        // Simulate calculation time
+
         setTimeout(() => {
             const finalEnergy = -(Math.random() * 10 + 1).toFixed(4);
             const stability = Math.random() > 0.3 ? 'Stable' : 'Unstable';
             const newElementPossibility = Math.random() > 0.8 ? 'Possible' : 'Unlikely';
-            
-            // Update results
+
             const finalEnergyElement = document.getElementById('final-energy');
             const optimizedGeometryElement = document.getElementById('optimized-geometry');
             const stabilityPredictionElement = document.getElementById('stability-prediction');
             const newElementElement = document.getElementById('new-element');
-            
+
             if (finalEnergyElement) finalEnergyElement.textContent = `${finalEnergy} eV`;
             if (optimizedGeometryElement) optimizedGeometryElement.textContent = 'Optimized';
             if (stabilityPredictionElement) stabilityPredictionElement.textContent = stability;
             if (newElementElement) newElementElement.textContent = newElementPossibility;
-            
-            // Generate visualizations
+
             generateEnergyGraph(simulationSteps);
             renderMoleculeVisualization();
-            
-            // Hide loading
+
             if (loadingElement) {
                 loadingElement.style.display = 'none';
             }
@@ -1135,35 +2446,36 @@
 
     function resetSimulation() {
         selectedElements = [];
-        
-        // Clear periodic table selection
+
         document.querySelectorAll('.element').forEach(el => {
             el.classList.remove('selected');
         });
-        
+
+        document.querySelectorAll('.compound-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+
         updateSelectedElementsDisplay();
         updateStepsChart();
-        
-        // Clear results
+        updateReactionDisplay();
+
         const finalEnergyElement = document.getElementById('final-energy');
         const optimizedGeometryElement = document.getElementById('optimized-geometry');
         const stabilityPredictionElement = document.getElementById('stability-prediction');
         const newElementElement = document.getElementById('new-element');
-        
+
         if (finalEnergyElement) finalEnergyElement.textContent = '-';
         if (optimizedGeometryElement) optimizedGeometryElement.textContent = '-';
         if (stabilityPredictionElement) stabilityPredictionElement.textContent = '-';
         if (newElementElement) newElementElement.textContent = '-';
-        
-        // Clear visualization
+
         const canvas = document.getElementById('molecule-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
             ctx.fillStyle = '#1a1a2e';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
-        
-        // Clear graph
+
         const svg = document.getElementById('energy-graph-svg');
         if (svg) {
             svg.innerHTML = '';
@@ -1173,14 +2485,13 @@
     function generateEnergyGraph(steps) {
         const svg = document.getElementById('energy-graph-svg');
         if (!svg) return;
-        
+
         svg.innerHTML = '';
 
         const width = svg.clientWidth || 600;
         const height = svg.clientHeight || 150;
         const padding = 40;
 
-        // Generate sample data
         const data = [];
         for (let i = 0; i <= steps; i += Math.ceil(steps / 50)) {
             data.push({
@@ -1189,23 +2500,19 @@
             });
         }
 
-        // Create scales
         const xScale = (step) => padding + (step / steps) * (width - 2 * padding);
         const yScale = (energy) => padding + (1 - (energy + 11) / 11) * (height - 2 * padding);
 
-        // Create path for energy line
         let pathData = `M ${xScale(data[0].step)} ${yScale(data[0].energy)}`;
         for (let i = 1; i < data.length; i++) {
             pathData += ` L ${xScale(data[i].step)} ${yScale(data[i].energy)}`;
         }
 
-        // Create the path element
         const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
         path.setAttribute('d', pathData);
         path.setAttribute('class', 'graph-line');
         svg.appendChild(path);
 
-        // Add axes
         const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         xAxis.setAttribute('x1', padding);
         xAxis.setAttribute('y1', height - padding);
@@ -1221,42 +2528,74 @@
         yAxis.setAttribute('y2', height - padding);
         yAxis.setAttribute('class', 'graph-axis');
         svg.appendChild(yAxis);
+
+        // Add axis labels
+        const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        xLabel.setAttribute('x', width / 2);
+        xLabel.setAttribute('y', height - 10);
+        xLabel.setAttribute('class', 'axis-label');
+        xLabel.setAttribute('text-anchor', 'middle');
+        xLabel.textContent = 'Simulation Steps';
+        svg.appendChild(xLabel);
+
+        const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        yLabel.setAttribute('x', 15);
+        yLabel.setAttribute('y', height / 2);
+        yLabel.setAttribute('class', 'axis-label');
+        yLabel.setAttribute('text-anchor', 'middle');
+        yLabel.setAttribute('transform', `rotate(-90, 15, ${height / 2})`);
+        yLabel.textContent = 'Energy (eV)';
+        svg.appendChild(yLabel);
     }
 
     function renderMoleculeVisualization() {
         const canvas = document.getElementById('molecule-canvas');
         if (!canvas) return;
-        
+
         const ctx = canvas.getContext('2d');
-        
-        // Clear canvas
+
         ctx.fillStyle = '#1a1a2e';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         if (selectedElements.length === 0) return;
 
-        // Generate atoms based on selected elements
         const atoms = [];
-        selectedElements.forEach(element => {
-            for (let i = 0; i < element.count; i++) {
-                atoms.push({
-                    x: 50 + Math.random() * (canvas.width - 100),
-                    y: 50 + Math.random() * (canvas.height - 100),
-                    radius: 15,
-                    color: getElementColor(element.category),
-                    symbol: element.symbol
+        selectedElements.forEach(item => {
+            if (item.type === 'element') {
+                for (let i = 0; i < Math.min(item.moles * 10, 50); i++) {
+                    atoms.push({
+                        x: 50 + Math.random() * (canvas.width - 100),
+                        y: 50 + Math.random() * (canvas.height - 100),
+                        radius: 10 + item.moles,
+                        color: getElementColor(item.category),
+                        symbol: item.symbol
+                    });
+                }
+            } else {
+                Object.entries(item.elements).forEach(([element, count]) => {
+                    const elementData = periodicTable.find(el => el.symbol === element);
+                    if (elementData) {
+                        for (let i = 0; i < Math.min(count * item.moles * 5, 30); i++) {
+                            atoms.push({
+                                x: 50 + Math.random() * (canvas.width - 100),
+                                y: 50 + Math.random() * (canvas.height - 100),
+                                radius: 8 + item.moles,
+                                color: getElementColor(elementData.category),
+                                symbol: element
+                            });
+                        }
+                    }
                 });
             }
         });
 
-        // Draw bonds
         atoms.forEach((atom, i) => {
             atoms.forEach((otherAtom, j) => {
                 if (i < j) {
                     const dx = atom.x - otherAtom.x;
                     const dy = atom.y - otherAtom.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
-                    
+
                     if (distance < 100) {
                         ctx.beginPath();
                         ctx.moveTo(atom.x, atom.y);
@@ -1269,14 +2608,12 @@
             });
         });
 
-        // Draw atoms
         atoms.forEach(atom => {
             ctx.beginPath();
             ctx.arc(atom.x, atom.y, atom.radius, 0, Math.PI * 2);
             ctx.fillStyle = atom.color;
             ctx.fill();
-            
-            // Draw symbol
+
             ctx.fillStyle = '#000';
             ctx.font = 'bold 12px Arial';
             ctx.textAlign = 'center';
@@ -1294,40 +2631,12 @@
         return colors[category] || '#cccccc';
     }
 
-    // Add navigation header to page 2
-    function addNavigationHeader() {
-        const header = document.querySelector('#page2 header');
-        if (header) {
-            const backButton = document.createElement('button');
-            backButton.textContent = '← Back to Home';
-            backButton.style.cssText = `
-                position: absolute;
-                top: 20px;
-                left: 20px;
-                background: rgba(255,255,255,0.1);
-                color: white;
-                border: 1px solid rgba(255,255,255,0.3);
-                padding: 10px 15px;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 14px;
-            `;
-            backButton.addEventListener('click', () => goToPage(1));
-            header.style.position = 'relative';
-            header.appendChild(backButton);
-        }
-    }
-
-    // Initialize when DOM is loaded
     document.addEventListener('DOMContentLoaded', function() {
         console.log("DOM loaded, initializing...");
         setupEventListeners();
-        addNavigationHeader();
-        
-        // Start on page 1
+
         goToPage(1);
-        
-        // Emergency reset function
+
         window.resetEverything = function() {
             selectedElements = [];
             if (currentAnimationFrame) {
@@ -1338,3 +2647,5 @@
         };
     });
 </script>
+</body>
+</html>
