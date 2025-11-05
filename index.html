@@ -661,8 +661,9 @@
             grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             gap: 10px;
             margin-top: 10px;
-            max-height: 200px;
+            max-height: 300px;
             overflow-y: auto;
+            padding: 5px;
         }
 
         .compound-item {
@@ -673,6 +674,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
+            font-size: 0.8rem;
         }
 
         .compound-item:hover {
@@ -687,7 +689,6 @@
             border-color: #8e44ad;
         }
 
-        /* New styles for colorful text */
         .quick-compound-title {
             color: #8e44ad !important;
             font-weight: 700;
@@ -740,6 +741,22 @@
             color: #c0392b !important;
             font-weight: 600;
         }
+
+        .compound-search {
+            width: 100%;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .compound-count {
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -776,6 +793,8 @@
 
                 <div class="compound-selection">
                     <h3 class="quick-compound-title">Quick Compound Selection</h3>
+                    <input type="text" class="compound-search" id="compound-search" placeholder="Search compounds...">
+                    <div class="compound-count" id="compound-count"></div>
                     <div class="compound-grid" id="compound-grid"></div>
                 </div>
 
@@ -879,8 +898,6 @@
         </footer>
     </div>
 </div>
-
-
 
 <script>
     const periodicTable = [
@@ -1006,7 +1023,7 @@
 
     function generateCompoundDatabase() {
         const commonCompounds = {
-            // Water and related
+            // Water related
             "H2O": { formula: "H₂O", name: "Water", elements: { "H": 2, "O": 1 } },
             "H2O2": { formula: "H₂O₂", name: "Hydrogen Peroxide", elements: { "H": 2, "O": 2 } },
             "D2O": { formula: "D₂O", name: "Heavy Water", elements: { "H": 2, "O": 1 } },
@@ -1271,7 +1288,7 @@
         const database = { ...commonCompounds };
         let count = Object.keys(commonCompounds).length;
 
-        // Generate additional hydrocarbons
+        // additional hydrocarbons
         for (let c = 11; c <= 30; c++) {
             const h = 2 * c + 2;
             const key = `C${c}H${h}`;
@@ -1459,6 +1476,7 @@
         console.log(`Generated ${count} unique compounds`);
         return database;
     }
+
     function generateSpectroscopyData(compoundDatabase) {
         const spectroscopyData = {};
 
@@ -1610,7 +1628,6 @@
             "Og": { protons: 118, neutrons: 176, common: "²⁹⁴Og (synthetic)" }
         };
 
-
         for (const [formula, compound] of Object.entries(compoundDatabase)) {
             const elements = compound.elements;
 
@@ -1635,7 +1652,6 @@
                     isotopes.push(`${element} (natural abundance)`);
                 }
             }
-
 
             let irBands = [];
             if (elements["O"] && elements["H"]) {
@@ -1712,7 +1728,6 @@
             };
         }
 
-
         const specificData = {
             "H2O": {
                 breakdown: "2 Hydrogen, 1 Oxygen",
@@ -1721,165 +1736,16 @@
                 ms: "Molecular ion: m/z 18\nFragments: OH⁺ (m/z 17), O⁺ (m/z 16), H₂⁺ (m/z 2)",
                 amn: "Total protons: 10\nTotal neutrons: 8\nIsotopes: ¹⁶O (99.76%), ¹⁸O (0.2%)",
                 uvvis: "n→σ* transition: ~167 nm\nWeak absorption in UV region"
-            },
-            // ... rest of your specific data objects
+            }
         };
 
         return { ...spectroscopyData, ...specificData };
     }
 
-    function analyzeCompound() {
-        const compoundInput = document.getElementById('compound-input');
-        const compoundResults = document.getElementById('compound-results');
-
-        if (!compoundInput || !compoundResults) return;
-
-        const formula = compoundInput.value.trim().toUpperCase();
-
-        if (!formula) {
-            updateReactionDisplay();
-            return;
-        }
-
-        // Clear previous results
-        compoundResults.innerHTML = '';
-
-        if (spectroscopyData[formula]) {
-            // Display analysis for the manually entered compound
-            displayAnalysisResults(spectroscopyData[formula]);
-
-            // Also update the reaction display to show the compound
-            const reactionEquation = document.getElementById('reaction-equation');
-            const predictedProduct = document.getElementById('predicted-product');
-
-            if (reactionEquation && predictedProduct) {
-                reactionEquation.textContent = `${formula} →`;
-                predictedProduct.textContent = `${compoundDatabase[formula]?.name || 'Unknown Compound'}`;
-            }
-        } else {
-            compoundResults.innerHTML = `
-            <div class="spectroscopy-card">
-                <div class="spectroscopy-title">Analysis</div>
-                <div class="spectroscopy-data">Compound ${formula} not found in database.</div>
-            </div>
-        `;
-
-            // Also update the reaction display
-            const reactionEquation = document.getElementById('reaction-equation');
-            const predictedProduct = document.getElementById('predicted-product');
-
-            if (reactionEquation && predictedProduct) {
-                reactionEquation.textContent = `${formula} →`;
-                predictedProduct.textContent = "Unknown Compound";
-            }
-        }
-    }
-
-    // Also update the updateReactionDisplay function to handle manual compound analysis better
-    function updateReactionDisplay() {
-        const reactionEquation = document.getElementById('reaction-equation');
-        const predictedProduct = document.getElementById('predicted-product');
-
-        if (!reactionEquation || !predictedProduct) return;
-
-        if (selectedElements.length === 0) {
-            reactionEquation.textContent = "No elements selected";
-            predictedProduct.textContent = "";
-            clearCompoundAnalysis();
-            return;
-        }
-
-        const equation = selectedElements.map(el => {
-            if (el.type === 'element') {
-                return `${el.moles.toFixed(2)} ${el.symbol}`;
-            } else {
-                return `${el.moles.toFixed(2)} ${el.formula}`;
-            }
-        }).join(" + ");
-
-        reactionEquation.textContent = equation + " →";
-
-        const allElements = {};
-        selectedElements.forEach(item => {
-            if (item.type === 'element') {
-                allElements[item.symbol] = (allElements[item.symbol] || 0) + item.moles;
-            } else {
-                Object.entries(item.elements).forEach(([element, count]) => {
-                    allElements[element] = (allElements[element] || 0) + (count * item.moles);
-                });
-            }
-        });
-
-        const elementSymbols = Object.keys(allElements).sort().join("");
-        let foundCompound = null;
-
-        for (const [key, compound] of Object.entries(compoundDatabase)) {
-            const compoundElements = Object.keys(compound.elements).sort().join("");
-            if (elementSymbols === compoundElements) {
-                foundCompound = compound;
-                break;
-            }
-        }
-
-        if (foundCompound) {
-            predictedProduct.innerHTML = `<span class="formula-display">${foundCompound.formula}</span> (<span class="compound-name-display">${foundCompound.name}</span>)`;
-            displayCompoundAnalysis(foundCompound.formula);
-        } else {
-            const customFormula = Object.entries(allElements)
-                .map(([el, count]) => el + (count > 1 ? Math.round(count) : ''))
-                .join('');
-            predictedProduct.textContent = `New Compound: ${customFormula}`;
-            generateCustomAnalysis(allElements, customFormula);
-        }
-    }
-
-    // Add this function to handle manual compound display better
-    function displayCompoundAnalysis(formula) {
-        const compoundResults = document.getElementById('compound-results');
-        if (!compoundResults || !spectroscopyData[formula]) return;
-
-        const data = spectroscopyData[formula];
-        displayAnalysisResults(data);
-    }
-
-    function displayAnalysisResults(data) {
-        const compoundResults = document.getElementById('compound-results');
-        if (!compoundResults) return;
-
-        compoundResults.innerHTML = `
-        <div class="spectroscopy-card">
-            <div class="spectroscopy-title">Molecular Breakdown</div>
-            <div class="spectroscopy-data">${data.breakdown}</div>
-        </div>
-        <div class="spectroscopy-card">
-            <div class="spectroscopy-title">Molecular Mass</div>
-            <div class="spectroscopy-data">${data.mass}</div>
-        </div>
-        <div class="spectroscopy-card">
-            <div class="spectroscopy-title">IR Spectroscopy</div>
-            <div class="spectroscopy-data">${data.ir.replace(/\n/g, '<br>')}</div>
-        </div>
-        <div class="spectroscopy-card">
-            <div class="spectroscopy-title">Mass Spectrometry</div>
-            <div class="spectroscopy-data">${data.ms.replace(/\n/g, '<br>')}</div>
-        </div>
-        <div class="spectroscopy-card">
-            <div class="spectroscopy-title">Atomic Mass & Isotopes</div>
-            <div class="spectroscopy-data">${data.amn.replace(/\n/g, '<br>')}</div>
-        </div>
-        <div class="spectroscopy-card">
-            <div class="spectroscopy-title">UV-Vis Spectroscopy</div>
-            <div class="spectroscopy-data">${data.uvvis.replace(/\n/g, '<br>')}</div>
-        </div>
-    `;
-    }
-
-
     const compoundDatabase = generateCompoundDatabase();
     const spectroscopyData = generateSpectroscopyData(compoundDatabase);
 
     let selectedElements = [];
-    let selectedCompounds = [];
     let currentAnimationFrame = null;
 
     function startAnimation() {
@@ -2025,23 +1891,77 @@
 
     function initializeCompoundGrid() {
         const compoundGrid = document.getElementById('compound-grid');
+        const compoundSearch = document.getElementById('compound-search');
+        const compoundCount = document.getElementById('compound-count');
+        
+        if (!compoundGrid) return;
+
+        // Display all compounds initially
+        displayCompounds(compoundDatabase);
+
+        // Update compound count
+        if (compoundCount) {
+            compoundCount.textContent = `Showing ${Object.keys(compoundDatabase).length} compounds`;
+        }
+
+        // Add search functionality
+        if (compoundSearch) {
+            compoundSearch.addEventListener('input', function() {
+                const searchTerm = this.value.trim().toLowerCase();
+                
+                if (searchTerm === '') {
+                    displayCompounds(compoundDatabase);
+                    if (compoundCount) {
+                        compoundCount.textContent = `Showing ${Object.keys(compoundDatabase).length} compounds`;
+                    }
+                } else {
+                    const filteredCompounds = {};
+                    
+                    Object.entries(compoundDatabase).forEach(([key, compound]) => {
+                        if (compound.name.toLowerCase().includes(searchTerm) || 
+                            compound.formula.toLowerCase().includes(searchTerm) ||
+                            key.toLowerCase().includes(searchTerm)) {
+                            filteredCompounds[key] = compound;
+                        }
+                    });
+                    
+                    displayCompounds(filteredCompounds);
+                    if (compoundCount) {
+                        compoundCount.textContent = `Showing ${Object.keys(filteredCompounds).length} of ${Object.keys(compoundDatabase).length} compounds`;
+                    }
+                }
+            });
+        }
+    }
+
+    function displayCompounds(compounds) {
+        const compoundGrid = document.getElementById('compound-grid');
         if (!compoundGrid) return;
 
         compoundGrid.innerHTML = '';
 
-        const popularCompounds = Object.entries(compoundDatabase)
-            .slice(0, 50)
+        // Sort compounds alphabetically by name
+        const sortedCompounds = Object.entries(compounds)
             .sort((a, b) => a[1].name.localeCompare(b[1].name));
 
-        popularCompounds.forEach(([key, compound]) => {
+        sortedCompounds.forEach(([key, compound]) => {
             const compoundItem = document.createElement('div');
             compoundItem.className = 'compound-item';
             compoundItem.innerHTML = `
                 <div class="compound-formula" style="font-weight: bold;">${compound.formula}</div>
-                <div class="compound-name" style="font-size: 0.8rem;">${compound.name}</div>
+                <div class="compound-name" style="font-size: 0.7rem; margin-top: 2px;">${compound.name}</div>
             `;
             compoundItem.dataset.compound = JSON.stringify(compound);
             compoundItem.addEventListener('click', handleCompoundSelection);
+            
+            // Check if this compound is already selected
+            const isSelected = selectedElements.some(el => 
+                el.type === 'compound' && el.formula === compound.formula
+            );
+            if (isSelected) {
+                compoundItem.classList.add('selected');
+            }
+            
             compoundGrid.appendChild(compoundItem);
         });
     }
@@ -2064,10 +1984,16 @@
 
     function handleCompoundSelection(event) {
         const compoundData = JSON.parse(event.currentTarget.dataset.compound);
-        const index = selectedElements.findIndex(el => el.formula === compoundData.formula);
+        const index = selectedElements.findIndex(el => 
+            el.type === 'compound' && el.formula === compoundData.formula
+        );
 
         if (index === -1) {
-            selectedElements.push({...compoundData, moles: 1.0, type: 'compound'});
+            selectedElements.push({
+                ...compoundData, 
+                moles: 1.0, 
+                type: 'compound'
+            });
             event.currentTarget.classList.add('selected');
         } else {
             selectedElements.splice(index, 1);
@@ -2200,7 +2126,7 @@
         }
 
         if (foundCompound) {
-            predictedProduct.textContent = `${foundCompound.formula} (${foundCompound.name})`;
+            predictedProduct.innerHTML = `<span class="formula-display">${foundCompound.formula}</span> (<span class="compound-name-display">${foundCompound.name}</span>)`;
             displayCompoundAnalysis(foundCompound.formula);
         } else {
             const customFormula = Object.entries(allElements)
