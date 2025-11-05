@@ -1023,7 +1023,7 @@
 
     function generateCompoundDatabase() {
         const commonCompounds = {
-            // Water related
+            // Water and related
             "H2O": { formula: "H₂O", name: "Water", elements: { "H": 2, "O": 1 } },
             "H2O2": { formula: "H₂O₂", name: "Hydrogen Peroxide", elements: { "H": 2, "O": 2 } },
             "D2O": { formula: "D₂O", name: "Heavy Water", elements: { "H": 2, "O": 1 } },
@@ -1288,7 +1288,7 @@
         const database = { ...commonCompounds };
         let count = Object.keys(commonCompounds).length;
 
-        // additional hydrocarbons
+        // Generate additional hydrocarbons
         for (let c = 11; c <= 30; c++) {
             const h = 2 * c + 2;
             const key = `C${c}H${h}`;
