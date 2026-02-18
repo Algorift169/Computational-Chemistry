@@ -22,11 +22,11 @@
     top: 50%;
     left: 5%;
     transform: translateY(-50%);
-    width: 350px;
+    width: 400px;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 30px;
-    padding: 30px;
+    padding: 35px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     animation: slideInLeft 1s ease-out;
@@ -41,8 +41,8 @@
 }
 
 .profile-image-wrapper {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
     border: 4px solid #00b4db;
@@ -54,6 +54,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: transform 0.5s ease;
 }
 
@@ -67,7 +68,7 @@
 }
 
 .profile-name {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 15px;
     background: linear-gradient(45deg, #00b4db, #0083b0);
@@ -139,7 +140,7 @@
 
 .title-section h1 {
     font-size: 4.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     background: linear-gradient(45deg, #00b4db, #0083b0);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -147,19 +148,12 @@
     text-shadow: 0 0 30px rgba(0, 180, 219, 0.5);
 }
 
-.subtitle {
-    font-size: 1.8rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-    animation: fadeInUp 1s ease-out 0.3s both;
-}
-
 .purpose {
     max-width: 500px;
     margin-left: auto;
     font-size: 1.2rem;
     line-height: 1.8;
-    opacity: 0.8;
+    opacity: 0.9;
     animation: fadeInUp 1s ease-out 0.6s both;
     padding: 20px;
     background: rgba(255, 255, 255, 0.05);
@@ -370,11 +364,11 @@
 
 /* ========== RESPONSIVE DESIGN ========== */
 @media (max-width: 1200px) {
-    .profile-header { width: 300px; padding: 25px; }
-    .profile-name { font-size: 1.8rem; }
+    .profile-header { width: 350px; padding: 30px; }
+    .profile-image-wrapper { width: 160px; height: 160px; }
+    .profile-name { font-size: 2rem; }
     .title-section { width: 500px; }
     .title-section h1 { font-size: 3.5rem; }
-    .subtitle { font-size: 1.5rem; }
 }
 
 @media (max-width: 900px) {
@@ -411,8 +405,8 @@
     }
     
     .profile-image-wrapper {
-        width: 120px;
-        height: 120px;
+        width: 180px;
+        height: 180px;
     }
 }
 
@@ -483,7 +477,7 @@ h1 {
     grid-template-columns: repeat(18, 1fr);
     gap: 3px;
     margin-bottom: 20px;
-    background: rgba(131,74,74,0.8);
+    background: rgba(131, 74, 74, 0.8);
     padding: 10px;
     border-radius: 10px;
 }
@@ -498,14 +492,14 @@ h1 {
     font-size: 0.6rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
 .element:hover {
     transform: scale(1.2);
     z-index: 10;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .element.selected {
@@ -607,10 +601,10 @@ h1 {
 }
 
 .current-system {
-    background: rgba(52,152,219,0.2);
+    background: rgba(52, 152, 219, 0.2);
     border-radius: 8px;
     transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(52,152,219,0.3);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
     border: 2px solid #3498db;
 }
 
@@ -661,7 +655,7 @@ button {
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .button-group {
@@ -679,7 +673,7 @@ button:hover {
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     flex: 1;
 }
 
@@ -757,7 +751,7 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0, 0, 0, 0.8);
     color: white;
     justify-content: center;
     align-items: center;
@@ -769,7 +763,7 @@ button:hover {
 .spinner {
     width: 50px;
     height: 50px;
-    border: 5px solid rgba(18,236,229,0.55);
+    border: 5px solid rgba(18, 236, 229, 0.55);
     border-radius: 50%;
     border-top-color: white;
     animation: spin 1s linear infinite;
@@ -802,7 +796,7 @@ footer {
     padding: 20px;
     color: #ecf0f1;
     font-size: 0.9rem;
-    border-top: 1px solid rgba(255,255,255,0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .compound-input-section {
@@ -841,7 +835,7 @@ footer {
 
 .compound-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .compound-results {
