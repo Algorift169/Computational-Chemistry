@@ -408,7 +408,7 @@
     }
 }
 
-/* Rest of your existing CSS below - keep everything else exactly as is */
+/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -420,15 +420,9 @@
     background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
     color: white;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    padding: 20px;
 }
 
 /* Animation Container Styles */
@@ -533,7 +527,7 @@
     to { transform: rotate(360deg); }
 }
 
-/* Page 2 Styles - Keep all existing page2 styles exactly as they were */
+/* Page 2 Styles */
 #page2 {
     display: none;
     background: linear-gradient(135deg, #1a1a2e, #16213e);
