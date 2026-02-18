@@ -183,7 +183,7 @@
     right: -10px;
 }
 
-/* ========== CLICK INSTRUCTION (BOTTOM CENTER) ========== */
+/* ========== CLICK INSTRUCTION ========== */
 .click-instruction {
     position: absolute;
     bottom: 50px;
@@ -282,7 +282,7 @@
     50% { opacity: 1; }
 }
 
-/* ========== ANIMATION CONTAINER (HIDDEN INITIALLY) ========== */
+/* ========== ANIMATION CONTAINER ========== */
 .animation-container {
     position: relative;
     width: 400px;
@@ -364,54 +364,6 @@
     50% { transform:scale(1.1); }
 }
 
-/* ========== RESPONSIVE DESIGN ========== */
-@media (max-width: 1200px) {
-    .profile-header { width: 350px; padding: 30px; }
-    .profile-image-wrapper { width: 160px; height: 160px; }
-    .profile-name { font-size: 2rem; }
-    .title-section { width: 500px; }
-    .title-section h1 { font-size: 3.5rem; }
-}
-
-@media (max-width: 900px) {
-    .profile-header {
-        position: relative;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        margin: 20px auto;
-    }
-    
-    .title-section {
-        position: relative;
-        top: auto;
-        right: auto;
-        transform: none;
-        width: 90%;
-        text-align: center;
-        margin: 40px auto;
-    }
-    
-    .purpose {
-        margin: 2rem auto;
-    }
-    
-    .click-instruction {
-        position: relative;
-        bottom: auto;
-        left: auto;
-        transform: none;
-        margin: 40px auto 20px;
-        display: inline-block;
-    }
-    
-    .profile-image-wrapper {
-        width: 180px;
-        height: 180px;
-    }
-}
-
 /* ========== PAGE 2 STYLES ========== */
 #page2 {
     display: none;
@@ -459,6 +411,7 @@ header .subtitle {
     }
 }
 
+/* Panel Styles */
 .panel {
     background: rgba(255,255,255,0.95);
     border-radius: 15px;
@@ -471,91 +424,128 @@ header .subtitle {
     flex-direction: column;
 }
 
-/* Panel title */
 .panel-title {
     font-size: 1.5rem;
     margin-bottom: 20px;
-    color: #2c3e50 !important; /* Dark color for titles on white background */
-    border-bottom: 2px solid #ecf0f1;
+    color: #2c3e50;
+    border-bottom: 2px solid #e0e0e0;
     padding-bottom: 10px;
+    font-weight: 700;
 }
 
-/* Element selection text */
+/* Element Selection Text */
 .element-selection-text {
     color: #9b59b6 !important;
-    font-weight: 700;
 }
 
-/* Quick compound title */
+/* Compound Selection Section */
+.compound-selection {
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    border-left: 4px solid #9b59b6;
+}
+
 .quick-compound-title {
-    color: #8e44ad !important;
-    font-weight: 700;
-    font-size: 1.2rem;
+    color: #8e44ad;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
-/* Compound search input */
 .compound-search {
     width: 100%;
-    padding: 8px 12px;
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.9rem;
+    transition: all 0.3s ease;
     color: #333;
     background: white;
 }
 
-.compound-count {
-    color: #7f8c8d;
-    font-size: 0.8rem;
-    margin-bottom: 10px;
-    text-align: center;
+.compound-search:focus {
+    border-color: #9b59b6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.1);
 }
 
-/* Compound grid items */
-.compound-item {
+.compound-count {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Compound Grid - THIS IS THE FIX FOR GRID VIEW */
+.compound-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
     background: white;
-    padding: 8px;
-    border-radius: 6px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.compound-item {
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    padding: 12px 8px;
+    border-radius: 8px;
     border: 1px solid #e0e0e0;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
-    font-size: 0.8rem;
-    color: #2c3e50; /* Dark text for compound names */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .compound-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 12px rgba(155, 89, 182, 0.15);
     border-color: #9b59b6;
+    background: white;
 }
 
 .compound-item.selected {
-    background: #9b59b6;
-    color: white;
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
     border-color: #8e44ad;
 }
 
+.compound-item.selected .compound-formula,
+.compound-item.selected .compound-name {
+    color: white !important;
+}
+
 .compound-formula {
-    color: #2980b9 !important;
+    color: #2980b9;
     font-weight: bold;
+    font-size: 0.95rem;
 }
 
 .compound-name {
-    color: #c0392b !important;
-    font-weight: 600;
+    color: #e74c3c;
     font-size: 0.7rem;
-    margin-top: 2px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-/* Periodic table */
+/* Periodic Table */
 .periodic-table {
     display: grid;
     grid-template-columns: repeat(18, 1fr);
     gap: 3px;
-    margin-bottom: 20px;
-    background: rgba(131, 74, 74, 0.8);
+    margin: 20px 0;
+    background: #2c3e50;
     padding: 10px;
     border-radius: 10px;
 }
@@ -570,15 +560,15 @@ header .subtitle {
     font-size: 0.6rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255,255,255,0.2);
     position: relative;
-    color: #000; /* Dark text on colored background */
+    font-weight: bold;
 }
 
 .element:hover {
     transform: scale(1.2);
     z-index: 10;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .element.selected {
@@ -601,6 +591,7 @@ header .subtitle {
     color: #000;
 }
 
+/* Element Categories */
 .element-category-1 { background-color: #ff6b6b; }
 .element-category-2 { background-color: #ffa726; }
 .element-category-3 { background-color: #ffd54f; }
@@ -617,40 +608,51 @@ header .subtitle {
     border: none;
 }
 
-/* Selected elements section */
+/* Selected Elements Section */
+.selected-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #2ecc71;
+}
+
 .selected-elements-title {
-    color: #2ecc71 !important;
-    font-weight: 700;
-    font-size: 1.1rem;
+    color: #2ecc71;
+    font-size: 1rem;
     margin-bottom: 10px;
+    font-weight: 600;
 }
 
 .selected-elements {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin: 15px 0;
+    gap: 8px;
+    margin: 10px 0;
+    min-height: 40px;
 }
 
 .selected-element {
     display: flex;
     align-items: center;
-    gap: 8px;
-    background: #ecf0f1;
-    padding: 8px 12px;
-    border-radius: 20px;
+    gap: 6px;
+    background: white;
+    padding: 6px 12px;
+    border-radius: 30px;
     font-size: 0.9rem;
-    color: #2c3e50; /* Dark text */
+    color: #2c3e50;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .mole-input {
-    width: 70px;
-    padding: 4px;
+    width: 60px;
+    padding: 4px 6px;
     border-radius: 4px;
     border: 1px solid #ccc;
     text-align: center;
+    font-size: 0.85rem;
     color: #333;
-    background: white;
 }
 
 .remove-element {
@@ -659,33 +661,40 @@ header .subtitle {
     color: #e74c3c;
     cursor: pointer;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    padding: 0 4px;
+}
+
+.remove-element:hover {
+    color: #c0392b;
 }
 
 .total-moles {
-    margin: 10px 0;
+    margin-top: 10px;
     font-weight: 600;
-    color: #2c3e50; /* Dark text */
-    font-size: 1.1rem;
+    color: #2c3e50;
+    font-size: 1rem;
+    text-align: right;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
 }
 
-/* Steps chart */
+/* Steps Chart */
 .steps-chart {
-    margin: 30px 0;
+    margin: 20px 0;
     background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border: 1px solid #e0e0e0;
 }
 
 .chart-title {
     font-weight: 700;
-    margin-bottom: 20px;
-    color: #2c3e50; /* Dark text */
-    text-align: center;
-    font-size: 1.3rem;
-    padding-bottom: 15px;
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    padding-bottom: 10px;
     border-bottom: 2px solid #ecf0f1;
 }
 
@@ -693,38 +702,36 @@ header .subtitle {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 20px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    margin-bottom: 10px;
+    padding: 12px 15px;
     border-radius: 8px;
-    color: #2c3e50; /* Dark text */
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    margin-bottom: 5px;
+    background: #f8f9fa;
 }
 
-.chart-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
+.chart-item:hover {
+    background: #ecf0f1;
 }
 
 .current-system {
-    background: rgba(52, 152, 219, 0.2);
-    border-radius: 8px;
-    transform: scale(1.03);
-    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    background: rgba(52, 152, 219, 0.15);
     border: 2px solid #3498db;
+    transform: scale(1.02);
 }
 
 .system-type {
     font-weight: 600;
     color: #2c3e50;
-    font-size: 1.1rem;
 }
 
 .steps-range {
     color: #3498db;
     font-weight: bold;
-    font-size: 1.1rem;
+    background: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
 }
 
 /* Controls */
@@ -732,6 +739,7 @@ header .subtitle {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: auto;
 }
 
 .input-group {
@@ -742,8 +750,8 @@ header .subtitle {
 
 label {
     font-weight: 600;
-    color: #2c3e50; /* Dark text */
-    font-size: 1rem;
+    color: #2c3e50;
+    font-size: 0.95rem;
 }
 
 input, button {
@@ -751,6 +759,7 @@ input, button {
     border-radius: 8px;
     border: 1px solid #ddd;
     font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
 input {
@@ -758,18 +767,23 @@ input {
     background: white;
 }
 
+input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+}
+
 button {
     background: linear-gradient(135deg, #3498db, #2980b9);
     color: white;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-weight: 600;
 }
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(52,152,219,0.3);
 }
 
 .button-group {
@@ -781,37 +795,52 @@ button:hover {
     background: linear-gradient(135deg, #e74c3c, #c0392b);
 }
 
-/* Simulation and Analysis panel */
+.reset-btn:hover {
+    box-shadow: 0 5px 15px rgba(231,76,60,0.3);
+}
+
+/* Simulation and Analysis Panel */
+.compound-input-section {
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+}
+
 .compound-analysis-title {
-    color: #000000 !important;
-    font-weight: 700;
+    color: #2c3e50 !important;
+    font-size: 1.2rem;
     margin-bottom: 15px;
+    font-weight: 700;
 }
 
 .reaction-display {
-    background: #f8f9fa;
+    background: white;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 15px;
     border-left: 4px solid #3498db;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .reaction-equation {
     font-weight: 600;
-    color: #2c3e50; /* Dark text */
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 8px;
 }
 
 .predicted-product {
     color: #27ae60;
     font-weight: bold;
+    font-size: 1.1rem;
 }
 
 .manual-input-text {
     color: #f39c12 !important;
     font-weight: 600;
     margin-bottom: 10px;
+    font-size: 0.9rem;
 }
 
 .compound-form {
@@ -824,17 +853,21 @@ button:hover {
     flex: 1;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 2px solid #e0e0e0;
     font-size: 1rem;
     color: #333;
-    background: white;
+}
+
+.compound-input:focus {
+    border-color: #9b59b6;
+    outline: none;
 }
 
 .compound-submit {
     background: linear-gradient(135deg, #9b59b6, #8e44ad);
     color: white;
     border: none;
-    padding: 12px 20px;
+    padding: 12px 24px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
@@ -843,96 +876,101 @@ button:hover {
 
 .compound-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(155,89,182,0.3);
 }
 
-/* Compound results (spectroscopy cards) */
+/* Compound Results (Spectroscopy Cards) */
 .compound-results {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 12px;
+    margin-top: 15px;
 }
 
 .spectroscopy-card {
-    background: #f8f9fa;
+    background: white;
     padding: 15px;
     border-radius: 8px;
     border-left: 4px solid #9b59b6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .spectroscopy-title {
     font-weight: 700;
-    color: #2c3e50; /* Dark text */
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
 }
 
 .spectroscopy-data {
-    color: #2c3e50; /* Dark text */
+    color: #2c3e50;
+    font-size: 0.85rem;
     line-height: 1.5;
 }
 
-/* Simulation area */
+/* Simulation Area */
 .simulation-area {
-    min-height: 400px;
+    min-height: 350px;
     background: white;
-    border-radius: 15px;
+    border-radius: 10px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    flex: 1;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
 }
 
 #molecule-canvas {
     width: 100%;
     height: 100%;
+    min-height: 350px;
     background: #1a1a2e;
 }
 
-/* Results cards */
+/* Results Cards */
 .results {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 30px;
-    flex-shrink: 0;
+    gap: 15px;
+    margin: 20px 0;
 }
 
 .result-card {
-    background: #ecf0f1;
-    padding: 25px;
-    border-radius: 12px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
     border-left: 5px solid #3498db;
-    min-height: 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .result-label {
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: #2c3e50; /* Dark text */
-    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .result-value {
-    color: #3498db;
-    font-size: 1.4rem;
+    color: #2c3e50;
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
-/* Energy graph */
+/* Energy Graph */
 .energy-graph {
-    margin-top: 30px;
-    height: 250px;
-    background: #f8f9fa;
-    border-radius: 12px;
-    overflow: hidden;
-    position: relative;
-    padding: 25px;
+    height: 200px;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
     border: 1px solid #e0e0e0;
-    flex-shrink: 0;
+    margin-top: 20px;
 }
 
 .graph-container {
@@ -948,17 +986,17 @@ button:hover {
 }
 
 .graph-axis {
-    stroke: #7f8c8d;
+    stroke: #bdc3c7;
     stroke-width: 1;
 }
 
 .axis-label {
-    font-size: 12px;
-    fill: #2c3e50; /* Dark text */
-    font-weight: bold;
+    font-size: 11px;
+    fill: #7f8c8d;
+    font-weight: 500;
 }
 
-/* Loading spinner */
+/* Loading Spinner */
 .loading {
     display: none;
     position: absolute;
@@ -966,21 +1004,21 @@ button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0,0,0,0.9);
     color: white;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     z-index: 100;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
 .spinner {
     width: 50px;
     height: 50px;
-    border: 5px solid rgba(18, 236, 229, 0.55);
+    border: 4px solid rgba(52,152,219,0.3);
     border-radius: 50%;
-    border-top-color: white;
+    border-top-color: #3498db;
     animation: spin 1s linear infinite;
     margin-bottom: 15px;
 }
@@ -996,14 +1034,15 @@ footer {
     padding: 20px;
     color: #ecf0f1;
     font-size: 0.9rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 footer p {
     color: #ecf0f1;
+    line-height: 1.6;
 }
 
-/* Back button */
+/* Back Button */
 .back-button {
     position: absolute;
     top: 20px;
@@ -1011,19 +1050,20 @@ footer p {
     background: rgba(255,255,255,0.1);
     color: white;
     border: 1px solid rgba(255,255,255,0.3);
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 8px 16px;
+    border-radius: 30px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .back-button:hover {
     background: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
+    transform: translateX(-3px);
 }
 
-/* Additional utility classes */
+/* Utility Classes */
 .formula-text {
     color: #3498db !important;
     font-weight: bold;
@@ -1044,13 +1084,70 @@ footer p {
     font-weight: 600;
 }
 
-/* ========== ADDITIONAL RESPONSIVE IMPROVEMENTS ========== */
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1200px) {
+    .profile-header { width: 350px; padding: 30px; }
+    .profile-image-wrapper { width: 160px; height: 160px; }
+    .profile-name { font-size: 2rem; }
+    .title-section { width: 500px; }
+    .title-section h1 { font-size: 3.5rem; }
+    
+    .compound-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+}
 
-/* Better mobile responsiveness */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
+    .profile-header {
+        position: relative;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        margin: 20px auto;
+    }
+    
+    .title-section {
+        position: relative;
+        top: auto;
+        right: auto;
+        transform: none;
+        width: 90%;
+        text-align: center;
+        margin: 40px auto;
+    }
+    
+    .purpose {
+        margin: 2rem auto;
+    }
+    
+    .click-instruction {
+        position: relative;
+        bottom: auto;
+        left: auto;
+        transform: none;
+        margin: 40px auto 20px;
+        display: inline-block;
+    }
+    
     .profile-image-wrapper {
         width: 150px;
         height: 150px;
+    }
+    
+    .periodic-table {
+        grid-template-columns: repeat(9, 1fr);
+    }
+    
+    .compound-results {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-image-wrapper {
+        width: 120px;
+        height: 120px;
     }
     
     .profile-name {
@@ -1058,8 +1155,7 @@ footer p {
     }
     
     .title-section h1 {
-        font-size: 2.8rem;
-        margin-bottom: 1rem;
+        font-size: 2.5rem;
     }
     
     .purpose {
@@ -1070,114 +1166,22 @@ footer p {
     .click-instruction {
         font-size: 1rem;
         padding: 12px 20px;
-    }
-}
-
-/* Small phones */
-@media (max-width: 480px) {
-    .profile-image-wrapper {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .profile-name {
-        font-size: 1.5rem;
-    }
-    
-    .contact-link {
-        font-size: 0.9rem;
-        padding: 10px 15px;
-    }
-    
-    .title-section h1 {
-        font-size: 2.2rem;
-    }
-    
-    .purpose {
-        font-size: 0.95rem;
-        padding: 12px;
-    }
-    
-    .purpose::before,
-    .purpose::after {
-        font-size: 3rem;
-    }
-    
-    .purpose::before {
-        top: -15px;
-        left: -5px;
-    }
-    
-    .purpose::after {
-        bottom: -25px;
-        right: -5px;
-    }
-    
-    .click-instruction {
-        font-size: 0.9rem;
-        padding: 10px 15px;
         white-space: normal;
         width: 90%;
-        text-align: center;
-    }
-}
-
-/* Fix periodic table on small screens */
-@media (max-width: 600px) {
-    .periodic-table {
-        grid-template-columns: repeat(9, 1fr);
-        gap: 2px;
-        padding: 5px;
     }
     
-    .element {
-        font-size: 0.5rem;
-    }
-    
-    .element-symbol {
-        font-size: 0.6rem;
-    }
-    
-    .element-number {
-        font-size: 0.4rem;
-    }
-}
-
-/* Fix compound grid on mobile */
-@media (max-width: 600px) {
-    .compound-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 5px;
-    }
-    
-    .compound-item {
-        font-size: 0.7rem;
-        padding: 5px;
-    }
-}
-
-/* Fix results cards on mobile */
-@media (max-width: 600px) {
     .results {
         grid-template-columns: 1fr;
-        gap: 10px;
     }
     
-    .result-card {
-        padding: 15px;
+    .compound-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
     
-    .result-label {
-        font-size: 0.9rem;
+    .button-group {
+        flex-direction: column;
     }
     
-    .result-value {
-        font-size: 1.1rem;
-    }
-}
-
-/* Fix back button on mobile */
-@media (max-width: 600px) {
     .back-button {
         position: relative;
         top: 0;
@@ -1185,55 +1189,7 @@ footer p {
         margin-bottom: 15px;
         display: inline-block;
     }
-}
-
-/* Fix molecule canvas on mobile */
-@media (max-width: 600px) {
-    .simulation-area {
-        min-height: 250px;
-    }
     
-    #molecule-canvas {
-        min-height: 250px;
-    }
-}
-
-/* Fix energy graph on mobile */
-@media (max-width: 600px) {
-    .energy-graph {
-        height: 200px;
-        padding: 10px;
-    }
-}
-
-/* Fix selected elements on mobile */
-@media (max-width: 600px) {
-    .selected-element {
-        width: 100%;
-        justify-content: space-between;
-    }
-    
-    .mole-input {
-        width: 50px;
-    }
-}
-
-/* Fix steps chart on mobile */
-@media (max-width: 600px) {
-    .chart-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 5px;
-        padding: 12px;
-    }
-    
-    .steps-range {
-        align-self: flex-end;
-    }
-}
-
-/* Fix compound form on mobile */
-@media (max-width: 600px) {
     .compound-form {
         flex-direction: column;
     }
@@ -1241,27 +1197,20 @@ footer p {
     .compound-submit {
         width: 100%;
     }
-}
-
-/* Fix spectroscopy cards on mobile */
-@media (max-width: 600px) {
-    .compound-results {
-        grid-template-columns: 1fr;
+    
+    .selected-element {
+        width: 100%;
+    }
+    
+    .mole-input {
+        width: 50px;
     }
 }
 
-/* Fix footer on mobile */
-@media (max-width: 600px) {
-    footer p {
-        font-size: 0.8rem;
-        line-height: 1.4;
-    }
-}
-
-/* Landscape orientation fix */
+/* Landscape Mode */
 @media (max-height: 600px) and (orientation: landscape) {
     .profile-header {
-        padding: 15px;
+        padding: 20px;
     }
     
     .profile-image-wrapper {
@@ -1270,28 +1219,19 @@ footer p {
     }
     
     .profile-name {
-        font-size: 1.3rem;
-        margin-bottom: 5px;
+        font-size: 1.5rem;
     }
     
     .contact-link {
-        padding: 6px 12px;
-        font-size: 0.8rem;
+        padding: 8px 15px;
     }
     
     .title-section h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
+        font-size: 2.5rem;
     }
     
     .purpose {
-        font-size: 0.8rem;
-        padding: 10px;
-    }
-    
-    .click-instruction {
-        padding: 8px 15px;
-        font-size: 0.8rem;
-        bottom: 20px;
+        font-size: 0.9rem;
+        padding: 12px;
     }
 }

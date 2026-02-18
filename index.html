@@ -51,102 +51,113 @@
         </header>
 
         <div class="main-content">
+            <!-- Left Panel - Element & Compound Selection -->
             <div class="panel">
-                <h2 class="panel-title element-selection-text">Element & Compound Selection</h2>
+                <h2 class="panel-title element-selection-text">⚗️ Element & Compound Selection</h2>
 
+                <!-- Compound Selection Section -->
                 <div class="compound-selection">
-                    <h3 class="quick-compound-title">Quick Compound Selection</h3>
-                    <input type="text" class="compound-search" id="compound-search" placeholder="Search compounds...">
+                    <h3 class="quick-compound-title">🔬 Quick Compound Selection</h3>
+                    <input type="text" class="compound-search" id="compound-search" placeholder="🔍 Search compounds by name or formula...">
                     <div class="compound-count" id="compound-count"></div>
                     <div class="compound-grid" id="compound-grid"></div>
                 </div>
 
+                <!-- Periodic Table -->
                 <div class="periodic-table" id="periodic-table"></div>
 
+                <!-- Selected Elements Section -->
                 <div class="selected-section">
-                    <h3 class="selected-elements-title">Selected Elements & Compounds:</h3>
+                    <h3 class="selected-elements-title">📋 Selected Elements & Compounds:</h3>
                     <div class="selected-elements" id="selected-elements"></div>
                     <div class="total-moles" id="total-moles">Total Moles: 0.00</div>
                 </div>
 
+                <!-- Simulation Steps Chart -->
                 <div class="steps-chart">
-                    <div class="chart-title">Recommended Simulation Steps:</div>
+                    <div class="chart-title">📊 Recommended Simulation Steps:</div>
                     <div class="chart-item" id="chart-diatomic">
-                        <span class="system-type">Diatomic (2 atoms)</span>
+                        <span class="system-type">⚛️ Diatomic (2 atoms)</span>
                         <span class="steps-range">100 steps</span>
                     </div>
                     <div class="chart-item" id="chart-small">
-                        <span class="system-type">Small (3-10 atoms)</span>
+                        <span class="system-type">🧪 Small (3-10 atoms)</span>
                         <span class="steps-range">300 steps</span>
                     </div>
                     <div class="chart-item" id="chart-medium">
-                        <span class="system-type">Medium (11-50 atoms)</span>
+                        <span class="system-type">🔬 Medium (11-50 atoms)</span>
                         <span class="steps-range">500 steps</span>
                     </div>
                     <div class="chart-item" id="chart-large">
-                        <span class="system-type">Large (51+ atoms)</span>
+                        <span class="system-type">🧬 Large (51+ atoms)</span>
                         <span class="steps-range">1000 steps</span>
                     </div>
                 </div>
 
+                <!-- Controls -->
                 <div class="controls">
                     <div class="input-group">
-                        <label for="simulation-steps">Simulation Steps:</label>
+                        <label for="simulation-steps">⚙️ Simulation Steps:</label>
                         <input type="number" id="simulation-steps" value="500" min="100" max="5000">
                     </div>
                     <div class="button-group">
-                        <button id="run-simulation">Run Simulation</button>
-                        <button id="reset-simulation" class="reset-btn">Reset</button>
+                        <button id="run-simulation">▶️ Run Simulation</button>
+                        <button id="reset-simulation" class="reset-btn">🔄 Reset</button>
                     </div>
                 </div>
             </div>
 
+            <!-- Right Panel - Simulation & Analysis -->
             <div class="panel">
-                <h2 class="panel-title">Simulation & Analysis</h2>
+                <h2 class="panel-title">🧮 Simulation & Analysis</h2>
 
+                <!-- Compound Analysis Section -->
                 <div class="compound-input-section">
-                    <h3 class="compound-analysis-title">Compound Analysis</h3>
+                    <h3 class="compound-analysis-title">📈 Compound Analysis</h3>
 
                     <div class="reaction-display" id="reaction-display">
-                        <div class="reaction-equation" id="reaction-equation">No elements selected</div>
+                        <div class="reaction-equation" id="reaction-equation">⚡ No elements selected</div>
                         <div class="predicted-product" id="predicted-product"></div>
                     </div>
 
-                    <p class="manual-input-text">Or enter a chemical formula manually (optional):</p>
+                    <p class="manual-input-text">✏️ Or enter a chemical formula manually:</p>
                     <div class="compound-form">
-                        <input type="text" class="compound-input" id="compound-input" placeholder="Enter formula (optional, e.g., H2O)">
-                        <button class="compound-submit" id="analyze-compound">Analyze</button>
+                        <input type="text" class="compound-input" id="compound-input" placeholder="e.g., H2O, CO2, C6H12O6">
+                        <button class="compound-submit" id="analyze-compound">🔍 Analyze</button>
                     </div>
                     <div class="compound-results" id="compound-results"></div>
                 </div>
 
+                <!-- Simulation Area -->
                 <div class="simulation-area">
                     <div class="loading" id="loading">
                         <div class="spinner"></div>
-                        <div>Running quantum calculations...</div>
+                        <div>⚛️ Running quantum calculations...</div>
                     </div>
                     <canvas id="molecule-canvas" width="600" height="400"></canvas>
                 </div>
 
+                <!-- Results Cards -->
                 <div class="results">
                     <div class="result-card">
-                        <div class="result-label">Final Energy</div>
+                        <div class="result-label">⚡ Final Energy</div>
                         <div class="result-value" id="final-energy">-</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-label">Optimized Geometry</div>
+                        <div class="result-label">📐 Optimized Geometry</div>
                         <div class="result-value" id="optimized-geometry">-</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-label">Stability Prediction</div>
+                        <div class="result-label">⚖️ Stability Prediction</div>
                         <div class="result-value" id="stability-prediction">-</div>
                     </div>
                     <div class="result-card">
-                        <div class="result-label">New Element Possibility</div>
+                        <div class="result-label">✨ New Element Possibility</div>
                         <div class="result-value" id="new-element">-</div>
                     </div>
                 </div>
 
+                <!-- Energy Graph -->
                 <div class="energy-graph">
                     <div class="graph-container">
                         <svg id="energy-graph-svg" width="100%" height="100%"></svg>
@@ -156,8 +167,8 @@
         </div>
 
         <footer>
-            <p>Laboratory 1.O | Integrated Computational Chemistry Platform</p>
-            <p>Created by S.M. Israfil | Computational Chemistry Researcher</p>
+            <p>🧪 Laboratory 1.O | Integrated Computational Chemistry Platform</p>
+            <p>👨‍🔬 Created by S.M. Israfil | Computational Chemistry Researcher</p>
         </footer>
     </div>
 </div>
