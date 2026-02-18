@@ -1,0 +1,748 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+#page1 {
+    background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.title-section h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #00b4db, #0083b0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.purpose {
+    max-width: 600px;
+    margin: 2rem auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.click-instruction {
+    position: absolute;
+    bottom: 50px;
+    font-size: 1rem;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+}
+
+.animation-container {
+    position: relative;
+    width: 400px;
+    height: 300px;
+    margin: 2rem auto;
+    display: none;
+}
+
+.atom {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00b4db, #0083b0);
+    box-shadow: 0 0 20px #00b4db;
+}
+
+.nucleus {
+    width: 30px;
+    height: 30px;
+    top: 135px;
+    left: 185px;
+    animation: pulse 2s infinite;
+}
+
+.electron {
+    width: 10px;
+    height: 10px;
+    background: #ff0080;
+    box-shadow: 0 0 15px #ff0080;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.reaction-text {
+    position: absolute;
+    font-size: 1.2rem;
+    font-weight: bold;
+    opacity: 0;
+    animation: fadeInOut 3s ease-in-out;
+    color: #00b4db;
+    width: 100%;
+    text-align: center;
+}
+
+.loading-bar {
+    width: 300px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 2rem;
+    overflow: hidden;
+    display: none;
+}
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #00b4db, #0083b0);
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 20px #00b4db; }
+    to { text-shadow: 0 0 30px #0083b0, 0 0 40px #00b4db; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; transform: translateY(20px); }
+    50% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+#page2 {
+    display: none;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #ecf0f1;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #00b4db, #0083b0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+.panel {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    min-height: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+}
+
+.periodic-table {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    gap: 3px;
+    margin-bottom: 20px;
+    background: rgba(131, 74, 74, 0.8);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.element {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    font-size: 0.6rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.element:hover {
+    transform: scale(1.2);
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.element.selected {
+    transform: scale(1.2);
+    box-shadow: 0 0 0 3px #3498db;
+    z-index: 10;
+}
+
+.element-number {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    font-size: 0.5rem;
+    color: #000;
+}
+
+.element-symbol {
+    font-weight: bold;
+    font-size: 0.7rem;
+    color: #000;
+}
+
+.selected-elements {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.selected-element {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #ecf0f1;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #2c3e50;
+}
+
+.mole-input {
+    width: 70px;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+.remove-element {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.total-moles {
+    margin: 10px 0;
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.steps-chart {
+    margin: 30px 0;
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.chart-title {
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 1.3rem;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.chart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.chart-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.current-system {
+    background: rgba(52, 152, 219, 0.2);
+    border-radius: 8px;
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    border: 2px solid #3498db;
+}
+
+.system-type {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+}
+
+.steps-range {
+    color: #3498db;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+input, button {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.reset-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.simulation-area {
+    min-height: 400px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    flex: 1;
+}
+
+#molecule-canvas {
+    width: 100%;
+    height: 100%;
+    background: #1a1a2e;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    flex-shrink: 0;
+}
+
+.result-card {
+    background: #ecf0f1;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid #3498db;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.result-label {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.result-value {
+    color: #3498db;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.energy-graph {
+    margin-top: 30px;
+    height: 250px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+.graph-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.graph-line {
+    fill: none;
+    stroke: #3498db;
+    stroke-width: 2;
+}
+
+.graph-axis {
+    stroke: #7f8c8d;
+    stroke-width: 1;
+}
+
+.loading {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 100;
+    border-radius: 15px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(18, 236, 229, 0.55);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.element-category-1 { background-color: #ff6b6b; }
+.element-category-2 { background-color: #ffa726; }
+.element-category-3 { background-color: #ffd54f; }
+.element-category-4 { background-color: #81c784; }
+.element-category-5 { background-color: #4dd0e1; }
+.element-category-6 { background-color: #64b5f6; }
+.element-category-7 { background-color: #ba68c8; }
+.element-category-8 { background-color: #f06292; }
+.element-category-9 { background-color: #90a4ae; }
+.element-category-10 { background-color: #78909c; }
+
+.empty-cell {
+    background: transparent;
+    border: none;
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #ecf0f1;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.compound-input-section {
+    margin: 20px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.compound-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.compound-input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+.compound-submit {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.compound-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.compound-results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.spectroscopy-card {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #9b59b6;
+}
+
+.spectroscopy-title {
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.spectroscopy-data {
+    color: #2c3e50;
+    line-height: 1.5;
+}
+
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.compound-analysis-title {
+    color: #000000 !important;
+    font-weight: 700;
+}
+
+.reaction-display {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 4px solid #3498db;
+}
+
+.reaction-equation {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.predicted-product {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.element-selection-text {
+    color: #9b59b6 !important;
+    font-weight: 700;
+}
+
+.compound-selection {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #9b59b6;
+}
+
+.compound-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+.compound-item {
+    background: white;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.compound-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-color: #9b59b6;
+}
+
+.compound-item.selected {
+    background: #9b59b6;
+    color: white;
+    border-color: #8e44ad;
+}
+
+.quick-compound-title {
+    color: #8e44ad !important;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.formula-text {
+    color: #3498db !important;
+    font-weight: bold;
+}
+
+.compound-name-text {
+    color: #e74c3c !important;
+    font-weight: 600;
+}
+
+.selected-elements-title {
+    color: #2ecc71 !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.manual-input-text {
+    color: #f39c12 !important;
+    font-weight: 600;
+}
+
+.axis-label {
+    font-size: 12px;
+    fill: #2c3e50;
+    font-weight: bold;
+}
+
+.compound-formula {
+    color: #2980b9 !important;
+    font-weight: bold;
+}
+
+.formula-display {
+    color: #3498db !important;
+    font-weight: bold;
+}
+
+.compound-name-display {
+    color: #e74c3c !important;
+    font-weight: 600;
+}
+
+.compound-name {
+    color: #c0392b !important;
+    font-weight: 600;
+}
+
+.compound-search {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.compound-count {
+    color: #7f8c8d;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
