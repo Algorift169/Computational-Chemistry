@@ -93,7 +93,9 @@
 }
 
 #page1 {
-    background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e);
+    background: linear-gradient(135deg, rgba(12,12,12,0.75), rgba(22,33,62,0.75)), url("../images/background.jpg") center/cover no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: transparent;
     color: white;
     height: 100vh;
     display: flex;
@@ -107,12 +109,21 @@
 }
 
 .title-section h1 {
-    font-size: 4rem;
+    font-size: 5rem;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #00b4db, #0083b0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glow 2s ease-in-out infinite alternate;
+
+.emoji {
+    color: initial !important; /* Keeps emoji original color */
+    background: none !important;
+    -webkit-text-fill-color: initial !important;
+    text-shadow: none !important;
+}
+
+.title-text {
+    color: white;
+    background: none !important;
+    -webkit-text-fill-color: white !important;
+    text-shadow: 0 0 20px rgba(6, 40, 46, 0.5);
 }
 
 .subtitle {

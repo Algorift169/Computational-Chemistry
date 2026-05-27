@@ -167,7 +167,7 @@
         </div>
 
         <footer>
-            <p>🧪 Laboratory 1.O | Integrated Computational Chemistry Platform</p>
+            <h1><span class="emoji">🧪</span> <span class="title-text">Laboratory 1.O</span></h1>
             <p>👨‍🔬 Created by S.M. Israfil | Computational Chemistry Researcher</p>
         </footer>
     </div>
@@ -188,14 +188,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (target) target.style.display = 'flex';
 
             // Restore initial page state
-
-    // Ensure contact links (mailto) are not hijacked by the page click handler
-    document.querySelectorAll('.profile-contact a, .contact-link').forEach(a => {
-        a.addEventListener('click', function(e) {
-            e.stopPropagation();
-            // allow default navigation (mailto / external links)
-        });
-    });
             window.animationStarted = false;
             const clickInstruction = document.querySelector('.click-instruction');
             const animationContainer = document.querySelector('.animation-container');
