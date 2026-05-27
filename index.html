@@ -45,7 +45,7 @@
 <div id="page2" style="display:none;">
     <div class="container">
         <header>
-            <button class="back-button" onclick="goToPage(1)">← Back to Home</button>
+            <button id="back-button" class="back-button" onclick="window.goToPage && window.goToPage(1)">← Back to Home</button>
             <h1>Laboratory 1.O</h1>
             <p class="subtitle">Integrated Element Selection & Compound Analysis</p>
         </header>
@@ -173,6 +173,39 @@
     </div>
 </div>
 
+</script>
 <script src="dist/app.min.js"></script>
+<script>
+// Ensure back button works even when bundle doesn't expose navigation
+document.addEventListener('DOMContentLoaded', function() {
+    // Allow normal click propagation; page-wide click handler already ignores links/buttons.
+
+    const backBtn = document.getElementById('back-button');
+    if (backBtn) {
+        backBtn.addEventListener('click', function() {
+            document.querySelectorAll('[id^="page"]').forEach(page => page.style.display = 'none');
+            const target = document.getElementById('page1');
+            if (target) target.style.display = 'flex';
+
+            // Restore initial page state
+
+    // Ensure contact links (mailto) are not hijacked by the page click handler
+    document.querySelectorAll('.profile-contact a, .contact-link').forEach(a => {
+        a.addEventListener('click', function(e) {
+            e.stopPropagation();
+            // allow default navigation (mailto / external links)
+        });
+    });
+            window.animationStarted = false;
+            const clickInstruction = document.querySelector('.click-instruction');
+            const animationContainer = document.querySelector('.animation-container');
+            const loadingBar = document.querySelector('.loading-bar');
+            if (clickInstruction) clickInstruction.style.display = 'block';
+            if (animationContainer) { animationContainer.style.display = 'none'; animationContainer.innerHTML = ''; }
+            if (loadingBar) loadingBar.style.display = 'none';
+        });
+    }
+});
+</script>
 </body>
 </html>

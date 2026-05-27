@@ -548,7 +548,13 @@ function setupEventListeners() {
     }
 
     if (page1) {
-        page1.addEventListener('click', startAnimation);
+        // Avoid triggering the lab-start animation when clicking links or buttons
+        page1.addEventListener('click', function(e) {
+            if (e.target.closest && (e.target.closest('a') || e.target.closest('button') || e.target.closest('.contact-link'))) {
+                return;
+            }
+            startAnimation();
+        });
     }
 
     if (analyzeCompoundBtn) {
@@ -818,6 +824,8 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log("DOM loaded, initializing...");
     setupEventListeners();
 
+    // Expose navigation helper for inline handlers and set initial page
+    window.goToPage = goToPage;
     goToPage(1);
 
     window.resetEverything = function() {
