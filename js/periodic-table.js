@@ -1,4 +1,4 @@
-const periodicTable = [
+export const periodicTable = [
     { number: 1, symbol: "H", name: "Hydrogen", category: 6, mass: 1.008 },
     { number: 2, symbol: "He", name: "Helium", category: 8, mass: 4.0026 },
     { number: 3, symbol: "Li", name: "Lithium", category: 1, mass: 6.94 },

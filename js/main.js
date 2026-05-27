@@ -1,3 +1,7 @@
+import { periodicTable } from './periodic-table.js';
+import { compoundDatabase } from './compound-database.js';
+import { spectroscopyData } from './spectroscopy-data.js';
+
 let selectedElements = [];
 let currentAnimationFrame = null;
 

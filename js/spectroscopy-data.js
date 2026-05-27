@@ -1,3 +1,5 @@
+import { compoundDatabase } from './compound-database.js';
+
 function generateSpectroscopyData(compoundDatabase) {
     const spectroscopyData = {};
 
@@ -263,4 +265,4 @@ function generateSpectroscopyData(compoundDatabase) {
     return { ...spectroscopyData, ...specificData };
 }
 
-const spectroscopyData = generateSpectroscopyData(compoundDatabase);
+export const spectroscopyData = generateSpectroscopyData(compoundDatabase);

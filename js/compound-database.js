@@ -382,4 +382,4 @@ function generateCompoundDatabase() {
     return database;
 }
 
-const compoundDatabase = generateCompoundDatabase();
+export const compoundDatabase = generateCompoundDatabase();
