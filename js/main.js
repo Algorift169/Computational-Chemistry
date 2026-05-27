@@ -4,7 +4,60 @@ import { spectroscopyData } from './spectroscopy-data.js';
 
 let selectedElements = [];
 let currentAnimationFrame = null;
+let simulationHasRun = false;
 
+// Deterministic RNG utilities
+function hashStringToSeed(str) {
+    let hash = 2166136261 >>> 0;
+    for (let i = 0; i < str.length; i++) {
+        hash ^= str.charCodeAt(i);
+        hash = Math.imul(hash, 16777619) >>> 0;
+    }
+    return hash >>> 0;
+}
+
+function mulberry32(a) {
+    return function() {
+        a |= 0; a = a + 0x6D2B79F5 | 0;
+        let t = Math.imul(a ^ a >>> 15, 1 | a);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+}
+
+// Chemistry helpers
+const AVOGADRO = 6.02214076e23;
+
+function computeAtomCounts(selection) {
+    // Returns per-element/compound counts and totals
+    const perItem = [];
+    let totalAtoms = 0; // in atom units (not multiplied by Avogadro)
+    let totalAtomsAbsolute = 0; // multiplied by Avogadro
+
+    selection.forEach(item => {
+        let atomsPerUnit = 0;
+        if (item.type === 'element') {
+            atomsPerUnit = 1;
+        } else if (item.type === 'compound' && item.elements) {
+            atomsPerUnit = Object.values(item.elements).reduce((s, v) => s + v, 0);
+        }
+        const moles = Number(item.moles) || 0;
+        const atomsTotal = atomsPerUnit * moles; // count of atoms (unitless)
+        const atomsAbsolute = atomsTotal * AVOGADRO;
+        perItem.push({ id: item.symbol || item.formula || item.name, atomsPerUnit, moles, atomsTotal, atomsAbsolute });
+        totalAtoms += atomsTotal;
+        totalAtomsAbsolute += atomsAbsolute;
+    });
+
+    return { perItem, totalAtoms, totalAtomsAbsolute };
+}
+
+function formatScientific(n) {
+    if (!isFinite(n) || n === 0) return String(n);
+    const exp = Math.floor(Math.log10(Math.abs(n)));
+    const mantissa = (n / Math.pow(10, exp)).toFixed(3);
+    return `${mantissa}×10^${exp}`;
+}
 function startAnimation() {
     console.log("Starting fresh animation...");
 
@@ -133,8 +186,8 @@ function initializePeriodicTable() {
         const cell = document.createElement('div');
         if (element) {
             cell.className = `element element-category-${element.category}`;
+            // atomic number removed for cleaner layout; only show symbol
             cell.innerHTML = `
-                    <div class="element-number">${element.number}</div>
                     <div class="element-symbol">${element.symbol}</div>
                 `;
             cell.dataset.element = JSON.stringify(element);
@@ -267,6 +320,7 @@ function updateSelectedElementsDisplay() {
 
     container.innerHTML = '';
     let totalMoles = 0;
+    const atomSummary = computeAtomCounts(selectedElements);
 
     selectedElements.forEach(element => {
         totalMoles += element.moles;
@@ -291,7 +345,9 @@ function updateSelectedElementsDisplay() {
 
     const totalMolesElement = document.getElementById('total-moles');
     if (totalMolesElement) {
-        totalMolesElement.textContent = `Total Moles: ${totalMoles.toFixed(2)}`;
+        const totalAtoms = atomSummary.totalAtomsAbsolute;
+        const formattedAtoms = formatScientific(totalAtoms);
+        totalMolesElement.textContent = `Total Moles: ${totalMoles.toFixed(2)} — Atoms: ${formattedAtoms}`;
     }
 
     document.querySelectorAll('.remove-element').forEach(button => {
@@ -441,16 +497,35 @@ function generateCustomAnalysis(elements, formula) {
 }
 
 function displayCompoundAnalysis(formula) {
+    // kept for backward compatibility; use displayCompoundAnalysis(formula, force)
+    return displayCompoundAnalysis_force(formula, false);
+}
+
+function displayCompoundAnalysis_force(formula, force = false) {
     const compoundResults = document.getElementById('compound-results');
     if (!compoundResults || !spectroscopyData[formula]) return;
+
+    if (!simulationHasRun && !force) {
+        // don't show spectroscopy until simulation has been run
+        return;
+    }
 
     const data = spectroscopyData[formula];
     displayAnalysisResults(data);
 }
 
 function displayCustomAnalysis(data) {
+    return displayCustomAnalysis_force(data, false);
+}
+
+function displayCustomAnalysis_force(data, force = false) {
     const compoundResults = document.getElementById('compound-results');
     if (!compoundResults) return;
+
+    if (!simulationHasRun && !force) {
+        // don't show spectroscopy until simulation has been run
+        return;
+    }
 
     displayAnalysisResults(data);
 }
@@ -497,15 +572,8 @@ function updateStepsChart() {
         item.classList.remove('current-system');
     });
 
-    let totalAtoms = 0;
-    selectedElements.forEach(item => {
-        if (item.type === 'element') {
-            totalAtoms += item.moles;
-        } else {
-            const atomCount = Object.values(item.elements).reduce((sum, count) => sum + count, 0);
-            totalAtoms += atomCount * item.moles;
-        }
-    });
+    const atomSummary = computeAtomCounts(selectedElements);
+    const totalAtoms = atomSummary.totalAtoms; // atoms per the chosen mole counts, unitless
 
     if (totalAtoms === 0) return;
 
@@ -585,7 +653,8 @@ function analyzeCompound() {
     }
 
     if (spectroscopyData[formula]) {
-        displayCompoundAnalysis(formula);
+        // force immediate analysis when user explicitly clicks Analyze
+        displayCompoundAnalysis_force(formula, true);
     } else {
         compoundResults.innerHTML = `
             <div class="spectroscopy-card">
@@ -597,6 +666,7 @@ function analyzeCompound() {
 }
 
 function runSimulation() {
+    simulationHasRun = true;
     if (selectedElements.length === 0) {
         alert('Please select at least one element or compound.');
         return;
@@ -609,10 +679,26 @@ function runSimulation() {
         loadingElement.style.display = 'flex';
     }
 
+    // Create a deterministic seed from the selection and steps so reruns produce same output
+    // Use a canonical sorted representation so order of selection doesn't change the seed
+    const canonical = selectedElements.map(s => {
+        const id = s.type === 'element' ? s.symbol : s.formula || s.name || '';
+        return { id, moles: Math.round((s.moles || 1) * 1000) / 1000 };
+    }).sort((a, b) => a.id.localeCompare(b.id));
+    const seedSource = JSON.stringify({items: canonical, steps: simulationSteps});
+    const seed = hashStringToSeed(seedSource);
+    const rng = mulberry32(seed);
+
     setTimeout(() => {
-        const finalEnergy = -(Math.random() * 10 + 1).toFixed(4);
-        const stability = Math.random() > 0.3 ? 'Stable' : 'Unstable';
-        const newElementPossibility = Math.random() > 0.8 ? 'Possible' : 'Unlikely';
+        // Simple deterministic energy estimate based on atom/bond counts
+        const { atoms, bonds } = computeAtomsAndBondsForEnergy(rng);
+        const bondCount = bonds.length;
+        const atomCount = atoms.length;
+        const baseEnergy = -(bondCount * 0.5 + atomCount * 0.08);
+        const jitter = (rng() - 0.5) * 0.05; // small deterministic jitter
+        const finalEnergy = (baseEnergy + jitter).toFixed(4);
+        const stability = finalEnergy < -1.0 ? 'Stable' : 'Unstable';
+        const newElementPossibility = (rng() > 0.95) ? 'Possible' : 'Unlikely';
 
         const finalEnergyElement = document.getElementById('final-energy');
         const optimizedGeometryElement = document.getElementById('optimized-geometry');
@@ -620,12 +706,12 @@ function runSimulation() {
         const newElementElement = document.getElementById('new-element');
 
         if (finalEnergyElement) finalEnergyElement.textContent = `${finalEnergy} eV`;
-        if (optimizedGeometryElement) optimizedGeometryElement.textContent = 'Optimized';
+        if (optimizedGeometryElement) optimizedGeometryElement.textContent = `Optimized — ${bonds.length} bonds`;
         if (stabilityPredictionElement) stabilityPredictionElement.textContent = stability;
         if (newElementElement) newElementElement.textContent = newElementPossibility;
 
-        generateEnergyGraph(simulationSteps);
-        renderMoleculeVisualization();
+        generateEnergyGraph(simulationSteps, seed);
+        renderMoleculeVisualization(seed);
 
         if (loadingElement) {
             loadingElement.style.display = 'none';
@@ -633,8 +719,56 @@ function runSimulation() {
     }, 2000);
 }
 
+function computeAtomsAndBondsForEnergy(rng) {
+    // lightweight atom & bond counting for energy estimate
+    const atoms = [];
+    const covalentRadii = {
+        H: 0.31, C: 0.76, N: 0.71, O: 0.66, F: 0.57, P: 1.07, S: 1.05, Cl: 1.02,
+        Br: 1.20, I: 1.39, Si: 1.11
+    };
+
+    selectedElements.forEach(item => {
+        if (item.type === 'element') {
+            const symbol = item.symbol;
+            const count = Math.max(1, Math.round(item.moles));
+            for (let i = 0; i < count; i++) atoms.push({ symbol });
+        } else {
+            Object.entries(item.elements).forEach(([element, count]) => {
+                const n = Math.max(1, Math.round(count * item.moles));
+                for (let i = 0; i < n; i++) atoms.push({ symbol: element });
+            });
+        }
+    });
+
+    // crude bond estimate: average connectivity based on valence
+    const valence = { H:1, C:4, N:3, O:2, F:1, P:3, S:2, Cl:1, Br:1, I:1, Si:4 };
+    let bonds = [];
+    // form bonds until valence satisfied or no atoms left
+    const atomStates = atoms.map(a => ({symbol: a.symbol, bonds: 0}));
+    for (let i = 0; i < atomStates.length; i++) {
+        for (let j = i+1; j < atomStates.length; j++) {
+            const vi = valence[atomStates[i].symbol] || 1;
+            const vj = valence[atomStates[j].symbol] || 1;
+            if (atomStates[i].bonds < vi && atomStates[j].bonds < vj) {
+                // probability to bond depends on covalent radii and rng
+                const ri = covalentRadii[atomStates[i].symbol] || 0.9;
+                const rj = covalentRadii[atomStates[j].symbol] || 0.9;
+                const p = Math.min(0.95, 0.5 + (ri + rj - 1.0) * 0.2);
+                if (rng() < p) {
+                    atomStates[i].bonds++;
+                    atomStates[j].bonds++;
+                    bonds.push([i, j]);
+                }
+            }
+        }
+    }
+
+    return { atoms: atomStates, bonds };
+}
+
 function resetSimulation() {
     selectedElements = [];
+    simulationHasRun = false;
 
     document.querySelectorAll('.element').forEach(el => {
         el.classList.remove('selected');
@@ -671,7 +805,7 @@ function resetSimulation() {
     }
 }
 
-function generateEnergyGraph(steps) {
+function generateEnergyGraph(steps, seed) {
     const svg = document.getElementById('energy-graph-svg');
     if (!svg) return;
 
@@ -681,11 +815,13 @@ function generateEnergyGraph(steps) {
     const height = svg.clientHeight || 150;
     const padding = 40;
 
+    const rng = mulberry32(seed || 1);
+
     const data = [];
     for (let i = 0; i <= steps; i += Math.ceil(steps / 50)) {
         data.push({
             step: i,
-            energy: -Math.random() * 10 * Math.exp(-i / steps) - 1
+            energy: -rng() * 10 * Math.exp(-i / steps) - 1
         });
     }
 
@@ -737,7 +873,8 @@ function generateEnergyGraph(steps) {
     svg.appendChild(yLabel);
 }
 
-function renderMoleculeVisualization() {
+function renderMoleculeVisualization(seed) {
+    const rng = mulberry32(seed || 1);
     const canvas = document.getElementById('molecule-canvas');
     if (!canvas) return;
 
@@ -748,14 +885,18 @@ function renderMoleculeVisualization() {
 
     if (selectedElements.length === 0) return;
 
+    // Build atom list deterministically
     const atoms = [];
+    const covalentRadii = { H:0.31, C:0.76, N:0.71, O:0.66, F:0.57, P:1.07, S:1.05, Cl:1.02, Br:1.20, I:1.39, Si:1.11 };
+
     selectedElements.forEach(item => {
         if (item.type === 'element') {
-            for (let i = 0; i < Math.min(item.moles * 10, 50); i++) {
+            const count = Math.max(1, Math.round(item.moles));
+            for (let i = 0; i < Math.min(count * 5, 50); i++) {
                 atoms.push({
-                    x: 50 + Math.random() * (canvas.width - 100),
-                    y: 50 + Math.random() * (canvas.height - 100),
-                    radius: 10 + item.moles,
+                    x: 50 + rng() * (canvas.width - 100),
+                    y: 50 + rng() * (canvas.height - 100),
+                    radius: 8 + item.moles,
                     color: getElementColor(item.category),
                     symbol: item.symbol
                 });
@@ -764,11 +905,11 @@ function renderMoleculeVisualization() {
             Object.entries(item.elements).forEach(([element, count]) => {
                 const elementData = periodicTable.find(el => el.symbol === element);
                 if (elementData) {
-                    for (let i = 0; i < Math.min(count * item.moles * 5, 30); i++) {
+                    for (let i = 0; i < Math.min(count * item.moles * 3, 30); i++) {
                         atoms.push({
-                            x: 50 + Math.random() * (canvas.width - 100),
-                            y: 50 + Math.random() * (canvas.height - 100),
-                            radius: 8 + item.moles,
+                            x: 50 + rng() * (canvas.width - 100),
+                            y: 50 + rng() * (canvas.height - 100),
+                            radius: 6 + item.moles,
                             color: getElementColor(elementData.category),
                             symbol: element
                         });
@@ -778,23 +919,34 @@ function renderMoleculeVisualization() {
         }
     });
 
-    atoms.forEach((atom, i) => {
-        atoms.forEach((otherAtom, j) => {
-            if (i < j) {
-                const dx = atom.x - otherAtom.x;
-                const dy = atom.y - otherAtom.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < 100) {
-                    ctx.beginPath();
-                    ctx.moveTo(atom.x, atom.y);
-                    ctx.lineTo(otherAtom.x, otherAtom.y);
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
-                    ctx.lineWidth = 2;
-                    ctx.stroke();
-                }
+    // Compute bonds based on covalent radii sums with tolerance
+    const bonds = [];
+    for (let i = 0; i < atoms.length; i++) {
+        for (let j = i + 1; j < atoms.length; j++) {
+            const a = atoms[i];
+            const b = atoms[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            const ri = covalentRadii[a.symbol] || 0.9;
+            const rj = covalentRadii[b.symbol] || 0.9;
+            const threshold = (ri + rj) * 40 * 1.25; // scale factor for canvas coords
+            if (dist <= threshold) {
+                bonds.push([i, j]);
             }
-        });
+        }
+    }
+
+    // Draw bonds
+    bonds.forEach(([i, j]) => {
+        const atom = atoms[i];
+        const otherAtom = atoms[j];
+        ctx.beginPath();
+        ctx.moveTo(atom.x, atom.y);
+        ctx.lineTo(otherAtom.x, otherAtom.y);
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+        ctx.lineWidth = 2;
+        ctx.stroke();
     });
 
     atoms.forEach(atom => {

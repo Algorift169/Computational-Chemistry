@@ -1,0 +1,6 @@
+/* Overrides to adjust periodic table display */
+.element-number { display: none !important; }
+
+/* Also ensure element symbol centers correctly if badge removed */
+.element { padding-top: 6px !important; }
+.element-symbol { margin-top: 0 !important; }

@@ -176,69 +176,72 @@ function generateSpectroscopyData(compoundDatabase) {
             }
         }
 
+        // IR band heuristics (improved)
         let irBands = [];
         if (elements["O"] && elements["H"]) {
-            if (elements["O"] === 1 && elements["H"] === 2) {
-                irBands.push("O-H stretch: 3200-3600 cm⁻¹", "H-O-H bend: 1640 cm⁻¹");
-            } else if (elements["O"] >= 1 && elements["H"] >= 1) {
+            if (elements["O"] >= 1 && elements["H"] >= 2) {
+                irBands.push("O-H stretch: 3200-3600 cm⁻¹", "O-H bend: 1400-1440 cm⁻¹");
+            } else {
                 irBands.push("O-H stretch: 3200-3600 cm⁻¹");
             }
         }
+
+        // Carbonyl (C=O) detection: common in ketones, aldehydes, acids, esters
         if (elements["C"] && elements["O"]) {
-            if (elements["O"] === 2 && elements["C"] === 1) {
-                irBands.push("C=O stretch: 1700-1750 cm⁻¹");
-            } else {
-                irBands.push("C-O stretch: 1000-1300 cm⁻¹");
+            if (elements["O"] >= 1 && elements["C"] >= 1) {
+                // heuristics: if more oxygens present or lower H count it's likely a carbonyl-containing functional group
+                if ((elements["O"] >= 1 && (!elements["H"] || elements["H"] <= 4)) || elements["O"] >= 2) {
+                    irBands.push("C=O stretch: 1700-1750 cm⁻¹ (carbonyl)");
+                } else {
+                    irBands.push("C-O stretch: 1000-1300 cm⁻¹");
+                }
             }
         }
+
         if (elements["C"] && elements["H"]) {
-            irBands.push("C-H stretch: 2850-3000 cm⁻¹");
-        }
-        if (elements["N"] && elements["H"]) {
-            irBands.push("N-H stretch: 3300-3500 cm⁻¹");
-        }
-        if (elements["C"] && elements["C"] && elements["C"] >= 2) {
-            irBands.push("C=C stretch: 1600-1680 cm⁻¹");
-        }
-        if (elements["C"] && elements["N"]) {
-            irBands.push("C≡N stretch: 2200-2260 cm⁻¹");
-        }
-        if (irBands.length === 0) {
-            irBands.push("Characteristic stretches based on molecular structure");
+            // Differentiate sp2 vs sp3 by H/C ratio
+            const hToC = elements["H"] / Math.max(1, elements["C"]);
+            if (hToC <= 1.5 && elements["C"] >= 2) irBands.push("C=C stretch: 1600-1680 cm⁻¹ (alkene/aromatic)");
+            irBands.push("C-H stretch: 2850-3100 cm⁻¹");
         }
 
+        if (elements["N"]) {
+            if (elements["H"] && elements["H"] >= 1) irBands.push("N-H stretch: 3300-3500 cm⁻¹ (amines/amides)");
+            if (elements["C"] && elements["N"]) irBands.push("C≡N stretch: 2200-2260 cm⁻¹ (nitrile)");
+        }
+
+        if (irBands.length === 0) irBands.push("Characteristic stretches based on molecular structure");
+
+        // Mass spectrometry fragments (improved heuristics)
         const molecularIon = Math.round(mass);
         let fragments = [];
 
-        if (elements["C"] && elements["H"]) {
-            if (elements["C"] === 1) {
-                fragments.push("CH₃⁺ (m/z 15)");
-            } else {
-                fragments.push(`C${elements["C"]}H${elements["H"] - 1}⁺ (m/z ${molecularIon - 1})`);
-            }
+        if (elements["O"] && elements["H"] && elements["H"] >= 2) {
+            fragments.push(`M - H2O (m/z ${molecularIon - 18})`);
         }
-        if (elements["O"]) {
-            fragments.push(`M-O fragment (m/z ${molecularIon - 16})`);
+        if (elements["N"] && elements["H"] && elements["H"] >= 3) {
+            fragments.push(`M - NH3 (m/z ${molecularIon - 17})`);
+        }
+        if (elements["C"]) {
+            // common alkyl loss / base peak approximation
+            fragments.push(`Alkyl fragment approx. (m/z ${Math.max(15, molecularIon - 15)})`);
         }
         if (elements["Cl"]) {
-            fragments.push("M-Cl fragment pattern");
+            fragments.push(`Chlorine isotope pattern: M (m/z ${molecularIon}), M+2 (m/z ${molecularIon + 2})`);
         }
         if (elements["Br"]) {
-            fragments.push("M-Br fragment pattern");
+            fragments.push(`Bromine isotope pattern: M/M+2 (nearly equal intensities)`);
         }
-        if (fragments.length === 0) {
-            fragments.push("Characteristic fragmentation pattern");
-        }
+        if (fragments.length === 0) fragments.push("Characteristic fragmentation pattern");
 
-        let uvvis = "";
-        if (elements["C"] >= 6 && elements["H"] <= elements["C"] * 2) {
-            uvvis = "π→π* transition: 200-400 nm\nAromatic/conjugated system absorption";
+        // UV-Vis: approximate conjugation/aromaticity
+        let uvvis = "Electronic transitions based on molecular orbitals";
+        if (elements["C"] >= 6 && (!elements["H"] || elements["H"] <= elements["C"])) {
+            uvvis = "π→π* transitions: 200-350 nm — likely aromatic/conjugated system";
+        } else if (elements["C"] >= 3 && elements["H"] >= 3) {
+            uvvis = "π→π* transitions possible: 200-300 nm — conjugation increases with C count";
         } else if (elements["O"] || elements["N"]) {
-            uvvis = "n→σ* transition: 150-250 nm\nWeak UV absorption";
-        } else if (elements["C"] && elements["H"]) {
-            uvvis = "σ→σ* transition: 120-180 nm\nNo significant visible absorption";
-        } else {
-            uvvis = "Electronic transitions based on molecular orbitals";
+            uvvis = "n→σ*/n→π* transitions: 150-260 nm — weak UV absorption possible";
         }
 
         spectroscopyData[formula] = {
