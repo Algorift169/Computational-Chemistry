@@ -1,4 +1,6 @@
-# Laboratory 1.O – Advanced Computational Chemistry Platform
+## Laboratory 1.O – Advanced Computational Chemistry Platform
+
+#Visit - https://laboratory1.qzz.io
 
 Welcome to **Laboratory 1.O**, a unified molecular simulation environment that integrates element selection, compound analysis, and spectroscopic/quantum-mechanical predictions into one interactive web platform.
 
