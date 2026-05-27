@@ -1,0 +1,13 @@
+{
+  "name": "computational-chemistry",
+  "version": "1.0.0",
+  "description": "Laboratory 1.O - Computational Chemistry Platform",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "python -m http.server 8000"
+  },
+  "devDependencies": {
+    "esbuild": "latest",
+    "csso-cli": "latest"
+  }
+}
